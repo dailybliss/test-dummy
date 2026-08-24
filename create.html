@@ -5,14 +5,388 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Create Your Biodata — Marriage Biodata Creator</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="preload" href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Inter:wght@400;500;600&family=Lato:wght@400;700&family=Cormorant+Garamond:wght@400;500;600&family=Poppins:wght@400;500;600&family=Libre+Baskerville:wght@400;700&family=Nunito:wght@400;600;700&family=Merriweather:wght@400;700&family=Dancing+Script:wght@400;600;700&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
-<noscript><link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Inter:wght@400;500;600&family=Lato:wght@400;700&family=Cormorant+Garamond:wght@400;500;600&family=Poppins:wght@400;500;600&family=Libre+Baskerville:wght@400;700&family=Nunito:wght@400;600;700&family=Merriweather:wght@400;700&family=Dancing+Script:wght@400;600;700&display=swap" rel="stylesheet"></noscript>
-<link rel="stylesheet" href="css/core.min.css">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js" defer></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js" defer></script>
-<script src="https://checkout.razorpay.com/v1/checkout.js" defer></script>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Inter:wght@400;500;600&family=Lato:wght@400;700&family=Cormorant+Garamond:wght@400;500;600&family=Poppins:wght@400;500;600&family=Libre+Baskerville:wght@400;700&family=Nunito:wght@400;600;700&family=Merriweather:wght@400;700&family=Dancing+Script:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --rose: #8B1A3A;
+  --rose-light: #B52E54;
+  --rose-bg: #FDF0F4;
+  --gold: #C9884C;
+  --gold-light: #D4A05A;
+  --gold-bg: #FFF8F0;
+  --cream: #FFFDF7;
+  --warm-white: #FFF9F0;
+  --text-dark: #2C1810;
+  --text-mid: #5A4A3A;
+  --text-light: #8A7A6A;
+  --border: #E8E0D8;
+  --border-light: #F0EAE2;
+  --font-display: 'Playfair Display', Georgia, serif;
+  --font-body: 'Inter', system-ui, sans-serif;
+  --radius: 10px;
+  --radius-sm: 6px;
+  --shadow-soft: 0 2px 12px rgba(44,24,16,0.06);
+  --shadow-md: 0 4px 20px rgba(44,24,16,0.1);
+  --transition: 0.2s ease;
+  --green: #2A7A3A;
+  --green-bg: #E8F5E9;
+  --red: #C0392B;
+}
+body { font-family: var(--font-body); background: #F4F0EA; color: var(--text-dark); line-height: 1.5; -webkit-font-smoothing: antialiased; }
 
+/* NAV */
+.nav { position: sticky; top: 0; z-index: 100; background: rgba(255,253,247,0.95); backdrop-filter: blur(12px); border-bottom: 1px solid var(--border-light); padding: 10px 16px; }
+.nav-inner { max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; gap: 12px; }
+.nav-brand { display: flex; align-items: center; gap: 8px; text-decoration: none; }
+.nav-brand svg { flex-shrink: 0; color: var(--rose); }
+.nav-brand span {
+  font-family: 'Dancing Script', cursive;
+  font-size: 20px;
+  font-weight: 700;
+  background: linear-gradient(90deg, #c0392b, #e67e22, #f1c40f, #27ae60, #2980b9, #8e44ad);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  letter-spacing: 0.5px;
+}
+.nav-actions { display: flex; gap: 8px; align-items: center; }
+.nav-btn { padding: 7px 14px; border-radius: 8px; font-size: 12px; font-weight: 500; font-family: var(--font-body); cursor: pointer; border: 1px solid var(--border); background: #fff; color: var(--text-mid); transition: all var(--transition); display: flex; align-items: center; gap: 5px; }
+.nav-btn:hover { border-color: var(--rose); color: var(--rose); }
+.nav-btn svg { width: 14px; height: 14px; }
+.nav-btn-primary { background: var(--rose); color: #fff; border-color: var(--rose); }
+.nav-btn-primary:hover { background: var(--rose-light); }
+
+/* LAYOUT */
+.builder-layout { max-width: 1200px; margin: 0 auto; padding: 16px; display: flex; gap: 20px; align-items: flex-start; }
+.form-panel { flex: 1; min-width: 0; }
+.preview-panel { position: sticky; top: 72px; flex: 0 0 380px; }
+
+/* FORM SECTIONS */
+.form-card { background: #fff; border: 1px solid var(--border-light); border-radius: var(--radius); margin-bottom: 12px; overflow: hidden; box-shadow: var(--shadow-soft); }
+.form-card-header { display: flex; justify-content: space-between; align-items: center; padding: 12px 16px; cursor: pointer; user-select: none; }
+.form-card-header:hover { background: var(--warm-white); }
+.form-card-title { font-size: 14px; font-weight: 600; color: var(--text-dark); display: flex; align-items: center; gap: 8px; }
+.form-card-title svg { width: 16px; height: 16px; color: var(--rose); }
+.form-card-actions { display: flex; align-items: center; gap: 8px; }
+.section-toggle { position: relative; width: 36px; height: 20px; background: var(--border); border-radius: 10px; cursor: pointer; transition: background var(--transition); border: none; }
+.section-toggle.on { background: var(--green); }
+.section-toggle::after { content: ''; position: absolute; top: 2px; left: 2px; width: 16px; height: 16px; background: #fff; border-radius: 50%; transition: left var(--transition); box-shadow: 0 1px 3px rgba(0,0,0,0.15); }
+.section-toggle.on::after { left: 18px; }
+.multipage-badge {
+  font-size: 9px; font-weight: 600; color: var(--rose);
+  background: var(--rose-bg); border: 1px solid var(--rose-light);
+  padding: 2px 7px; border-radius: 10px; letter-spacing: 0.2px;
+  white-space: nowrap; flex-shrink: 0;
+}
+.multipage-note {
+  font-size: 11px; color: var(--text-light); font-style: italic;
+  margin-bottom: 10px; padding: 6px 10px; background: var(--bg-accent);
+  border-radius: var(--radius-sm); border-left: 2px solid var(--rose-light);
+}
+/* Multi-page only sections — greyed out with lock badge when single page is active */
+.multipage-only-locked { opacity: 0.45; pointer-events: none; position: relative; }
+.multipage-only-locked::after {
+  content: 'Multi-page only';
+  position: absolute; top: 12px; right: 12px;
+  font-size: 10px; font-weight: 600; color: var(--text-light);
+  background: var(--bg-accent); border: 1px solid var(--border);
+  padding: 2px 8px; border-radius: 10px; pointer-events: none;
+}
+.collapse-icon { width: 20px; height: 20px; transition: transform var(--transition); color: var(--text-light); }
+.form-card.collapsed .collapse-icon { transform: rotate(-90deg); }
+.form-card-body { padding: 0 16px 16px; }
+.form-card.collapsed .form-card-body { display: none; }
+
+/* FORM FIELDS */
+.field-row { display: flex; gap: 12px; margin-bottom: 10px; flex-wrap: wrap; }
+.field-group { flex: 1; min-width: 140px; }
+.field-group.full { min-width: 100%; }
+.field-label { display: flex; justify-content: space-between; align-items: center; font-size: 11px; font-weight: 600; color: var(--text-light); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 4px; }
+.field-hide-btn { font-size: 10px; color: var(--text-light); cursor: pointer; border: none; background: none; padding: 2px 6px; border-radius: 4px; transition: all var(--transition); }
+.field-hide-btn:hover { background: var(--rose-bg); color: var(--rose); }
+.field-hide-btn.hidden-field { color: var(--red); }
+.field-input { width: 100%; padding: 8px 10px; border: 1px solid var(--border); border-radius: var(--radius-sm); font-size: 13px; font-family: var(--font-body); color: var(--text-dark); background: #fff; transition: border-color var(--transition); }
+.field-input:focus { outline: none; border-color: var(--rose); }
+.field-input::placeholder { color: var(--text-light); }
+select.field-input { appearance: none; background-image: url("data:image/svg+xml,%3Csvg width='10' height='6' viewBox='0 0 10 6' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1L5 5L9 1' stroke='%238A7A6A' stroke-width='1.5' stroke-linecap='round'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 10px center; padding-right: 28px; }
+textarea.field-input { resize: vertical; min-height: 60px; }
+
+/* PHOTO UPLOAD */
+.photo-upload-area { display: flex; align-items: flex-start; gap: 16px; }
+.photo-preview { width: 100px; height: 120px; border: 2px dashed var(--border); border-radius: var(--radius-sm); display: flex; flex-direction: column; align-items: center; justify-content: center; cursor: pointer; position: relative; overflow: hidden; background: var(--warm-white); transition: border-color var(--transition); }
+.photo-preview:hover { border-color: var(--rose); }
+.photo-preview img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+.photo-preview svg { width: 24px; height: 24px; color: var(--text-light); }
+.photo-preview span { font-size: 10px; color: var(--text-light); margin-top: 4px; }
+.photo-options { display: flex; flex-direction: column; gap: 8px; }
+.photo-opt-group label { font-size: 11px; font-weight: 600; color: var(--text-light); text-transform: uppercase; letter-spacing: 0.5px; display: block; margin-bottom: 4px; }
+.photo-opt-row { display: flex; gap: 6px; }
+.photo-opt-btn { padding: 5px 10px; border: 1px solid var(--border); border-radius: 6px; font-size: 11px; cursor: pointer; background: #fff; color: var(--text-mid); transition: all var(--transition); font-family: var(--font-body); }
+.photo-opt-btn.active { background: var(--rose); color: #fff; border-color: var(--rose); }
+.photo-opt-btn:hover:not(.active) { border-color: var(--rose); }
+
+/* SIBLINGS REPEATER */
+.sibling-entry { display: flex; gap: 8px; align-items: flex-start; margin-bottom: 8px; padding: 10px; background: var(--warm-white); border-radius: var(--radius-sm); }
+.sibling-entry .field-group { min-width: 80px; }
+.sibling-remove { border: none; background: none; color: var(--red); cursor: pointer; padding: 6px; margin-top: 18px; }
+.sibling-remove svg { width: 14px; height: 14px; }
+.add-sibling-btn { padding: 6px 12px; border: 1px dashed var(--border); border-radius: var(--radius-sm); font-size: 12px; cursor: pointer; background: transparent; color: var(--text-mid); font-family: var(--font-body); display: flex; align-items: center; gap: 4px; transition: all var(--transition); }
+.add-sibling-btn:hover { border-color: var(--rose); color: var(--rose); }
+.add-sibling-btn svg { width: 14px; height: 14px; }
+
+/* CUSTOMIZATION CARD */
+.customize-section { margin-top: 4px; }
+.color-presets { display: flex; gap: 8px; flex-wrap: wrap; }
+.color-swatch { width: 32px; height: 32px; border-radius: 50%; border: 2px solid transparent; cursor: pointer; transition: all var(--transition); position: relative; }
+.color-swatch.active { border-color: var(--text-dark); box-shadow: 0 0 0 2px #fff, 0 0 0 4px var(--text-dark); }
+.color-swatch:hover { transform: scale(1.1); }
+.font-select { display: flex; gap: 8px; flex-wrap: wrap; }
+.font-btn { padding: 6px 14px; border: 1px solid var(--border); border-radius: 8px; cursor: pointer; background: #fff; color: var(--text-mid); transition: all var(--transition); font-size: 13px; }
+.font-btn.active { background: var(--rose); color: #fff; border-color: var(--rose); }
+.font-btn:hover:not(.active) { border-color: var(--rose); }
+.icon-select { display: flex; gap: 8px; flex-wrap: wrap; }
+.icon-btn { width: 36px; height: 36px; border: 1px solid var(--border); border-radius: 8px; cursor: pointer; background: #fff; display: flex; align-items: center; justify-content: center; font-size: 18px; transition: all var(--transition); }
+.icon-btn.active { background: var(--rose-bg); border-color: var(--rose); }
+.icon-btn:hover:not(.active) { border-color: var(--rose); }
+
+/* TEMPLATE SWITCHER */
+.template-switcher { display: flex; gap: 8px; flex-wrap: wrap; }
+.template-thumb-btn {
+  width: 62px; height: 80px; border-radius: 8px; border: 2.5px solid transparent;
+  cursor: pointer; overflow: hidden; position: relative; transition: all var(--transition);
+  background-size: cover; background-position: center top; flex-shrink: 0; padding: 0;
+}
+.template-thumb-btn:hover { border-color: var(--gold-light); }
+.template-thumb-btn.active { border-color: var(--rose); box-shadow: 0 0 0 1px var(--rose); }
+.template-thumb-label {
+  position: absolute; bottom: 0; left: 0; right: 0;
+  font-size: 8px; font-weight: 600; text-align: center; padding: 3px 2px;
+  background: rgba(0,0,0,0.45); color: #fff; line-height: 1.2;
+}
+
+/* EXTRA PHOTO SLOTS */
+.extra-photo-slot { display: flex; flex-direction: column; gap: 4px; }
+.extra-photo-preview { width: 100%; aspect-ratio: 3/4; background: var(--bg-accent); border: 1.5px dashed var(--border); border-radius: var(--radius-sm); display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 4px; color: var(--text-light); font-size: 11px; overflow: hidden; }
+.extra-photo-preview svg { width: 28px; height: 28px; }
+.extra-photo-preview img { width: 100%; height: 100%; object-fit: cover; }
+.extra-photo-btn { font-size: 11px; padding: 4px 8px; border: 1px solid var(--border); border-radius: var(--radius-sm); background: #fff; cursor: pointer; color: var(--text-mid); }
+.extra-photo-btn:hover { border-color: var(--rose); color: var(--rose); }
+.extra-photo-remove { font-size: 11px; padding: 4px 8px; border: 1px solid var(--border); border-radius: var(--radius-sm); background: #fff; cursor: pointer; color: var(--text-light); }
+
+/* PREVIEW PANEL */
+.preview-container { background: #fff; border: 1px solid var(--border-light); border-radius: var(--radius); padding: 12px; box-shadow: var(--shadow-soft); }
+.preview-label-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; }
+.preview-label { font-size: 11px; font-weight: 600; color: var(--text-light); text-transform: uppercase; letter-spacing: 1px; }
+.page-indicator { font-size: 11px; font-weight: 600; color: var(--rose); background: var(--rose-bg); padding: 3px 10px; border-radius: 12px; }
+
+/* Stacked scrollable pages */
+.preview-pages { display: flex; flex-direction: column; gap: 0; max-height: 70vh; overflow-y: auto; padding: 2px; scrollbar-width: thin; }
+.preview-pages::-webkit-scrollbar { width: 6px; }
+.preview-pages::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+.preview-page-wrap { position: relative; }
+.preview-page-label { font-size: 10px; color: var(--text-light); text-align: center; padding: 6px 0 2px; font-weight: 600; background: var(--bg-accent); border-top: 1px dashed var(--border); }
+.preview-frame { width: 100%; aspect-ratio: 210/297; position: relative; overflow: hidden; border-radius: 0; border: none; box-shadow: none; }
+.preview-frame:first-of-type { border-radius: var(--radius-sm) var(--radius-sm) 0 0; }
+.preview-page-wrap:first-child .preview-frame { border-radius: var(--radius-sm) var(--radius-sm) 0 0; }
+.preview-page-wrap:last-child .preview-frame { border-radius: 0 0 var(--radius-sm) var(--radius-sm); }
+.preview-page-wrap:only-child .preview-frame { border-radius: var(--radius-sm); }
+.preview-pages-wrap { border: 1px solid var(--border-light); border-radius: var(--radius-sm); overflow: hidden; box-shadow: var(--shadow-soft); }
+.preview-inner { position: absolute; inset: 0; overflow: hidden; font-family: 'Lato', sans-serif; }
+.preview-watermark-overlay { position: absolute; inset: 0; pointer-events: none; z-index: 5; overflow: hidden; }
+.preview-watermark-overlay::after { content: 'PREVIEW  PREVIEW  PREVIEW  PREVIEW  PREVIEW  PREVIEW  PREVIEW  PREVIEW  PREVIEW  PREVIEW  PREVIEW  PREVIEW  PREVIEW  PREVIEW  PREVIEW  PREVIEW  PREVIEW  PREVIEW  PREVIEW  PREVIEW  PREVIEW  PREVIEW  PREVIEW  PREVIEW  PREVIEW  PREVIEW  PREVIEW  PREVIEW  PREVIEW  PREVIEW';
+  position: absolute; inset: -50%; transform: rotate(-30deg); font-size: 14px; font-weight: 700; letter-spacing: 4px;
+  color: rgba(120,120,120,0.16); line-height: 4.5; word-spacing: 10px; text-align: center; }
+
+/* PREVIEW CONTENT STYLES */
+.pv-bg { position: absolute; inset: 0; }
+.pv-content { position: relative; z-index: 1; height: 100%; padding: 5% 6% 4%; display: flex; flex-direction: column; }
+.pv-header { text-align: center; margin-bottom: 2%; }
+.pv-icon { margin-bottom: 1px; }
+.pv-name { font-weight: 600; margin: 0; }
+.pv-tagline { opacity: 0.6; }
+.pv-divider { height: 1px; margin: 1.5% 0; }
+.pv-body { display: flex; gap: 4%; flex: 1; }
+.pv-photo { border-radius: 4px; overflow: hidden; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+.pv-photo img { width: 100%; height: 100%; object-fit: cover; }
+.pv-photo svg { width: 30%; opacity: 0.4; }
+.pv-details { flex: 1; display: flex; flex-direction: column; }
+.pv-section { margin-bottom: 2%; }
+.pv-sec-title { font-weight: 600; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 1%; padding-bottom: 1%; }
+.pv-field { display: flex; gap: 8px; align-items: baseline; }
+.pv-field-label { font-weight: 700; text-transform: uppercase; letter-spacing: 0.3px; flex-shrink: 0; }
+.pv-field-value { flex: 1; min-width: 0; word-break: break-word; }
+.pv-full-sections { margin-top: 1%; }
+
+/* WATERMARK */
+.pv-watermark { position: absolute; inset: 0; z-index: 10; pointer-events: none; }
+
+/* PREVIEW ACTIONS */
+.preview-actions { display: flex; gap: 8px; margin-top: 10px; }
+.preview-action-btn { flex: 1; padding: 10px; border-radius: 8px; font-size: 12px; font-weight: 600; font-family: var(--font-body); cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 5px; transition: all var(--transition); }
+.preview-action-btn svg { width: 14px; height: 14px; }
+.btn-download { background: var(--rose); color: #fff; border: none; }
+.btn-download:hover { background: var(--rose-light); }
+
+/* MOBILE PREVIEW TOGGLE */
+.mobile-preview-fab { display: none; position: fixed; bottom: 20px; right: 20px; width: 56px; height: 56px; border-radius: 50%; background: var(--rose); color: #fff; border: none; box-shadow: 0 4px 16px rgba(139,26,58,0.35); cursor: pointer; z-index: 50; align-items: center; justify-content: center; }
+.mobile-preview-fab svg { width: 24px; height: 24px; }
+
+/* MOBILE PREVIEW OVERLAY */
+.mobile-preview-overlay { display: none; position: fixed; inset: 0; background: rgba(20,10,5,0.8); backdrop-filter: blur(4px); z-index: 150; padding: 16px; overflow-y: auto; flex-direction: column; align-items: center; justify-content: flex-start; padding-top: 60px; }
+.mobile-preview-overlay.open { display: flex; }
+.mobile-preview-close { position: fixed; top: 16px; right: 16px; width: 40px; height: 40px; border-radius: 50%; background: rgba(255,255,255,0.9); border: none; cursor: pointer; display: flex; align-items: center; justify-content: center; z-index: 160; }
+.mobile-preview-close svg { width: 18px; height: 18px; color: var(--text-dark); }
+.mobile-preview-card { background: #fff; border-radius: 12px; padding: 12px; max-width: 400px; width: 100%; }
+.mobile-preview-actions { display: flex; gap: 8px; margin-top: 10px; }
+
+/* RESPONSIVE */
+@media (max-width: 768px) {
+  .builder-layout { flex-direction: column; padding: 12px; }
+  .preview-panel { display: none; position: static; flex: none; width: 100%; }
+  .mobile-preview-fab { display: flex; }
+  .field-row { flex-direction: column; gap: 8px; }
+  .field-group { min-width: 100%; }
+  .photo-upload-area { flex-direction: column; align-items: center; }
+  .sibling-entry { flex-direction: column; }
+  .sibling-entry .field-group { min-width: 100%; }
+  .sibling-remove { margin-top: 0; align-self: flex-end; }
+  .nav-brand span { font-size: 16px; }
+  .nav-btn span { display: none; }
+}
+@media (min-width: 769px) and (max-width: 1024px) {
+  .preview-panel { flex: 0 0 320px; }
+}
+.site-footer { background: #fff; color: #5A4A3A; border-top: 1px solid #F0EAE2; padding: 36px 24px 0; margin-top: 40px; }
+.site-footer-inner { max-width: 960px; margin: 0 auto; }
+.site-footer-top { padding-bottom: 24px; }
+.site-footer-brand-name { font-family: 'Dancing Script', cursive; font-size: 22px; font-weight: 700; background: linear-gradient(90deg,#c0392b,#e67e22,#f1c40f,#27ae60,#2980b9,#8e44ad); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; display: inline-block; margin-bottom: 8px; }
+.site-footer-tagline { font-size: 13px; line-height: 1.7; color: #5A4A3A; max-width: 400px; }
+.site-footer-bottom { border-top: 1px solid #F0EAE2; padding: 16px 0; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px; }
+.site-footer-copy { font-size: 12px; color: #8A7A6A; }
+.site-footer-copy a { color: #5A4A3A; text-decoration: none; }
+.site-footer-bottom-links { display: flex; gap: 16px; flex-wrap: wrap; }
+.site-footer-bottom-links a { font-size: 12px; color: #8A7A6A; text-decoration: none; }
+.site-footer-bottom-links a:hover { color: #8B1A3A; }
+.footer-heart { color: #c0392b; } }
+</style>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+<style>
+/* PAYMENT MODAL */
+.payment-overlay {
+  display: none; position: fixed; inset: 0; background: rgba(20,10,5,0.7);
+  backdrop-filter: blur(4px); z-index: 200; align-items: center; justify-content: center; padding: 16px;
+}
+.payment-overlay.open { display: flex; }
+.payment-card {
+  background: #fff; border-radius: 16px; max-width: 380px; width: 100%;
+  padding: 32px 24px; text-align: center; box-shadow: 0 8px 40px rgba(20,10,5,0.3); position: relative;
+}
+.payment-close {
+  position: absolute; top: 12px; right: 12px; width: 32px; height: 32px; border-radius: 50%;
+  border: none; background: rgba(0,0,0,0.06); cursor: pointer; display: flex;
+  align-items: center; justify-content: center; color: var(--text-mid);
+}
+.payment-close:hover { background: rgba(0,0,0,0.1); }
+.payment-close svg { width: 16px; height: 16px; }
+.payment-icon { margin-bottom: 16px; }
+.payment-icon svg { width: 48px; height: 48px; color: var(--rose); }
+.payment-title { font-family: var(--font-display); font-size: 20px; font-weight: 600; color: var(--text-dark); margin-bottom: 4px; }
+.payment-subtitle { font-size: 13px; color: var(--text-light); margin-bottom: 20px; }
+.payment-price { font-size: 36px; font-weight: 700; color: var(--rose); margin-bottom: 4px; }
+.payment-price-note { font-size: 12px; color: var(--text-light); margin-bottom: 24px; }
+.payment-pay-btn {
+  width: 100%; padding: 14px; background: var(--rose); color: #fff; border: none;
+  border-radius: 12px; font-size: 15px; font-weight: 600; font-family: var(--font-body);
+  cursor: pointer; transition: background var(--transition); display: flex;
+  align-items: center; justify-content: center; gap: 8px;
+}
+.payment-pay-btn:hover { background: var(--rose-light); }
+.payment-pay-btn svg { width: 18px; height: 18px; }
+.payment-features { display: flex; justify-content: center; gap: 16px; margin-top: 16px; flex-wrap: wrap; }
+.payment-feature { display: flex; align-items: center; gap: 4px; font-size: 11px; color: var(--text-light); }
+.payment-feature svg { width: 14px; height: 14px; color: var(--green); }
+
+/* SUCCESS MODAL */
+.success-overlay {
+  display: none; position: fixed; inset: 0; background: rgba(20,10,5,0.7);
+  backdrop-filter: blur(4px); z-index: 200; align-items: center; justify-content: center; padding: 16px;
+}
+.success-overlay.open { display: flex; }
+.success-card {
+  background: #fff; border-radius: 16px; max-width: 380px; width: 100%;
+  padding: 32px 24px; text-align: center; box-shadow: 0 8px 40px rgba(20,10,5,0.3);
+}
+.success-check { width: 64px; height: 64px; border-radius: 50%; background: var(--green-bg); display: flex; align-items: center; justify-content: center; margin: 0 auto 16px; }
+.success-check svg { width: 32px; height: 32px; color: var(--green); }
+.success-title { font-family: var(--font-display); font-size: 20px; font-weight: 600; color: var(--text-dark); margin-bottom: 4px; }
+.success-subtitle { font-size: 13px; color: var(--text-light); margin-bottom: 24px; }
+.success-actions { display: flex; flex-direction: column; gap: 10px; }
+.success-btn {
+  width: 100%; padding: 12px; border-radius: 12px; font-size: 14px; font-weight: 600;
+  font-family: var(--font-body); cursor: pointer; display: flex; align-items: center;
+  justify-content: center; gap: 8px; transition: all var(--transition);
+}
+.success-btn svg { width: 18px; height: 18px; }
+.success-btn-download { background: var(--rose); color: #fff; border: none; }
+.success-btn-download:hover { background: var(--rose-light); }
+.success-btn-export { background: #fff; color: var(--text-mid); border: 1px solid var(--border); }
+.success-btn-export:hover { border-color: var(--rose); color: var(--rose); }
+.success-close-btn {
+  margin-top: 16px;
+  background: none;
+  border: none;
+  font-size: 13px;
+  color: var(--text-light);
+  cursor: pointer;
+  text-decoration: underline;
+  font-family: var(--font-body);
+}
+.success-close-btn:hover { color: var(--text-mid); }
+.success-confirm {
+  position: absolute;
+  inset: 0;
+  background: rgba(0,0,0,0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: inherit;
+}
+.success-note { font-size: 11px; color: var(--text-light); margin-top: 16px; line-height: 1.6; }
+
+/* GENERATING OVERLAY */
+.generating-overlay {
+  display: none; position: fixed; inset: 0; background: rgba(255,253,247,0.95);
+  z-index: 250; align-items: center; justify-content: center; flex-direction: column; gap: 16px;
+}
+.generating-overlay.open { display: flex; }
+.spinner { width: 40px; height: 40px; border: 3px solid var(--border); border-top-color: var(--rose); border-radius: 50%; animation: spin 0.8s linear infinite; }
+@keyframes spin { to { transform: rotate(360deg); } }
+.generating-text { font-size: 14px; color: var(--text-mid); font-weight: 500; }
+
+/* ===== SITE FOOTER ===== */
+.site-footer { background: #fff; color: #5A4A3A; border-top: 1px solid #F0EAE2; padding: 56px 24px 0; }
+.site-footer-inner { max-width: 960px; margin: 0 auto; }
+.site-footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 40px; padding-bottom: 48px; }
+.site-footer-name { font-family: 'Dancing Script', cursive; font-size: 22px; font-weight: 700; background: linear-gradient(90deg, #c0392b, #e67e22, #f1c40f, #27ae60, #2980b9, #8e44ad); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; display: inline-block; margin-bottom: 12px; }
+.site-footer-tagline { font-size: 13px; line-height: 1.7; color: #5A4A3A; margin-bottom: 12px; max-width: 280px; }
+.site-footer-keywords { font-size: 11px; color: #8A7A6A; line-height: 1.8; }
+.site-footer-col-title { font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 1.5px; color: #8B1A3A; margin-bottom: 14px; }
+.site-footer-links { list-style: none; padding: 0; margin: 0; }
+.site-footer-links li { margin-bottom: 9px; }
+.site-footer-links a { font-size: 13px; color: #5A4A3A; text-decoration: none; transition: color 0.2s; }
+.site-footer-links a:hover { color: #e67e22; }
+.site-footer-bottom { border-top: 1px solid #F0EAE2; padding: 20px 0; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px; }
+.site-footer-copy { font-size: 12px; color: #8A7A6A; }
+.site-footer-copy a { color: #5A4A3A; text-decoration: none; }
+.site-footer-bottom-links { display: flex; gap: 20px; }
+.site-footer-bottom-links a { font-size: 12px; color: #8A7A6A; text-decoration: none; }
+.site-footer-bottom-links a:hover { color: #9a7a84; }
+@media (max-width: 768px) { .site-footer-grid { grid-template-columns: 1fr 1fr; gap: 28px; } .site-footer-brand { grid-column: 1 / -1; } }
+@media (max-width: 480px) { .site-footer-grid { grid-template-columns: 1fr; } .site-footer-bottom { flex-direction: column; align-items: flex-start; } }
+</style>
 </head>
 <body>
 
@@ -837,11 +1211,2103 @@
 <!-- HIDDEN RENDER CONTAINER FOR PDF -->
 <div id="pdf-render-container" style="position:fixed;top:0;left:-9999px;width:595px;height:842px;overflow:hidden;z-index:-1;pointer-events:none;display:none;font-family:'Lato',sans-serif;"></div>
 
-<script src="js/ui.min.js"></script>
+<script>
+
+// ===== DOMAIN LOCK =====
+(function() {
+  var allowed = ['marriagebiodatamaker.co', 'www.marriagebiodatamaker.co'];
+  if (allowed.indexOf(location.hostname) === -1) {
+    document.documentElement.innerHTML = '';
+    throw new Error();
+  }
+})();
+
+// ===== STATE =====
+var formData = {
+  fullName: '', dob: '', birthTime: '', birthPlace: '', height: '', religion: '', caste: '', gotra: '', complexion: '',
+  maritalStatus: '', diet: '', qualification: '', college: '', occupation: '', company: '',
+  income: '', fatherName: '', fatherOccupation: '', motherName: '', motherOccupation: '',
+  familyType: '', nativePlace: '', rashi: '', nakshatra: '', manglik: '', partnerPrefs: '',
+  contactPerson: '', contactRelation: '', phone: '', email: '', address: '',
+  aboutMe: '',
+  paternalGrandfather: '', paternalGrandfatherOcc: '', paternalGrandmother: '', paternalNative: '',
+  maternalGrandfather: '', maternalGrandfatherOcc: '', maternalGrandmother: '', maternalNative: '',
+  hobbies: ''
+};
+
+var hiddenFields = {};
+var hiddenSections = {
+  aboutme: true,
+  preferences: true,
+  paternal: true,
+  maternal: true,
+  photopage: true,
+  horoscope: true,
+  hobbies: true,
+  custom: true
+};
+var siblings = [];
+var fatherSiblings = [];
+var motherSiblings = [];
+var incomeRangeActive = false;
+var incomeRangeValue = '';
+var photoData = null;
+
+var customize = {
+  accentColor: '#8B1A3A',
+  displayFont: 'Playfair Display',
+  icon: 'hinduism',
+  photoShape: 'rounded',
+  photoPosition: 'left',
+  photoSize: 'medium'
+};
+
+// ===== TEMPLATE PAGE CONFIG =====
+// maxPages: 1 = single-page (auto-fit if content overflows)
+//           2 or 3 = multi-page (content flows across pages, fonts stay readable)
+// ===== TEMPLATE CONFIG =====
+// Add any template here. singlePage:true forces 1 page (auto-fit).
+// Templates with bgImage use templates/<id>.jpg as background.
+// Default is multi-page (up to 3 pages) so content is never cut.
+var TEMPLATES = {
+  'kalash-ornate':  { singlePage: false, bgImage: 'templates/kalash-ornate.jpg', free: true  },
+  'minimalist':     { singlePage: false, bgImage: 'templates/minimalist.jpg',     free: false },
+  'flower':         { singlePage: false, bgImage: 'templates/flower.jpg',          free: false },
+  'artwork':        { singlePage: false, bgImage: 'templates/artwork.jpg',         free: false },
+  'green':          { singlePage: false, bgImage: 'templates/green.jpg',           free: false },
+  'rainbow':        { singlePage: false, bgImage: 'templates/rainbow.jpg',         free: false },
+  'sky':            { singlePage: false, bgImage: 'templates/sky.jpg',             free: false }
+};
+
+function getTemplateId() {
+  var params = new URLSearchParams(window.location.search);
+  var id = params.get('template');
+  // If the id is valid use it, otherwise fall back to the first available template
+  if (id && TEMPLATES[id]) return id;
+  return Object.keys(TEMPLATES)[0];
+}
+
+var currentTemplateId = getTemplateId();
+var currentTemplate = TEMPLATES[currentTemplateId] || {};
+var maxPages = currentTemplate.singlePage ? 1 : 3;
+
+// Page measurement state (updated on each preview render)
+var currentPageCount = 1;
+
+var colorOptions = [
+  { name: 'Maroon', hex: '#8B1A3A' },
+  { name: 'Navy', hex: '#1A3A6B' },
+  { name: 'Forest', hex: '#2A6B3A' },
+  { name: 'Purple', hex: '#5B3A8B' },
+  { name: 'Teal', hex: '#1A6B6B' },
+  { name: 'Gold', hex: '#8B6A1A' },
+  { name: 'Coral', hex: '#C0503A' },
+  { name: 'Slate', hex: '#3A3A3A' }
+];
+
+var fontOptions = [
+  { name: 'Playfair Display', label: 'Playfair', cursive: false },
+  { name: 'Cormorant Garamond', label: 'Cormorant', cursive: false },
+  { name: 'Libre Baskerville', label: 'Baskerville', cursive: false },
+  { name: 'Merriweather', label: 'Merriweather', cursive: false },
+  { name: 'Poppins', label: 'Poppins', cursive: false },
+  { name: 'Nunito', label: 'Nunito', cursive: false },
+  { name: 'Dancing Script', label: 'Dancing Script', cursive: true }
+];
+
+var iconOptions = [
+  { id: 'hinduism',    label: 'Hinduism',    svg: '<svg viewBox="0 0 115 123" fill="currentColor"><path d="M1.16,65.32l5.81-1.67l0.25,1.64c1.04,6.68,2.66,12.72,4.86,18.11c2.19,5.35,4.96,10.08,8.32,14.17c3.31,4.03,6.86,7.05,10.66,9.05c3.75,1.98,7.77,2.97,12.05,2.97c2.18,0,4.17-0.38,5.97-1.15c1.81-0.77,3.45-1.92,4.94-3.47c1.49-1.56,2.61-3.29,3.35-5.19c0.74-1.9,1.11-3.99,1.11-6.27c0-4.29-0.87-8.38-2.61-12.27c-1.56-3.47-3.82-6.79-6.79-9.98c-1.67,2.11-3.46,3.98-5.38,5.6c-2.34,1.98-4.86,3.57-7.57,4.8l-1.36,0.62l-6.51-15.33l1.58-0.46c5.6-1.63,9.76-3.76,12.51-6.38c2.61-2.5,3.92-5.47,3.92-8.93c0-1.3-0.18-2.42-0.55-3.35c-0.34-0.87-0.86-1.6-1.54-2.19c-0.73-0.6-1.66-1.06-2.78-1.38c-1.2-0.33-2.62-0.5-4.29-0.5c-2.51,0-5.08,0.38-7.71,1.14c-2.66,0.77-5.4,1.93-8.22,3.49l-1.44,0.8l-6.26-15.45l1.25-0.59c2.5-1.19,5.06-2.09,7.67-2.69c2.61-0.6,5.26-0.9,7.94-0.9c3.59,0,6.86,0.6,9.81,1.78c2.97,1.2,5.59,2.99,7.86,5.37c2.26,2.37,3.96,5.11,5.08,8.2c1.12,3.08,1.68,6.49,1.68,10.24c0,1.65-0.16,3.2-0.48,4.67C54.06,60.94,53.73,62,53.3,63l0.56,0.52c3.12-2.84,6.18-5.02,9.19-6.52c3.42-1.71,6.76-2.56,10.05-2.56c0.32,0,0.72,0.03,1.21,0.08c1.28-5.79,3.47-10.21,6.55-13.26c3.4-3.36,7.82-5.04,13.27-5.04c3.54,0,6.66,0.73,9.35,2.2c2.69,1.47,4.93,3.65,6.7,6.57c1.74,2.83,3.03,6.35,3.89,10.55c0.85,4.15,1.27,8.95,1.27,14.41c0,5.56-0.53,10.56-1.59,14.99c-1.07,4.48-2.68,8.4-4.83,11.75c-2.19,3.4-4.77,5.96-7.75,7.68c-3,1.73-6.37,2.6-10.12,2.6c-2.65,0-4.94-0.44-6.86-1.31c-1.99-0.9-3.57-2.25-4.76-4.04c-1.14-1.72-1.98-3.98-2.54-6.78c-0.53-2.71-0.8-5.95-0.8-9.71v-5.59c0-3.21-0.4-5.57-1.2-7.08c-0.64-1.2-1.58-1.8-2.82-1.8c-1.36,0-2.92,0.37-4.67,1.1c-1.51,0.63-3.13,1.52-4.87,2.66c2.87,4.03,5.05,8.01,6.56,11.92c1.68,4.36,2.52,8.64,2.52,12.83c0,3.51-0.58,6.69-1.73,9.55c-1.16,2.88-2.91,5.41-5.24,7.61c-2.32,2.18-5.02,3.83-8.08,4.92c-3.03,1.09-6.4,1.63-10.1,1.63c-6,0-11.61-1.36-16.84-4.07c-5.2-2.7-9.99-6.72-14.37-12.08c-4.36-5.31-7.81-11.3-10.33-17.96C2.41,82.12,0.8,74.81,0.1,66.85L0,65.65L1.16,65.32z M81.13,57.02c1.01,0.83,1.81,1.96,2.38,3.39c0.72,1.8,1.09,4.08,1.09,6.83v13.49c0,4.22,0.63,7.33,1.9,9.34c1.13,1.79,2.85,2.69,5.16,2.69c2.14,0,4.09-0.49,5.86-1.47c1.79-1,3.42-2.52,4.88-4.55l0.01-0.01c1.48-2.05,2.59-4.39,3.33-7.01c0.75-2.65,1.13-5.58,1.13-8.8c0-3.13-0.34-5.95-1.03-8.46c-0.67-2.47-1.68-4.66-3.03-6.55c-1.31-1.85-2.8-3.23-4.47-4.14c-1.64-0.89-3.49-1.34-5.54-1.34c-2.86,0-5.3,0.64-7.32,1.91C83.75,53.42,82.31,54.98,81.13,57.02z M38.08,15.85l4.91-3.63l0.87,1.13c2.22,2.87,4.64,5.02,7.26,6.44c2.59,1.4,5.41,2.1,8.45,2.1c2.82,0,5.44-0.7,7.87-2.08c2.49-1.42,4.79-3.57,6.92-6.44l0.92-1.24l12.76,10.64l-1.07,1.13c-3.49,3.67-7.01,6.44-10.56,8.29c-3.62,1.89-7.28,2.83-10.97,2.83c-5.51,0-10.6-1.45-15.26-4.36c-4.6-2.87-8.76-7.15-12.47-12.84L38.08,15.85z M62.29,1.02l8.88,9.03l-9.95,9.75L51.15,9.46L61.3,0L62.29,1.02z"/></svg>' },
+  { id: 'christianity',label: 'Christianity',svg: '<svg viewBox="0 0 76 76" fill="currentColor"><path d="M35,19L41,19L41,30L52,30L52,36L41,36L41,57L35,57L35,36L24,36L24,30L35,30Z"/></svg>' },
+  { id: 'islam',       label: 'Islam',       svg: '<svg viewBox="0 0 489 489" fill="currentColor"><path d="M437.421,419.15c-19.387,5.064-39.415,7.641-59.469,7.641c-87.699,0-167.766-48.04-208.978-125.318c-51.738-97.096-30.385-215.716,51.966-288.491L235.638,0l-18.98,4.958c-18.728,4.877-36.814,11.925-53.738,20.947C43.226,89.723-2.261,239.013,61.556,358.73c42.846,80.392,126.115,130.342,217.269,130.342c40.033,0,79.977-10.023,115.523-28.97c16.924-9.023,32.839-20.078,47.357-32.904L437.421,419.15z"/><path d="M287.132,280.07l44.382-23.337l44.358,23.337l-8.47-49.405l35.896-34.994l-49.609-7.218l-22.175-44.927l-22.183,44.935l-49.617,7.218l35.896,34.994L287.132,280.07z"/></svg>' },
+  { id: 'sikhism',     label: 'Sikhism',     svg: '<svg viewBox="0 0 99.53 122.88" fill="currentColor"><path d="M47.95,2.33c-3.25,4.24-3.85,4.83-11.9,11.11c-0.59,0.46-0.59,0.56-0.16,1.48c1.15,2.2,1.12,2.33-0.79,3.29 c-7.96,4.01-14.33,11.8-16.57,20.18c-1.28,4.7-1.18,10.75,0.23,15.32c2.4,7.86,8.71,15.39,15.75,18.74 c1.45,0.72,2.63,1.38,2.63,1.51c0,0.13-0.49,1.31-1.12,2.7l-1.12,2.43l2.66,1.22c1.48,0.69,3.91,2.1,5.42,3.19l2.7,1.94v3.81 c0,3.42-0.07,3.78-0.56,3.58c-0.3-0.13-2.33-1.28-4.5-2.56c-11.47-6.74-20.87-15.35-25.25-23.11c-5.1-9.01-7.23-21.89-4.73-28.53 c1.45-3.85,2.43-5.36,6.77-10.22c2.37-2.7,4.24-4.93,4.17-5c-0.23-0.26-4.37,1.55-6.61,2.89c-2.7,1.61-7.26,5.85-9.27,8.65 c-2.17,3.09-3.94,7.03-4.9,11.11c-0.82,3.35-0.89,4.11-0.76,8.61c0.2,5.75,0.95,9.4,3.35,15.85c2.53,6.8,4.11,9.53,9.86,17.13 c2.89,3.85,5.75,7.76,6.34,8.71c1.22,1.97,2.3,4.96,2.6,7.2c0.13,0.89,0.3,1.58,0.43,1.58c0.1,0,2.93-2.43,6.28-5.42 c3.35-2.96,6.31-5.39,6.57-5.39c0.76-0.03,4.11,1.45,6.08,2.63L43.35,98l-3.19,1.38c-4.01,1.71-5.49,2.66-7.82,4.96 c-2.27,2.3-3.06,3.94-3.09,6.48c0,1.78,0.1,2.04,1.12,3.06c0.92,0.92,1.35,1.12,2.53,1.12c1.87,0,3.98-1.25,4.73-2.86 c0.56-1.15,0.56-1.35,0.07-3.25c-0.33-1.12-0.56-2.14-0.56-2.2c0-0.3,4.04-2.43,5.26-2.79c0.62-0.2,1.71-0.43,2.4-0.56l1.22-0.2 v4.73c0,4.57-0.03,4.73-0.79,5.46c-2.66,2.5-2.33,6.11,0.72,8.45c1.68,1.32,4.54,1.48,6.77,0.43c1.94-0.89,3.48-3.09,3.48-4.9 c0-1.12-1.41-3.88-2.27-4.41c-0.43-0.26-0.53-9.73-0.1-9.73c1.18,0.03,4.34,1.12,6.18,2.1c1.25,0.69,2.3,1.28,2.37,1.35 c0.07,0.03-0.16,1.08-0.49,2.27c-0.56,2.17-0.56,2.24,0.07,3.42c1.25,2.27,4.87,3.45,6.71,2.17c0.89-0.62,1.68-2.33,1.68-3.68 c0-2.14-1.05-4.11-3.42-6.48c-2.33-2.3-4.93-3.91-9.01-5.59L56.1,98l1.97-1.15c1.05-0.62,2.76-1.41,3.75-1.74 c0.99-0.33,1.94-0.66,2.14-0.72c0.2-0.07,3.16,2.3,6.57,5.29c3.42,2.99,6.31,5.46,6.41,5.46c0.1,0,0.3-0.89,0.39-1.97 c0.3-3.35,2.1-6.61,7.63-13.81c2.73-3.55,5.36-6.97,5.85-7.66c1.45-1.91,4.64-8.84,6.11-13.22c3.09-9.2,3.42-17.72,1.02-25.28 c-2.66-8.28-9.83-15.98-17.75-19.1c-1.15-0.46-2.17-0.76-2.24-0.66c-0.2,0.2,1.74,2.63,5.26,6.54c5.13,5.69,6.31,8.71,6.34,15.98 c0,5.23-0.43,7.89-2.2,13.41c-3.16,9.93-10.39,18.61-22.95,27.42c-2.3,1.61-10.13,6.18-10.59,6.18c-0.13,0-0.26-1.68-0.26-3.71 v-3.68l2.73-1.94c1.48-1.05,3.98-2.53,5.52-3.29l2.83-1.38l-1.25-2.5l-1.25-2.5l1.71-0.69c4.6-1.94,10.32-6.67,13.28-11.05 c3.35-4.96,4.93-9.5,5.26-15.12c0.46-8.58-2.79-16.5-9.47-23.08c-2.63-2.6-6.94-5.52-9.34-6.41l-1.08-0.36l0.76-1.74l0.76-1.71 l-2.01-1.41c-4.57-3.22-7.5-6.08-11.14-10.85L49.73,0L47.95,2.33z M40.39,28.07c2.1,7.46,3.32,14.92,3.32,20.18 c0,2.96-0.72,8.61-1.48,11.54c-0.43,1.78-2.4,7.79-2.66,8.12c-0.13,0.23-2.99-1.38-5.36-3.02c-4.44-3.06-8.05-8.25-9.43-13.68 c-0.79-3.02-0.69-8.32,0.16-11.6c1.64-6.28,6.34-12.2,12.16-15.32C38.12,23.74,38.97,23.34,39,23.37C39.07,23.44,39.67,25.54,40.39,28.07z M63.24,24.49c2.93,1.55,7.69,6.21,9.5,9.3c1.71,2.96,3.16,8.25,3.19,11.6c0,2.3-0.89,5.95-2.1,8.61 c-1.15,2.47-4.27,6.8-6.34,8.74c-1.38,1.35-6.97,5.56-7.33,5.56c-0.26,0-1.51-4.37-3.19-11.01c-0.85-3.35-0.92-4.08-0.89-9.7 c0.03-4.6,0.2-7,0.72-9.83c0.85-4.8,3.39-14.5,3.78-14.5C60.74,23.27,61.92,23.83,63.24,24.49z"/></svg>' },
+  { id: 'none',        label: 'None',        svg: '' }
+];
+
+// ===== INIT =====
+function init() {
+  renderColorPresets();
+  renderFontSelect();
+  renderIconSelect();
+  renderTemplateSwitcher();
+  syncSinglePageToggle();
+  syncSectionToggles();
+  updateRectangleAvailability();
+  renderFatherSiblingsList();
+  renderMotherSiblingsList();
+  renderCustomFieldsList();
+  updateDownloadButtons();
+  readForm();
+  checkPaymentRedirect();
+  renderRealPreview();
+}
+
+function syncSectionToggles() {
+  document.querySelectorAll('.section-toggle[data-section]').forEach(function(btn) {
+    var sec = btn.getAttribute('data-section');
+    var isHidden = hiddenSections[sec];
+    if (isHidden) {
+      btn.classList.remove('on');
+    } else {
+      btn.classList.add('on');
+    }
+  });
+}
+
+// Sections that are only available in multi-page mode
+var MULTIPAGE_ONLY_SECTIONS = ['sec-aboutme', 'sec-preferences', 'sec-paternal', 'sec-maternal', 'sec-photopage', 'sec-horoscope', 'sec-hobbies', 'sec-custom'];
+
+function applyMultipageRestrictions() {
+  var isSingle = maxPages === 1;
+  MULTIPAGE_ONLY_SECTIONS.forEach(function(id) {
+    var card = document.getElementById(id);
+    if (!card) return;
+    if (isSingle) {
+      card.classList.add('multipage-only-locked');
+      // Force these sections hidden in the biodata when single page
+      var sec = card.querySelector('.section-toggle');
+      if (sec) {
+        var sectionName = sec.getAttribute('data-section');
+        if (sectionName) hiddenSections[sectionName] = true;
+      }
+    } else {
+      card.classList.remove('multipage-only-locked');
+      // Restore section visibility based on toggle state
+      var sec = card.querySelector('.section-toggle');
+      if (sec) {
+        var sectionName = sec.getAttribute('data-section');
+        if (sectionName) hiddenSections[sectionName] = !sec.classList.contains('on');
+      }
+    }
+  });
+}
+
+function toggleSinglePage(btn) {
+  var isOn = btn.classList.contains('on');
+  if (isOn) {
+    btn.classList.remove('on');
+    maxPages = currentTemplate.singlePage ? 1 : 3;
+  } else {
+    btn.classList.add('on');
+    maxPages = 1;
+  }
+  paginatedCache = { html: '', pageCount: 1 };
+  applyMultipageRestrictions();
+  updatePreview();
+}
+
+function syncSinglePageToggle() {
+  var btn = document.getElementById('single-page-toggle');
+  if (!btn) return;
+  if (maxPages === 1) {
+    btn.classList.add('on');
+  } else {
+    btn.classList.remove('on');
+  }
+  applyMultipageRestrictions();
+}
+
+function renderTemplateSwitcher() {
+  var el = document.getElementById('template-switcher');
+  if (!el) return;
+  el.innerHTML = '';
+  Object.keys(TEMPLATES).forEach(function(id) {
+    var tmpl = TEMPLATES[id];
+    var btn = document.createElement('button');
+    btn.className = 'template-thumb-btn' + (id === currentTemplateId ? ' active' : '');
+    if (tmpl.bgImage) {
+      btn.style.backgroundImage = 'url(' + tmpl.bgImage + ')';
+    } else {
+      btn.style.background = '#F5F0EA';
+    }
+    // Label
+    var label = document.createElement('div');
+    label.className = 'template-thumb-label';
+    // Convert id to readable name: 'kalash-ornate' → 'Kalash'
+    label.textContent = id.split('-')[0].charAt(0).toUpperCase() + id.split('-')[0].slice(1);
+    btn.appendChild(label);
+    // Price badge
+    var price = document.createElement('div');
+    price.style.cssText = 'position:absolute;top:4px;right:4px;font-size:8px;font-weight:700;padding:2px 5px;border-radius:4px;';
+    if (tmpl.free) {
+      price.style.background = 'rgba(39,174,96,0.9)';
+      price.style.color = '#fff';
+      price.textContent = 'FREE';
+    } else {
+      price.style.background = 'rgba(139,26,58,0.85)';
+      price.style.color = '#fff';
+      price.textContent = '₹99';
+    }
+    btn.appendChild(price);
+    btn.onclick = function() { switchTemplate(id); };
+    btn.title = id.replace(/-/g, ' ').replace(/\b\w/g, function(c){ return c.toUpperCase(); });
+    el.appendChild(btn);
+  });
+}
+
+function switchTemplate(id) {
+  if (!TEMPLATES[id]) return;
+  currentTemplateId = id;
+  currentTemplate = TEMPLATES[id];
+  maxPages = currentTemplate.singlePage ? 1 : 3;
+  // Invalidate cached paginated content
+  paginatedCache = { html: '', pageCount: 1 };
+  // Update URL param without reloading
+  var url = new URL(window.location.href);
+  url.searchParams.set('template', id);
+  window.history.replaceState({}, '', url.toString());
+  // Re-render switcher to update active state
+  renderTemplateSwitcher();
+  syncSinglePageToggle();
+  updateDownloadButtons();
+  updatePreview();
+}
+
+function renderColorPresets() {
+  var el = document.getElementById('color-presets');
+  el.innerHTML = '';
+  colorOptions.forEach(function(c) {
+    var swatch = document.createElement('div');
+    swatch.className = 'color-swatch' + (c.hex === customize.accentColor ? ' active' : '');
+    swatch.style.background = c.hex;
+    swatch.title = c.name;
+    swatch.onclick = function() {
+      customize.accentColor = c.hex;
+      renderColorPresets();
+      updatePreview();
+    };
+    el.appendChild(swatch);
+  });
+}
+
+function renderFontSelect() {
+  var el = document.getElementById('font-select');
+  el.innerHTML = '';
+  fontOptions.forEach(function(f) {
+    var btn = document.createElement('button');
+    btn.className = 'font-btn' + (f.name === customize.displayFont ? ' active' : '');
+    btn.style.fontFamily = f.name;
+    btn.style.fontSize = f.cursive ? '17px' : '13px';
+    btn.textContent = f.label;
+    btn.title = f.name;
+    btn.onclick = function() {
+      customize.displayFont = f.name;
+      renderFontSelect();
+      updatePreview();
+    };
+    el.appendChild(btn);
+  });
+}
+
+function renderIconSelect() {
+  var el = document.getElementById('icon-select-top');
+  el.innerHTML = '';
+  iconOptions.forEach(function(ic) {
+    var btn = document.createElement('button');
+    btn.className = 'icon-btn' + (ic.id === customize.icon ? ' active' : '');
+    btn.title = ic.label;
+    btn.setAttribute('aria-label', ic.label);
+    if (ic.svg) {
+      btn.innerHTML = ic.svg;
+      btn.querySelector('svg').style.cssText = 'width:24px;height:24px;display:block';
+    } else {
+      btn.textContent = '—';
+    }
+    btn.onclick = function() {
+      customize.icon = ic.id;
+      renderIconSelect();
+      updatePreview();
+    };
+    el.appendChild(btn);
+  });
+}
+
+// ===== FORM INTERACTIONS =====
+function toggleCollapse(id) {
+  document.getElementById(id).classList.toggle('collapsed');
+}
+
+function toggleSection(e, btn) {
+  e.stopPropagation();
+  btn.classList.toggle('on');
+  var sec = btn.dataset.section;
+  hiddenSections[sec] = !btn.classList.contains('on');
+  updatePreview();
+}
+
+function toggleField(btn) {
+  var field = btn.dataset.field;
+  hiddenFields[field] = !hiddenFields[field];
+  btn.textContent = hiddenFields[field] ? 'Show' : 'Hide';
+  btn.classList.toggle('hidden-field', hiddenFields[field]);
+  updatePreview();
+}
+
+function setPhotoOpt(type, value, btn) {
+  customize['photo' + type.charAt(0).toUpperCase() + type.slice(1)] = value;
+  var row = btn.parentElement;
+  row.querySelectorAll('.photo-opt-btn').forEach(function(b) { b.classList.remove('active'); });
+  btn.classList.add('active');
+
+  // Rectangle shape is only valid for left/right positions.
+  // If user picks center while rectangle is selected, fall back to rounded.
+  if (type === 'position' && value === 'center' && customize.photoShape === 'rectangle') {
+    customize.photoShape = 'rounded';
+    syncShapeButtons();
+  }
+  // If user picks rectangle while position is center, switch position to left.
+  if (type === 'shape' && value === 'rectangle' && customize.photoPosition === 'center') {
+    customize.photoPosition = 'left';
+    syncPositionButtons();
+  }
+  updateRectangleAvailability();
+  updatePreview();
+}
+
+// Enable/disable the Rectangle button based on current position
+function updateRectangleAvailability() {
+  var rectBtn = document.getElementById('shape-rectangle-btn');
+  if (!rectBtn) return;
+  if (customize.photoPosition === 'center') {
+    rectBtn.style.opacity = '0.4';
+    rectBtn.style.pointerEvents = 'none';
+    rectBtn.title = 'Rectangle is available only for left/right positions';
+  } else {
+    rectBtn.style.opacity = '';
+    rectBtn.style.pointerEvents = '';
+    rectBtn.title = '';
+  }
+}
+
+function syncShapeButtons() {
+  document.querySelectorAll('.photo-opt-group').forEach(function(group) {
+    var label = group.querySelector('label');
+    if (label && label.textContent === 'Shape') {
+      group.querySelectorAll('.photo-opt-btn').forEach(function(b) {
+        var isActive = b.getAttribute('onclick').indexOf("'" + customize.photoShape + "'") >= 0;
+        b.classList.toggle('active', isActive);
+      });
+    }
+  });
+}
+
+function syncPositionButtons() {
+  document.querySelectorAll('.photo-opt-group').forEach(function(group) {
+    var label = group.querySelector('label');
+    if (label && label.textContent === 'Position') {
+      group.querySelectorAll('.photo-opt-btn').forEach(function(b) {
+        var isActive = b.getAttribute('onclick').indexOf("'" + customize.photoPosition + "'") >= 0;
+        b.classList.toggle('active', isActive);
+      });
+    }
+  });
+}
+
+function handlePhotoUpload(e) {
+  var file = e.target.files[0];
+  if (!file) return;
+  var reader = new FileReader();
+  reader.onload = function(ev) {
+    photoData = ev.target.result;
+    var preview = document.getElementById('photo-preview');
+    preview.innerHTML = '<img src="' + photoData + '" alt="Profile photo">';
+    updatePreview();
+  };
+  reader.readAsDataURL(file);
+}
+
+// ===== SIBLINGS =====
+// ===== FATHER / MOTHER SIBLING REPEATERS =====
+function addFatherSibling() {
+  fatherSiblings.push({ relation: '', name: '', occupation: '', location: '' });
+  renderFatherSiblingsList();
+  scheduleRealPreview();
+}
+function removeFatherSibling(idx) {
+  fatherSiblings.splice(idx, 1);
+  renderFatherSiblingsList();
+  scheduleRealPreview();
+}
+function renderFatherSiblingsList() {
+  var list = document.getElementById('father-siblings-list');
+  if (!list) return;
+  list.innerHTML = '';
+  fatherSiblings.forEach(function(s, i) {
+    var entry = document.createElement('div');
+    entry.className = 'sibling-entry';
+    entry.innerHTML =
+      '<div class="field-group"><div class="field-label">Relation</div><input class="field-input" value="' + s.relation + '" placeholder="e.g. Uncle" oninput="fatherSiblings[' + i + '].relation=this.value;scheduleRealPreview()"></div>' +
+      '<div class="field-group"><div class="field-label">Name</div><input class="field-input" value="' + s.name + '" placeholder="Name" oninput="fatherSiblings[' + i + '].name=this.value;scheduleRealPreview()"></div>' +
+      '<div class="field-group" id="fs-occ-group-' + i + '" style="' + (s.hideOccupation ? 'display:none' : '') + '"><div class="field-label">Profession / Education <button class="field-hide-btn" onclick="toggleFatherSiblingField(' + i + ',\'hideOccupation\')">Hide</button></div><input class="field-input" value="' + s.occupation + '" placeholder="e.g. CA / MBA" oninput="fatherSiblings[' + i + '].occupation=this.value;scheduleRealPreview()"></div>' +
+      '<div class="field-group" id="fs-loc-group-' + i + '" style="' + (s.hideLocation ? 'display:none' : '') + '"><div class="field-label">Location <button class="field-hide-btn" onclick="toggleFatherSiblingField(' + i + ',\'hideLocation\')">Hide</button></div><input class="field-input" value="' + s.location + '" placeholder="City" oninput="fatherSiblings[' + i + '].location=this.value;scheduleRealPreview()"></div>' +
+      '<button class="sibling-remove" onclick="removeFatherSibling(' + i + ')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg></button>';
+    list.appendChild(entry);
+  });
+}
+
+function toggleFatherSiblingField(idx, field) {
+  fatherSiblings[idx][field] = !fatherSiblings[idx][field];
+  renderFatherSiblingsList();
+  scheduleRealPreview();
+}
+
+function addMotherSibling() {
+  motherSiblings.push({ relation: '', name: '', occupation: '', location: '' });
+  renderMotherSiblingsList();
+  scheduleRealPreview();
+}
+function removeMotherSibling(idx) {
+  motherSiblings.splice(idx, 1);
+  renderMotherSiblingsList();
+  scheduleRealPreview();
+}
+function renderMotherSiblingsList() {
+  var list = document.getElementById('mother-siblings-list');
+  if (!list) return;
+  list.innerHTML = '';
+  motherSiblings.forEach(function(s, i) {
+    var entry = document.createElement('div');
+    entry.className = 'sibling-entry';
+    entry.innerHTML =
+      '<div class="field-group"><div class="field-label">Relation</div><input class="field-input" value="' + s.relation + '" placeholder="e.g. Uncle" oninput="motherSiblings[' + i + '].relation=this.value;scheduleRealPreview()"></div>' +
+      '<div class="field-group"><div class="field-label">Name</div><input class="field-input" value="' + s.name + '" placeholder="Name" oninput="motherSiblings[' + i + '].name=this.value;scheduleRealPreview()"></div>' +
+      '<div class="field-group" id="ms-occ-group-' + i + '" style="' + (s.hideOccupation ? 'display:none' : '') + '"><div class="field-label">Profession / Education <button class="field-hide-btn" onclick="toggleMotherSiblingField(' + i + ',\'hideOccupation\')">Hide</button></div><input class="field-input" value="' + s.occupation + '" placeholder="e.g. CA / MBA" oninput="motherSiblings[' + i + '].occupation=this.value;scheduleRealPreview()"></div>' +
+      '<div class="field-group" id="ms-loc-group-' + i + '" style="' + (s.hideLocation ? 'display:none' : '') + '"><div class="field-label">Location <button class="field-hide-btn" onclick="toggleMotherSiblingField(' + i + ',\'hideLocation\')">Hide</button></div><input class="field-input" value="' + s.location + '" placeholder="City" oninput="motherSiblings[' + i + '].location=this.value;scheduleRealPreview()"></div>' +
+      '<button class="sibling-remove" onclick="removeMotherSibling(' + i + ')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg></button>';
+    list.appendChild(entry);
+  });
+}
+
+function toggleMotherSiblingField(idx, field) {
+  motherSiblings[idx][field] = !motherSiblings[idx][field];
+  renderMotherSiblingsList();
+  scheduleRealPreview();
+}
+
+var customFields = []; // [{label:'', value:''}]
+var MAX_CUSTOM_FIELDS = 5;
+
+function addCustomField() {
+  if (customFields.length >= MAX_CUSTOM_FIELDS) return;
+  customFields.push({ label: '', value: '' });
+  renderCustomFieldsList();
+  scheduleRealPreview();
+}
+
+function removeCustomField(idx) {
+  customFields.splice(idx, 1);
+  renderCustomFieldsList();
+  scheduleRealPreview();
+}
+
+function renderCustomFieldsList() {
+  var list = document.getElementById('custom-fields-list');
+  var addBtn = document.getElementById('custom-add-btn');
+  if (!list) return;
+  list.innerHTML = '';
+  customFields.forEach(function(f, i) {
+    var entry = document.createElement('div');
+    entry.className = 'sibling-entry';
+    entry.innerHTML =
+      '<div class="field-group"><div class="field-label">Field label</div><input class="field-input" value="' + (f.label||'') + '" placeholder="e.g. Sect, Denomination" oninput="customFields[' + i + '].label=this.value;scheduleRealPreview()"></div>' +
+      '<div class="field-group"><div class="field-label">Value</div><input class="field-input" value="' + (f.value||'') + '" placeholder="e.g. Sunni, Catholic" oninput="customFields[' + i + '].value=this.value;scheduleRealPreview()"></div>' +
+      '<button class="sibling-remove" onclick="removeCustomField(' + i + ')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg></button>';
+    list.appendChild(entry);
+  });
+  if (addBtn) addBtn.style.display = customFields.length >= MAX_CUSTOM_FIELDS ? 'none' : 'flex';
+}
+
+function renderCustomSection(ac, bgMid) {
+  if (hiddenSections.custom) return '';
+  var titleEl = document.getElementById('custom-section-title');
+  var title = titleEl ? titleEl.value.trim() : '';
+  var hasFields = customFields.some(function(f) { return f.label || f.value; });
+  if (!title && !hasFields) return '';
+  var html = '<div class="pv-section"' + (window._sectionStyle||'') + '>' + renderSectionTitle(title || 'Additional details', ac, bgMid);
+  customFields.forEach(function(f) {
+    if (f.label || f.value) html += renderFieldRow(f.label || '—', f.value || '—', ac, bgMid);
+  });
+  html += '</div>';
+  return html;
+}
+
+function addSibling() {
+  siblings.push({ name: '', relation: '', occupation: '', maritalStatus: '' });
+  renderSiblings();
+}
+
+function removeSibling(idx) {
+  siblings.splice(idx, 1);
+  renderSiblings();
+  updatePreview();
+}
+
+function renderSiblings() {
+  var list = document.getElementById('siblings-list');
+  list.innerHTML = '';
+  siblings.forEach(function(sib, i) {
+    var entry = document.createElement('div');
+    entry.className = 'sibling-entry';
+    entry.innerHTML =
+      '<div class="field-group"><div class="field-label">Name</div><input class="field-input" value="' + sib.name + '" placeholder="Name" oninput="siblings[' + i + '].name=this.value;updatePreview()"></div>' +
+      '<div class="field-group"><div class="field-label">Relation</div><input class="field-input" value="' + sib.relation + '" placeholder="e.g. Elder Brother" oninput="siblings[' + i + '].relation=this.value;updatePreview()"></div>' +
+      '<div class="field-group"><div class="field-label">Profession / Education</div><input class="field-input" value="' + sib.occupation + '" placeholder="e.g. CA / MBA" oninput="siblings[' + i + '].occupation=this.value;updatePreview()"></div>' +
+      '<button class="sibling-remove" onclick="removeSibling(' + i + ')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg></button>';
+    list.appendChild(entry);
+  });
+}
+
+// ===== READ FORM =====
+function readForm() {
+  document.querySelectorAll('.field-input[data-field]').forEach(function(input) {
+    // Never let readForm overwrite income when range mode is active —
+    // incomeRangeValue is the source of truth in that case.
+    if (input.dataset.field === 'income' && incomeRangeActive) return;
+    formData[input.dataset.field] = input.value;
+  });
+  // When range is active, always use incomeRangeValue
+  if (incomeRangeActive) formData.income = incomeRangeValue;
+}
+
+// ===== PREVIEW RENDERING =====
+var _previewDebounce = null;
+var _previewRendering = false;
+var _previewQueued = false;
+
+function updatePreview() {
+  readForm();
+  autoSave();
+  // Debounce the real-file render so we don't run html2canvas on every keystroke
+  scheduleRealPreview();
+}
+
+function scheduleRealPreview() {
+  if (_previewDebounce) clearTimeout(_previewDebounce);
+  showPreviewLoading();
+  _previewDebounce = setTimeout(function() {
+    renderRealPreview();
+  }, 900);
+}
+
+function showPreviewLoading() {
+  var indicator = document.getElementById('page-indicator');
+  if (indicator) indicator.textContent = 'Updating…';
+}
+
+// Render the ACTUAL file (same canvases used for download) into the preview panel
+function renderRealPreview() {
+  if (_previewRendering) { _previewQueued = true; return; }
+  _previewRendering = true;
+
+  renderAllPages(function(pageCanvases) {
+    displayPreviewCanvases(pageCanvases);
+    _previewRendering = false;
+    updatePageIndicator(pageCanvases.length);
+    if (_previewQueued) {
+      _previewQueued = false;
+      renderRealPreview();
+    }
+  }, true); // quiet = true (no big overlay)
+}
+
+function displayPreviewCanvases(pageCanvases) {
+  renderCanvasesInto('preview-pages', pageCanvases);
+  renderCanvasesInto('mobile-preview-pages', pageCanvases);
+}
+
+function renderCanvasesInto(containerId, pageCanvases) {
+  var container = document.getElementById(containerId);
+  if (!container) return;
+  container.innerHTML = '';
+
+  pageCanvases.forEach(function(canvas, idx) {
+    var wrap = document.createElement('div');
+    wrap.className = 'preview-page-wrap';
+
+    if (pageCanvases.length > 1 && idx > 0) {
+      var label = document.createElement('div');
+      label.className = 'preview-page-label';
+      label.textContent = '— Page ' + (idx + 1) + ' —';
+      wrap.appendChild(label);
+    }
+
+    var frame = document.createElement('div');
+    frame.className = 'preview-frame';
+
+    // Draw the real canvas as an image that fills the frame
+    var img = document.createElement('img');
+    img.src = canvas.toDataURL('image/png');
+    img.style.cssText = 'width:100%;height:100%;object-fit:contain;display:block';
+    frame.appendChild(img);
+
+    // PREVIEW watermark overlay
+    var wm = document.createElement('div');
+    wm.className = 'preview-watermark-overlay';
+    frame.appendChild(wm);
+
+    wrap.appendChild(frame);
+    container.appendChild(wrap);
+  });
+}
+
+function updatePageIndicator(totalCanvases) {
+  var indicator = document.getElementById('page-indicator');
+  if (indicator) {
+    var count = totalCanvases || currentPageCount;
+    indicator.textContent = count === 1 ? 'Single page' : count + ' pages';
+  }
+}
+
+// Build content windowed to a specific page
+function buildPagedPreviewHTML(pageNum, includeWatermark) {
+  var contentHTML = paginatedCache.html || buildPreviewHTML(false, true);
+  var pageHeight = 842;
+  var naturalHeight = paginatedCache.naturalHeight || pageHeight;
+  var totalHeight = currentPageCount * pageHeight;
+  var offset = (pageNum - 1) * pageHeight;
+
+  var html = '<div class="paged-content-wrap" style="position:absolute;top:0;left:0;width:595px;height:842px;overflow:hidden;">';
+
+  if (maxPages === 1 && naturalHeight > pageHeight) {
+    // Single page mode: scale all content down to fit one page — no clipping, no joins
+    var fitScale = (pageHeight / naturalHeight) * 0.99;
+    var scaledWidth = 595 * fitScale;
+    var xOffset = (595 - scaledWidth) / 2;
+    html += '<div style="position:absolute;top:0;left:0;width:595px;height:' + naturalHeight + 'px;';
+    html += 'transform:translateX(' + xOffset + 'px) scale(' + fitScale + ');transform-origin:top left;">';
+    html += contentHTML;
+    html += '</div>';
+  } else {
+    // Multi-page mode: clip to this page's slice
+    html += '<div style="position:absolute;top:0;left:0;width:595px;height:' + pageHeight + 'px;overflow:hidden;">';
+    html += '<div style="position:absolute;top:' + (-offset) + 'px;left:0;width:595px;height:' + totalHeight + 'px;">';
+    html += contentHTML;
+    html += '</div>';
+    html += '</div>';
+  }
+
+  if (includeWatermark) {
+    var ac = customize.accentColor;
+    html += '<svg style="position:absolute;inset:0;z-index:10;pointer-events:none;" viewBox="0 0 595 842" xmlns="http://www.w3.org/2000/svg">';
+    html += '<defs><pattern id="wmp' + pageNum + '" x="0" y="0" width="260" height="140" patternUnits="userSpaceOnUse" patternTransform="rotate(-30)">';
+    html += '<text x="10" y="35" font-family="Inter,sans-serif" font-size="16" fill="' + ac + '" opacity="0.1" font-weight="700" letter-spacing="3">PREVIEW</text>';
+    html += '</pattern></defs><rect width="595" height="842" fill="url(#wmp' + pageNum + ')"/></svg>';
+  }
+
+  html += '</div>';
+  return html;
+}
+
+function buildPreviewHTML(includeWatermark, forExport, fitScale) {
+  if (includeWatermark === undefined) includeWatermark = true;
+  var ac = customize.accentColor;
+  var df = customize.displayFont;
+  var bgLight = hexToLight(ac);
+  var bgMid = hexToMid(ac);
+  var goldColor = adjustBrightness(ac, 40);
+  var name = formData.fullName || 'Your Name';
+
+  // Font sizes: preview uses tiny clamp values for the small panel,
+  // export uses proper A4 document sizes (595px = 210mm A4 width)
+  var cursiveFonts = ['Dancing Script'];
+  var isCursive = cursiveFonts.indexOf(customize.displayFont) >= 0;
+
+  var sz = forExport ? {
+    icon: '22px',
+    name: isCursive ? '48px' : '34px',
+    tagline: '12px',
+    secTitle: isCursive ? '23px' : '16px',
+    field: '14.5px',
+    fieldLabel: '13px',
+    pref: '14.5px'
+  } : {
+    icon: 'clamp(8px,2.5%,14px)',
+    name: isCursive ? 'clamp(16px,6%,32px)' : 'clamp(10px,4.5%,22px)',
+    tagline: 'clamp(5px,1.5%,8px)',
+    secTitle: isCursive ? 'clamp(9px,3.2%,16px)' : 'clamp(5px,2%,10px)',
+    field: 'clamp(5px,1.8%,9px)',
+    fieldLabel: 'clamp(4px,1.5%,8px)',
+    pref: 'clamp(5px,1.8%,9px)'
+  };
+
+  // Store for helper functions
+  window._sz = sz;
+  window._forExport = forExport;
+
+  // Photo width: slightly larger so the image is clearly visible
+  var photoW = customize.photoSize === 'small' ? '28%' : customize.photoSize === 'large' ? '40%' : '34%';
+  // Photo shape determines both border-radius and aspect ratio:
+  //  - circle: 1:1 square with full rounding
+  //  - oval: taller ellipse
+  //  - rounded: portrait rectangle with soft corners
+  var photoShape = customize.photoShape;
+
+  var contentPadding = forExport ? '32px 40px 28px' : '5% 6% 4%';
+  var sectionStyle = forExport ? ' style="margin-bottom:14px"' : '';
+  window._sectionStyle = sectionStyle;
+
+  // For export/paged rendering, background fills the full (possibly multi-page) height
+  // and content flows naturally. For the small live preview (non-export) it fills the box.
+  // When fitScale is provided (single-page "fit to one page" mode), the OUTER wrapper
+  // the caller provides is fixed at exactly one page (842px) tall — so height:100% here
+  // resolves to one natural page, and the background is never stretched or re-tiled.
+  // Only the .pv-content text gets the scale transform, exactly like the PDF export.
+  var bgStyle, contentHeightStyle;
+  if (forExport) {
+    bgStyle = 'position:absolute;top:0;left:0;width:100%;height:100%;min-height:842px;';
+    contentHeightStyle = 'min-height:842px;';
+  } else {
+    bgStyle = 'position:absolute;inset:0;';
+    contentHeightStyle = 'height:100%;';
+  }
+
+  var bgImgSrc = currentTemplate.bgImage || null;
+  var bgInlineStyle;
+  if (bgImgSrc) {
+    if (fitScale || maxPages === 1) {
+      // Single page: stretch ONE image to cover the entire content box (whatever
+      // its natural height), no tiling — so there is never a seam line.
+      bgInlineStyle = bgStyle + 'background-image:url(' + bgImgSrc + ');background-size:100% 100%;background-repeat:no-repeat;background-color:transparent;';
+    } else {
+      // Multi-page: one image per printed page, tiled at page-height intervals.
+      bgInlineStyle = bgStyle + 'background-image:url(' + bgImgSrc + ');background-size:100% 842px;background-repeat:repeat-y;background-color:transparent;';
+    }
+  } else {
+    bgInlineStyle = bgStyle + 'background:' + bgLight + ';border:1px solid ' + bgMid + ';';
+  }
+  var html = '<div class="pv-bg" style="' + bgInlineStyle + '"></div>';
+
+  // Scale transform for single-page fit mode — applied ONLY to the content,
+  // never to the background, so the template art is never stretched or cropped.
+  var contentTransform = '';
+  if (fitScale) {
+    var scaledWidth = 595 * fitScale;
+    var xOffset = (595 - scaledWidth) / 2;
+    contentTransform = 'transform:translateX(' + xOffset + 'px) scale(' + fitScale + ');transform-origin:top left;';
+  }
+  html += '<div class="pv-content" style="' + contentHeightStyle + 'color:' + darken(ac, 0.15) + ';padding:' + contentPadding + ';font-family:\'Lato\',sans-serif;' + contentTransform + '">';
+
+  // Header
+  html += '<div class="pv-header">';
+  if (customize.icon) {
+    var iconDef = iconOptions.find(function(ic) { return ic.id === customize.icon; });
+    if (iconDef && iconDef.svg) {
+      var iconPx = forExport ? 36 : parseInt(sz.icon) || 28;
+      var vbMatch = iconDef.svg.match(/viewBox="([\d.\s]+)"/);
+      var vbW = 100, vbH = 100;
+      if (vbMatch) {
+        var vb = vbMatch[1].split(/\s+/).map(parseFloat);
+        vbW = vb[2]; vbH = vb[3];
+      }
+      var iconH = Math.round(iconPx * vbH / vbW);
+      var coloredSvg = iconDef.svg.replace(/fill="currentColor"/g, 'fill="' + ac + '"');
+      // Ensure xmlns exists (don't duplicate if already present)
+      if (coloredSvg.indexOf('xmlns=') === -1) {
+        coloredSvg = coloredSvg.replace('<svg ', '<svg xmlns="http://www.w3.org/2000/svg" ');
+      }
+      // Add explicit width/height if not present
+      if (!/\<svg[^>]*\swidth=/.test(coloredSvg)) {
+        coloredSvg = coloredSvg.replace('<svg ', '<svg width="' + iconPx + '" height="' + iconH + '" ');
+      }
+      var dataUrl = 'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(coloredSvg);
+      html += '<div class="pv-icon" style="text-align:center"><img src="' + dataUrl + '" width="' + iconPx + '" height="' + iconH + '" style="width:' + iconPx + 'px;height:' + iconH + 'px;display:inline-block"></div>';
+    }
+  }
+  html += '<div class="pv-name" style="font-family:\'' + df + '\',serif;font-size:' + sz.name + ';color:' + ac + '">' + name + '</div>';
+  html += '</div>';
+
+  // Divider — gradient looks nicer in preview, but html2canvas renders gradients
+  // via createPattern which fails on mobile. Use a solid line for export.
+  if (forExport) {
+    html += '<div class="pv-divider" style="background:' + goldColor + ';opacity:0.55"></div>';
+  } else {
+    html += '<div class="pv-divider" style="background:linear-gradient(to right,transparent,' + goldColor + ',transparent)"></div>';
+  }
+
+  // Body layout
+  var photoOnRight = customize.photoPosition === 'right';
+  var photoOnCenter = customize.photoPosition === 'center';
+
+  if (photoOnCenter) {
+    html += renderPhoto(ac, bgMid, photoW, photoShape, 'margin:0 auto 3%');
+    html += '<div class="pv-details">';
+    html += renderAboutMeFields(ac, bgMid);
+    html += renderPersonalFields(ac, bgMid);
+    html += renderEducationFields(ac, bgMid);
+    html += renderFamilyFields(ac, bgMid);
+    html += renderPaternalFamilyFields(ac, bgMid);
+    html += renderMaternalFamilyFields(ac, bgMid);
+    if (!hiddenSections.horoscope) html += renderHoroscopeFields(ac, bgMid);
+    html += renderHobbiesFields(ac, bgMid);
+    html += renderCustomSection(ac, bgMid);
+    if (!hiddenSections.preferences) html += renderPreferencesFields(ac, bgMid);
+    html += renderContactFields(ac, bgMid);
+    html += '</div>';
+  } else {
+    html += '<div class="pv-body" style="flex-direction:' + (photoOnRight ? 'row-reverse' : 'row') + ';align-items:flex-start">';
+    html += renderPhoto(ac, bgMid, photoW, photoShape, '');
+    html += '<div class="pv-details">';
+    html += renderAboutMeFields(ac, bgMid);
+    html += renderPersonalFields(ac, bgMid);
+    html += renderEducationFields(ac, bgMid);
+    html += renderFamilyFields(ac, bgMid);
+    html += renderPaternalFamilyFields(ac, bgMid);
+    html += renderMaternalFamilyFields(ac, bgMid);
+    if (!hiddenSections.horoscope) html += renderHoroscopeFields(ac, bgMid);
+    html += renderHobbiesFields(ac, bgMid);
+    html += renderCustomSection(ac, bgMid);
+    if (!hiddenSections.preferences) html += renderPreferencesFields(ac, bgMid);
+    html += renderContactFields(ac, bgMid);
+    html += '</div>';
+    html += '</div>';
+  }
+
+  html += '</div>';
+
+  // Watermark (skip for final PDF/image render)
+  if (includeWatermark) {
+    html += '<svg class="pv-watermark" viewBox="0 0 595 842" xmlns="http://www.w3.org/2000/svg">';
+    html += '<defs><pattern id="wm" x="0" y="0" width="260" height="140" patternUnits="userSpaceOnUse" patternTransform="rotate(-30)">';
+    html += '<text x="10" y="35" font-family="Inter,sans-serif" font-size="16" fill="' + ac + '" opacity="0.08" font-weight="700" letter-spacing="3">PREVIEW</text>';
+    html += '</pattern></defs><rect width="595" height="842" fill="url(#wm)"/></svg>';
+  }
+
+  return html;
+}
+
+function renderPhoto(ac, bgMid, width, shape, extra) {
+  // Shape → aspect ratio + border-radius.
+  // rounded  = rounded square (1:1)
+  // circle   = circle (1:1, full radius)
+  // oval     = vertical ellipse
+  // rectangle= tall vertical rectangle (~3x the rounded-square height), left/right only
+  var aspect, radius;
+  if (shape === 'circle') {
+    aspect = '1 / 1';
+    radius = '50%';
+  } else if (shape === 'oval') {
+    aspect = '3 / 3.5';
+    radius = '50%';
+  } else if (shape === 'rectangle') {
+    aspect = '3 / 4';
+    radius = '10px';
+  } else {
+    // rounded square
+    aspect = '1 / 1';
+    radius = '12px';
+  }
+  var html = '<div class="pv-photo" style="width:' + width + ';aspect-ratio:' + aspect + ';background:' + hexToLight(ac) + ';border:1px solid ' + bgMid + ';border-radius:' + radius + ';overflow:hidden;' + extra + '">';
+  if (photoData) {
+    html += '<img src="' + photoData + '" style="width:100%;height:100%;object-fit:cover;border-radius:' + radius + '">';
+  } else {
+    html += '<svg viewBox="0 0 24 24" fill="none" stroke="' + bgMid + '" stroke-width="1.5" style="width:36%"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 4-7 8-7s8 3 8 7"/></svg>';
+  }
+  html += '</div>';
+  return html;
+}
+
+// Aspect ratio (height/width) per shape — used for html2canvas height fix
+function photoRatioForShape(shape) {
+  if (shape === 'circle') return 1;
+  if (shape === 'oval') return 3.5/3;
+  if (shape === 'rectangle') return 4/3;
+  return 1; // rounded square
+}
+
+// ===== EXTRA PHOTOS (Photo Page) =====
+var extraPhotos = [null, null, null, null]; // up to 4 photo data URLs
+
+function handleExtraPhoto(input) {
+  var slot = parseInt(input.getAttribute('data-slot'));
+  var file = input.files[0];
+  if (!file) return;
+  var reader = new FileReader();
+  reader.onload = function(e) {
+    extraPhotos[slot] = e.target.result;
+    var preview = document.getElementById('extra-photo-preview-' + slot);
+    preview.innerHTML = '<img src="' + e.target.result + '" style="width:100%;height:100%;object-fit:cover">';
+    // Show remove button
+    var removeBtn = input.nextElementSibling.nextElementSibling;
+    if (removeBtn) removeBtn.style.display = 'block';
+    scheduleRealPreview();
+  };
+  reader.readAsDataURL(file);
+}
+
+function removeExtraPhoto(slot) {
+  extraPhotos[slot] = null;
+  var preview = document.getElementById('extra-photo-preview-' + slot);
+  preview.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21,15 16,10 5,21"/></svg><span>Add photo</span>';
+  var slot_el = document.querySelector('[data-slot="' + slot + '"]');
+  if (slot_el) {
+    var removeBtn = slot_el.querySelector('.extra-photo-remove');
+    if (removeBtn) removeBtn.style.display = 'none';
+  }
+  scheduleRealPreview();
+}
+
+function buildPhotoPageHTML(ac, bgMid) {
+  if (hiddenSections.photopage) return '';
+  var activePhotos = extraPhotos.filter(function(p) { return p !== null; });
+  if (!activePhotos.length) return '';
+
+  var bgImgSrc = currentTemplate.bgImage || null;
+  var bgStyle = bgImgSrc
+    ? 'background-image:url(' + bgImgSrc + ');background-size:100% 842px;background-repeat:no-repeat;background-color:transparent;'
+    : 'background:' + hexToLight(ac) + ';';
+
+  var html = '<div style="position:relative;width:595px;height:842px;">';
+  html += '<div style="position:absolute;inset:0;' + bgStyle + '"></div>';
+
+  // Photo grid centred in the full page — equal margins on all 4 edges
+  var count = activePhotos.length;
+  var photoW = count === 1 ? '420px' : '268px';
+  var photoH = count === 1 ? '560px' : '356px';
+
+  html += '<div style="position:relative;z-index:1;width:100%;height:100%;display:flex;align-items:center;justify-content:center;box-sizing:border-box;">';
+  html += '<div style="display:flex;flex-wrap:wrap;gap:10px;justify-content:center;align-content:center;">';
+  activePhotos.forEach(function(src) {
+    html += '<div style="width:' + photoW + ';height:' + photoH + ';overflow:hidden;">';
+    html += '<img src="' + src + '" style="width:100%;height:100%;object-fit:cover">';
+    html += '</div>';
+  });
+  html += '</div>';
+  html += '</div></div>';
+  return html;
+}
+
+function toggleIncomeRange(cb) {
+  incomeRangeActive = cb.checked;
+  document.getElementById('income-exact').style.display = incomeRangeActive ? 'none' : 'block';
+  document.getElementById('income-range').style.display = incomeRangeActive ? 'block' : 'none';
+  if (!incomeRangeActive) {
+    // Switching back to exact — restore the text input value
+    incomeRangeValue = '';
+    var exactInput = document.querySelector('[data-field="income"]');
+    if (exactInput) formData.income = exactInput.value;
+  } else {
+    updateIncomeRange();
+  }
+}
+
+function updateIncomeRange() {
+  var from = document.getElementById('income-from');
+  if (!from) return;
+  incomeRangeValue = from.value || '';
+  formData.income = incomeRangeValue;
+  scheduleRealPreview();
+}
+
+function updateCharCount(field, counterId, max) {
+  var el = document.querySelector('[data-field="' + field + '"]');
+  var counter = document.getElementById(counterId);
+  if (el && counter) counter.textContent = el.value.length + '/' + max;
+}
+
+function renderAboutMeFields(ac, bgMid) {
+  if (hiddenSections.aboutme || !formData.aboutMe) return '';
+  var sz = window._sz;
+  var html = '<div class="pv-section"' + (window._sectionStyle||'') + '>' + renderSectionTitle('About me', ac, bgMid);
+  html += '<div class="pv-pref-text" style="font-size:' + sz.pref + ';line-height:1.6;color:' + darken(ac, 0.15) + '">' + formData.aboutMe + '</div>';
+  html += '</div>';
+  return html;
+}
+
+function renderPaternalFamilyFields(ac, bgMid) {
+  if (hiddenSections.paternal) return '';
+  var has = formData.paternalGrandfather || formData.paternalGrandmother || formData.paternalNative || fatherSiblings.length;
+  if (!has) return '';
+  var html = '<div class="pv-section"' + (window._sectionStyle||'') + '>' + renderSectionTitle('Paternal family', ac, bgMid);
+  if (formData.paternalGrandfather) {
+    var pgVal = formData.paternalGrandfather + (formData.paternalGrandfatherOcc ? ' — ' + formData.paternalGrandfatherOcc : '');
+    html += renderFieldRow('Paternal grandfather', pgVal, ac, bgMid);
+  }
+  if (formData.paternalGrandmother) html += renderFieldRow('Paternal grandmother', formData.paternalGrandmother, ac, bgMid);
+  if (formData.paternalNative) html += renderFieldRow('Native place', formData.paternalNative, ac, bgMid);
+  fatherSiblings.forEach(function(s) {
+    if (s.name || s.relation) {
+      var val = (s.relation || '') + (s.name ? (s.relation ? ' ' : '') + s.name : '');
+      if (!s.hideOccupation && s.occupation) val += ' — ' + s.occupation;
+      if (!s.hideLocation && s.location) val += ', ' + s.location;
+      html += renderFieldRow("Father's sibling", val.trim(), ac, bgMid);
+    }
+  });
+  html += '</div>';
+  return html;
+}
+
+function renderMaternalFamilyFields(ac, bgMid) {
+  if (hiddenSections.maternal) return '';
+  var has = formData.maternalGrandfather || formData.maternalGrandmother || formData.maternalNative || motherSiblings.length;
+  if (!has) return '';
+  var html = '<div class="pv-section"' + (window._sectionStyle||'') + '>' + renderSectionTitle('Maternal family', ac, bgMid);
+  if (formData.maternalGrandfather) {
+    var mgVal = formData.maternalGrandfather + (formData.maternalGrandfatherOcc ? ' — ' + formData.maternalGrandfatherOcc : '');
+    html += renderFieldRow('Maternal grandfather', mgVal, ac, bgMid);
+  }
+  if (formData.maternalGrandmother) html += renderFieldRow('Maternal grandmother', formData.maternalGrandmother, ac, bgMid);
+  if (formData.maternalNative) html += renderFieldRow('Maternal native', formData.maternalNative, ac, bgMid);
+  motherSiblings.forEach(function(s) {
+    if (s.name || s.relation) {
+      var val = (s.relation || '') + (s.name ? (s.relation ? ' ' : '') + s.name : '');
+      if (!s.hideOccupation && s.occupation) val += ' — ' + s.occupation;
+      if (!s.hideLocation && s.location) val += ', ' + s.location;
+      html += renderFieldRow("Mother's sibling", val.trim(), ac, bgMid);
+    }
+  });
+  html += '</div>';
+  return html;
+}
 
 
+function renderHobbiesFields(ac, bgMid) {
+  if (hiddenSections.hobbies || !formData.hobbies) return '';
+  var html = '<div class="pv-section"' + (window._sectionStyle||'') + '>' + renderSectionTitle('Hobbies &amp; interests', ac, bgMid);
+  html += '<div class="pv-pref-text" style="font-size:' + (window._sz ? window._sz.pref : '13px') + ';line-height:1.6;color:' + darken(ac, 0.15) + '">' + formData.hobbies + '</div>';
+  html += '</div>';
+  return html;
+}
 
+function renderSectionTitle(title, ac, bgMid) {
+  var sz = window._sz;
+  var mb = window._forExport ? '8px' : '1%';
+  var pb = window._forExport ? '5px' : '1%';
+  var isCursive = ['Dancing Script'].indexOf(customize.displayFont) >= 0;
+  // Cursive fonts look broken in uppercase with letter-spacing
+  // Use title case and remove letter-spacing for them
+  var textTransform = isCursive ? 'none' : 'uppercase';
+  var letterSpacing = isCursive ? '0.5px' : '2.5px';
+  var displayTitle = isCursive ? toTitleCase(title) : title;
+  var fontWeight = isCursive ? '700' : '600';
+  return '<div class="pv-sec-title" style="font-family:\'' + customize.displayFont + '\',serif;font-size:' + sz.secTitle + ';color:' + ac + ';border-bottom:1px solid ' + bgMid + '55;margin-bottom:' + mb + ';padding-bottom:' + pb + ';text-transform:' + textTransform + ';letter-spacing:' + letterSpacing + ';font-weight:' + fontWeight + '">' + displayTitle + '</div>';
+}
 
+function toTitleCase(str) {
+  return str.replace(/\w\S*/g, function(word) {
+    return word.charAt(0).toUpperCase() + word.slice(1).toLowerCase();
+  });
+}
+
+function renderFieldRow(label, value, ac, bgMid) {
+  if (!value) return '';
+  var sz = window._sz;
+  var mb = window._forExport ? '5px' : '1px';
+  // Fixed label column width so long labels wrap within their own space
+  // instead of overlapping the value. Wider label column on export.
+  var labelWidth = window._forExport ? '115px' : '30%';
+  return '<div class="pv-field" style="font-size:' + sz.field + ';line-height:1.5;margin-bottom:' + mb + '">' +
+    '<span class="pv-field-label" style="color:' + darken(ac, 0.3) + ';font-size:' + sz.fieldLabel + ';width:' + labelWidth + '">' + label + ':</span>' +
+    '<span class="pv-field-value" style="color:' + darken(ac, 0.15) + '">' + value + '</span></div>';
+}
+
+function renderPersonalFields(ac, bgMid) {
+  var html = '<div class="pv-section"' + (window._sectionStyle||'') + '>' + renderSectionTitle('Personal details', ac, bgMid);
+  var dob = formData.dob ? formatDate(formData.dob) : '';
+  if (!hiddenFields.dob && dob) {
+    var dobVal = dob;
+    if (!hiddenFields.birthTime && formData.birthTime) dobVal += ', ' + formData.birthTime;
+    html += renderFieldRow('Date of birth', dobVal, ac, bgMid);
+  }
+  if (!hiddenFields.birthPlace && formData.birthPlace) html += renderFieldRow('Birth place', formData.birthPlace, ac, bgMid);
+  if (!hiddenFields.height && formData.height) html += renderFieldRow('Height', formData.height, ac, bgMid);
+  if (!hiddenFields.religion && formData.religion) html += renderFieldRow('Religion', formData.religion, ac, bgMid);
+  if (!hiddenFields.caste && formData.caste) html += renderFieldRow('Caste', formData.caste, ac, bgMid);
+  if (!hiddenFields.gotra && formData.gotra) html += renderFieldRow('Gotra', formData.gotra, ac, bgMid);
+  if (!hiddenFields.complexion && formData.complexion) html += renderFieldRow('Complexion', formData.complexion, ac, bgMid);
+  if (!hiddenFields.maritalStatus && formData.maritalStatus) html += renderFieldRow('Marital status', formData.maritalStatus, ac, bgMid);
+  if (!hiddenFields.diet && formData.diet) html += renderFieldRow('Diet', formData.diet, ac, bgMid);
+  html += '</div>';
+  return html;
+}
+
+function renderEducationFields(ac, bgMid) {
+  var hasData = formData.qualification || formData.college || formData.occupation || formData.company || formData.income;
+  if (!hasData) return '';
+  var html = '<div class="pv-section"' + (window._sectionStyle||'') + '>' + renderSectionTitle('Education & career', ac, bgMid);
+  if (!hiddenFields.qualification && formData.qualification) html += renderFieldRow('Education', formData.qualification, ac, bgMid);
+  if (!hiddenFields.college && formData.college) html += renderFieldRow('College', formData.college, ac, bgMid);
+  if (!hiddenFields.occupation && formData.occupation) html += renderFieldRow('Occupation', formData.occupation, ac, bgMid);
+  if (!hiddenFields.company && formData.company) html += renderFieldRow('Company', formData.company, ac, bgMid);
+  if (!hiddenFields.income && formData.income) html += renderFieldRow('Income', formData.income, ac, bgMid);
+  html += '</div>';
+  return html;
+}
+
+function renderFamilyFields(ac, bgMid) {
+  var hasData = formData.fatherName || formData.motherName || formData.familyType || formData.nativePlace || siblings.length;
+  if (!hasData) return '';
+  var html = '<div class="pv-section"' + (window._sectionStyle||'') + '>' + renderSectionTitle('Family details', ac, bgMid);
+  if (!hiddenFields.fatherName && formData.fatherName) {
+    var fVal = formData.fatherName + (formData.fatherOccupation && !hiddenFields.fatherOccupation ? ' — ' + formData.fatherOccupation : '');
+    html += renderFieldRow("Father's name", fVal, ac, bgMid);
+  }
+  if (!hiddenFields.motherName && formData.motherName) {
+    var mVal = formData.motherName + (formData.motherOccupation && !hiddenFields.motherOccupation ? ' — ' + formData.motherOccupation : '');
+    html += renderFieldRow("Mother's name", mVal, ac, bgMid);
+  }
+  siblings.forEach(function(s) {
+    if (s.name) {
+      var sVal = s.name + (s.relation ? ' (' + s.relation + ')' : '') + (s.occupation ? ' — ' + s.occupation : '');
+      html += renderFieldRow('Sibling', sVal, ac, bgMid);
+    }
+  });
+  if (!hiddenFields.familyType && formData.familyType) html += renderFieldRow('Family type', formData.familyType, ac, bgMid);
+  if (!hiddenFields.nativePlace && formData.nativePlace) html += renderFieldRow('Native place', formData.nativePlace, ac, bgMid);
+  html += '</div>';
+  return html;
+}
+
+function renderHoroscopeFields(ac, bgMid) {
+  var hasData = formData.rashi || formData.nakshatra || formData.manglik;
+  if (!hasData) return '';
+  var html = '<div class="pv-section"' + (window._sectionStyle||'') + '>' + renderSectionTitle('Horoscope', ac, bgMid);
+  if (!hiddenFields.rashi && formData.rashi) html += renderFieldRow('Rashi', formData.rashi, ac, bgMid);
+  if (!hiddenFields.nakshatra && formData.nakshatra) html += renderFieldRow('Nakshatra', formData.nakshatra, ac, bgMid);
+  if (!hiddenFields.manglik && formData.manglik) html += renderFieldRow('Manglik', formData.manglik, ac, bgMid);
+  html += '</div>';
+  return html;
+}
+
+function renderPreferencesFields(ac, bgMid) {
+  if (!formData.partnerPrefs) return '';
+  var sz = window._sz;
+  var html = '<div class="pv-section"' + (window._sectionStyle||'') + '>' + renderSectionTitle('Partner preferences', ac, bgMid);
+  html += '<div class="pv-pref-text" style="font-size:' + sz.pref + ';line-height:1.6;color:' + darken(ac, 0.15) + '">' + formData.partnerPrefs + '</div>';
+  html += '</div>';
+  return html;
+}
+
+function renderContactFields(ac, bgMid) {
+  var hasData = formData.contactPerson || formData.phone || formData.address;
+  if (!hasData) return '';
+  var html = '<div class="pv-section"' + (window._sectionStyle||'') + '>' + renderSectionTitle('Contact information', ac, bgMid);
+  if (!hiddenFields.contactPerson && formData.contactPerson) {
+    var cVal = formData.contactPerson + (formData.contactRelation && !hiddenFields.contactRelation ? ' (' + formData.contactRelation + ')' : '');
+    html += renderFieldRow('Contact', cVal, ac, bgMid);
+  }
+  if (!hiddenFields.phone && formData.phone) html += renderFieldRow('Phone', formData.phone, ac, bgMid);
+  if (!hiddenFields.email && formData.email) html += renderFieldRow('Email', formData.email, ac, bgMid);
+  if (!hiddenFields.address && formData.address) html += renderFieldRow('Address', formData.address, ac, bgMid);
+  html += '</div>';
+  return html;
+}
+
+// ===== COLOR HELPERS =====
+function hexToLight(hex) {
+  var r = parseInt(hex.slice(1,3),16), g = parseInt(hex.slice(3,5),16), b = parseInt(hex.slice(5,7),16);
+  return 'rgb(' + Math.round(r + (255-r)*0.92) + ',' + Math.round(g + (255-g)*0.92) + ',' + Math.round(b + (255-b)*0.92) + ')';
+}
+function hexToMid(hex) {
+  var r = parseInt(hex.slice(1,3),16), g = parseInt(hex.slice(3,5),16), b = parseInt(hex.slice(5,7),16);
+  return 'rgb(' + Math.round(r + (255-r)*0.65) + ',' + Math.round(g + (255-g)*0.65) + ',' + Math.round(b + (255-b)*0.65) + ')';
+}
+function adjustBrightness(hex, amt) {
+  var r = parseInt(hex.slice(1,3),16), g = parseInt(hex.slice(3,5),16), b = parseInt(hex.slice(5,7),16);
+  return 'rgb(' + Math.min(255,r+amt) + ',' + Math.min(255,g+amt) + ',' + Math.min(255,b+amt) + ')';
+}
+function darken(hex, factor) {
+  var r = parseInt(hex.slice(1,3),16), g = parseInt(hex.slice(3,5),16), b = parseInt(hex.slice(5,7),16);
+  var f = 1 - factor;
+  return 'rgb(' + Math.round(r + (40-r)*f) + ',' + Math.round(g + (20-g)*f) + ',' + Math.round(b + (10-b)*f) + ')';
+}
+
+function formatDate(dateStr) {
+  var d = new Date(dateStr);
+  var months = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+  var day = d.getDate();
+  var suffix = day === 1 || day === 21 || day === 31 ? 'st' : day === 2 || day === 22 ? 'nd' : day === 3 || day === 23 ? 'rd' : 'th';
+  return day + suffix + ' ' + months[d.getMonth()] + ', ' + d.getFullYear();
+}
+
+// ===== MOBILE PREVIEW =====
+function openMobilePreview() {
+  document.getElementById('mobile-preview-overlay').classList.add('open');
+  document.body.style.overflow = 'hidden';
+  // Render immediately (real file) — force a render even if debounce pending
+  renderRealPreview();
+}
+function closeMobilePreview() {
+  document.getElementById('mobile-preview-overlay').classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+// ===== EXPORT / IMPORT =====
+function exportData() {
+  readForm();
+  var data = {
+    version: 1,
+    exportedAt: new Date().toISOString(),
+    appName: 'MarriageBiodataCreator',
+    formData: formData,
+    siblings: siblings,
+    hiddenFields: hiddenFields,
+    hiddenSections: hiddenSections,
+    customize: customize
+  };
+  var blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+  var url = URL.createObjectURL(blob);
+  var a = document.createElement('a');
+  a.href = url;
+  a.download = 'biodata-data.json';
+  a.click();
+  URL.revokeObjectURL(url);
+}
+
+function importData() {
+  document.getElementById('import-input').click();
+}
+
+function handleImport(e) {
+  var file = e.target.files[0];
+  if (!file) return;
+  var reader = new FileReader();
+  reader.onload = function(ev) {
+    try {
+      var data = JSON.parse(ev.target.result);
+      if (data.formData) {
+        formData = data.formData;
+        Object.keys(formData).forEach(function(key) {
+          var input = document.querySelector('.field-input[data-field="' + key + '"]');
+          if (input) input.value = formData[key] || '';
+        });
+      }
+      if (data.siblings) { siblings = data.siblings; renderSiblings(); }
+      if (data.hiddenFields) {
+        hiddenFields = data.hiddenFields;
+        Object.keys(hiddenFields).forEach(function(f) {
+          var btn = document.querySelector('.field-hide-btn[data-field="' + f + '"]');
+          if (btn && hiddenFields[f]) { btn.textContent = 'Show'; btn.classList.add('hidden-field'); }
+        });
+      }
+      if (data.hiddenSections) { hiddenSections = data.hiddenSections; }
+      if (data.customize) {
+        customize = Object.assign(customize, data.customize);
+        var iconMig = {
+          '\u0950': 'hinduism', '\u271D': 'christianity', '\u2720': 'christianity',
+          '\u262A': 'islam', '\u262C': 'sikhism', '\u2638': 'none',
+          '\u2721': 'none', '\u2625': 'none', '\u262F': 'none', '\u2605': 'none',
+          '\u2767': 'none', '\u26E9': 'none', '\uFD3F': 'islam', '': 'none'
+        };
+        if (customize.icon && iconMig.hasOwnProperty(customize.icon)) {
+          customize.icon = iconMig[customize.icon];
+        }
+        if (!iconOptions.find(function(ic) { return ic.id === customize.icon; })) {
+          customize.icon = 'hinduism';
+        }
+        renderColorPresets();
+        renderFontSelect();
+        renderIconSelect();
+      }
+      updatePreview();
+      alert('Data imported successfully!');
+    } catch(err) {
+      alert('Invalid file format. Please select a valid biodata JSON file.');
+    }
+  };
+  reader.readAsText(file);
+  e.target.value = '';
+}
+
+// ===== PAYMENT STATE =====
+var paymentDone = false;
+// Clear any stale payment data on load
+(function() {
+  try { localStorage.removeItem('biodata_payment'); } catch(e) {}
+})();
+var generatedPDFBlob = null;
+var generatedImageBlob = null;
+var RAZORPAY_KEY = 'rzp_live_TSIjxHcMJly4MO'; // Replace with your Razorpay Key ID
+var PAYMENT_AMOUNT = 9900; // ₹99 in paise
+
+function isFreeTemplate() {
+  return !!(currentTemplate && currentTemplate.free);
+}
+
+function updateDownloadButtons() {
+  var free = isFreeTemplate();
+  var pdfLabel = document.getElementById('btn-pdf-label');
+  var imgLabel = document.getElementById('btn-img-label');
+  if (pdfLabel) pdfLabel.textContent = free ? 'Download PDF — Free' : 'Download PDF — ₹99';
+  if (imgLabel) imgLabel.textContent = free ? 'Download Image — Free' : 'Download Image — ₹99';
+}
+
+// ===== PAYMENT FLOW =====
+function handleDownload(type) {
+  // Free templates skip payment entirely
+  if (isFreeTemplate() || paymentDone) {
+    if (type === 'image') downloadImage();
+    else downloadPDF();
+    return;
+  }
+  // Store requested type so we can use it after payment
+  window._downloadType = type || 'pdf';
+  openPayment();
+}
+
+function confirmCloseSuccess() {
+  var hasPDF = window._downloadedPDF;
+  var hasImage = window._downloadedImage;
+
+  if (hasPDF && hasImage) {
+    // Both downloaded — close cleanly, no warning
+    forceCloseSuccess();
+    return;
+  }
+
+  // Build context-aware message
+  var title, message;
+  if (!hasPDF && !hasImage) {
+    title = "Close without downloading?";
+    message = "You haven't downloaded anything yet. If you close now, you'll need to pay again to download.";
+  } else if (hasPDF && !hasImage) {
+    title = "You've downloaded the PDF";
+    message = "You can also download the Image at no extra charge. Close without it?";
+  } else if (hasImage && !hasPDF) {
+    title = "You've downloaded the Image";
+    message = "You can also download the PDF at no extra charge. Close without it?";
+  }
+
+  document.getElementById('success-confirm-title').textContent = title;
+  document.getElementById('success-confirm-msg').textContent = message;
+  document.getElementById('success-confirm').style.display = 'flex';
+}
+
+function cancelCloseSuccess() {
+  document.getElementById('success-confirm').style.display = 'none';
+}
+
+function forceCloseSuccess() {
+  document.getElementById('success-confirm').style.display = 'none';
+  document.getElementById('success-overlay').classList.remove('open');
+  document.body.style.overflow = '';
+  paymentDone = false;
+  try { localStorage.removeItem('biodata_payment'); } catch(e) {}
+}
+
+function openPayment() {
+  document.getElementById('payment-overlay').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+function closePayment(e) {
+  if (e && e.target !== document.getElementById('payment-overlay') && !e.target.closest('.payment-close')) return;
+  document.getElementById('payment-overlay').classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+// ===== PAYMENT CONFIG =====
+// Replace these with your actual values after deploying the Cloudflare Worker
+var WORKER_URL = 'https://marriage-biodata-payment-worker.marriagebiodatamaker.workers.dev';
+var RAZORPAY_KEY_ID = 'rzp_live_TSIjxHcMJly4MO'; // Test Key ID — replace with live key when Razorpay account is activated
+var PAYMENT_AMOUNT = 9900; // ₹99 in paise
+
+function initiatePayment() {
+  closePayment();
+
+  // Show loading state
+  var loadingOverlay = document.createElement('div');
+  loadingOverlay.id = 'payment-loading';
+  loadingOverlay.style.cssText = 'position:fixed;inset:0;background:rgba(0,0,0,0.6);z-index:9999;display:flex;align-items:center;justify-content:center;font-family:Inter,sans-serif';
+  loadingOverlay.innerHTML =
+    '<div style="background:#fff;border-radius:16px;padding:32px;max-width:300px;width:90%;text-align:center;box-shadow:0 20px 60px rgba(0,0,0,0.3)">' +
+      '<div style="font-size:28px;margin-bottom:12px">💳</div>' +
+      '<div style="font-size:15px;font-weight:600;color:#1a1a1a;margin-bottom:6px">Preparing payment...</div>' +
+      '<div style="font-size:13px;color:#888">Please wait</div>' +
+    '</div>';
+  document.body.appendChild(loadingOverlay);
+
+  // Step 1: Create order via Cloudflare Worker
+  fetch(WORKER_URL + '/create-order', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ amount: PAYMENT_AMOUNT })
+  })
+  .then(function(res) { return res.json().then(function(data) { return { status: res.status, data: data }; }); })
+  .then(function(result) {
+    document.body.removeChild(loadingOverlay);
+    console.log('Worker response:', result.status, result.data);
+
+    if (!result.data.order_id) {
+      alert('Could not initiate payment. Error: ' + (result.data.error || result.data.detail || JSON.stringify(result.data)) + '\n\nPlease try again or contact support.');
+      return;
+    }
+
+    // Guard: ensure only ONE outcome is processed per checkout session
+    var paymentOutcomeHandled = false;
+
+    // Step 2: Open Razorpay checkout with the order
+    var options = {
+      key: RAZORPAY_KEY_ID,
+      amount: result.data.amount,
+      currency: result.data.currency,
+      order_id: result.data.order_id,
+      name: 'Marriage Biodata Maker',
+      description: 'Biodata Download — PDF & Image',
+      theme: { color: '#8B1A3A' },
+      prefill: {
+        name: formData.fullName || '',
+        email: formData.email || '',
+        contact: formData.phone || ''
+      },
+      handler: function(response) {
+        // Success handler — only fires when Razorpay confirms payment captured.
+        // Verify signature server-side before unlocking download.
+        if (paymentOutcomeHandled) return;
+        paymentOutcomeHandled = true;
+        verifyAndActivate(response);
+      },
+      modal: {
+        ondismiss: function() {
+          // User closed checkout — reset so they can retry
+          paymentOutcomeHandled = false;
+        }
+      }
+    };
+
+    try {
+      var rzp = new Razorpay(options);
+      rzp.on('payment.failed', function(response) {
+        // Failure event — do NOT set paymentOutcomeHandled permanently,
+        // because Razorpay allows retry in the same modal. Just show a toast.
+        // Only show failure if the modal is actually closing (no retry).
+        paymentDone = false;
+        var reason = response.error ? (response.error.description || response.error.reason || 'Payment failed') : 'Payment failed';
+        // Show a non-blocking inline message; user can still retry in the open modal
+        console.log('Payment attempt failed:', reason);
+      });
+      rzp.open();
+    } catch(e) {
+      alert('Payment gateway could not load. Please disable any ad blockers and try again.');
+    }
+  })
+  .catch(function() {
+    if (document.getElementById('payment-loading')) {
+      document.body.removeChild(loadingOverlay);
+    }
+    alert('Network error. Please check your connection and try again.');
+  });
+}
+
+function verifyAndActivate(response) {
+  // Show verifying state
+  var verifyOverlay = document.createElement('div');
+  verifyOverlay.id = 'payment-verifying';
+  verifyOverlay.style.cssText = 'position:fixed;inset:0;background:rgba(0,0,0,0.6);z-index:9999;display:flex;align-items:center;justify-content:center;font-family:Inter,sans-serif';
+  verifyOverlay.innerHTML =
+    '<div style="background:#fff;border-radius:16px;padding:32px;max-width:300px;width:90%;text-align:center;box-shadow:0 20px 60px rgba(0,0,0,0.3)">' +
+      '<div style="font-size:28px;margin-bottom:12px">🔐</div>' +
+      '<div style="font-size:15px;font-weight:600;color:#1a1a1a;margin-bottom:6px">Verifying payment...</div>' +
+      '<div style="font-size:13px;color:#888">Please wait</div>' +
+    '</div>';
+  document.body.appendChild(verifyOverlay);
+
+  function removeVerifyOverlay() {
+    var el = document.getElementById('payment-verifying');
+    if (el) el.parentNode.removeChild(el);
+  }
+
+  fetch(WORKER_URL + '/verify-payment', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      razorpay_order_id: response.razorpay_order_id,
+      razorpay_payment_id: response.razorpay_payment_id,
+      razorpay_signature: response.razorpay_signature
+    })
+  })
+  .then(function(res) { return res.json(); })
+  .then(function(data) {
+    removeVerifyOverlay();
+    if (data.success) {
+      paymentDone = true;
+      onPaymentSuccess();
+    } else {
+      showPaymentResult(false, 'Payment verification failed. Please contact support with Payment ID: ' + response.razorpay_payment_id);
+    }
+  })
+  .catch(function(err) {
+    removeVerifyOverlay();
+    // Do NOT fall back to success on network error — show error instead
+    showPaymentResult(false, 'Could not verify payment. Please contact support with Payment ID: ' + (response.razorpay_payment_id || 'unknown'));
+  });
+}
+
+function showPaymentResult(success, message) {
+  var overlay = document.createElement('div');
+  overlay.style.cssText = 'position:fixed;inset:0;background:rgba(0,0,0,0.6);z-index:9999;display:flex;align-items:center;justify-content:center;font-family:Inter,sans-serif';
+  overlay.innerHTML =
+    '<div style="background:#fff;border-radius:16px;padding:32px;max-width:320px;width:90%;text-align:center;box-shadow:0 20px 60px rgba(0,0,0,0.3)">' +
+      '<div style="font-size:32px;margin-bottom:12px">' + (success ? '✅' : '❌') + '</div>' +
+      '<div style="font-size:16px;font-weight:600;color:#1a1a1a;margin-bottom:8px">' + (success ? 'Payment Successful' : 'Payment Failed') + '</div>' +
+      '<div style="font-size:13px;color:#888;margin-bottom:20px">' + (message || '') + '</div>' +
+      '<button onclick="this.closest(\'div\').parentNode.remove()" style="padding:10px 24px;border:none;border-radius:10px;background:#8B1A3A;color:#fff;font-size:14px;font-weight:600;cursor:pointer">Close</button>' +
+    '</div>';
+  document.body.appendChild(overlay);
+}
+
+// Payment redirect check not needed — using Razorpay checkout modal instead
+function checkPaymentRedirect() {
+  // Legacy: kept for compatibility but no longer used
+}
+
+function onPaymentSuccess() {
+  window._downloadedPDF = false;
+  window._downloadedImage = false;
+  document.getElementById('success-overlay').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+// ===== PDF GENERATION (MULTI-PAGE) =====
+function isMobile() {
+  return /Android|iPhone|iPad|iPod|webOS|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) || window.innerWidth < 768;
+}
+
+// Storage for generated page blobs
+var generatedPageCanvases = [];  // array of per-page canvases
+
+// Renders the full biodata, slices into pages, and produces per-page canvases.
+// Calls callback(pageCanvases[]) when done.
+// Find clean page break points between sections.
+// Returns an array of [start0, start1, start2, ..., end] pixel positions
+// where we can safely slice without cutting through any text.
+// Fix photo aspect-ratio in a container (html2canvas can't read CSS aspect-ratio)
+function fixPhotoHeights(container) {
+  var photoEls = container.querySelectorAll('.pv-photo');
+  photoEls.forEach(function(photo) {
+    var w = photo.offsetWidth;
+    if (w > 0) {
+      var ratio = photoRatioForShape(customize.photoShape);
+      photo.style.height = Math.round(w * ratio) + 'px';
+      photo.style.aspectRatio = 'auto';
+    }
+  });
+}
+
+// Build content and paginate it so no section is split across a page boundary.
+// Uses physical spacer <div>s (not margins) and a verify loop that re-measures
+// after every push, so it self-corrects until no section crosses a boundary.
+var paginatedCache = { html: '', pageCount: 1 };
+
+function insertSpacerBefore(el, height) {
+  if (height <= 0) return;
+  var prev = el.previousElementSibling;
+  if (prev && prev.className === 'pv-page-spacer') {
+    prev.style.height = ((parseFloat(prev.style.height) || 0) + height) + 'px';
+  } else {
+    var spacer = document.createElement('div');
+    spacer.className = 'pv-page-spacer';
+    spacer.style.cssText = 'height:' + height + 'px;flex-shrink:0;';
+    el.parentNode.insertBefore(spacer, el);
+  }
+}
+
+function buildPaginatedContent() {
+  var mc = document.getElementById('pdf-render-container');
+  mc.style.display = 'block';
+  mc.style.height = 'auto';
+  mc.style.overflow = 'visible';
+  mc.style.transform = 'none';
+  mc.innerHTML = buildPreviewHTML(false, true);
+
+  fixPhotoHeights(mc);
+
+  var pvContent = mc.querySelector('.pv-content');
+  void pvContent.offsetHeight;
+
+  var pageHeight = 842;
+
+  // Position of an element relative to pv-content's top border edge.
+  // pv-content is position:relative, so it is the offsetParent of every
+  // static descendant — offsetTop chain is exact, no viewport/scroll involved.
+  function relTop(el) {
+    var t = 0;
+    var node = el;
+    while (node && node !== pvContent) {
+      t += node.offsetTop;
+      node = node.offsetParent;
+    }
+    return t;
+  }
+
+  if (maxPages > 1) {
+    // Pagination with small safe margins. Sections avoid crossing page
+    // boundaries; but a section TALLER than a page (or than the space left)
+    // is allowed to split between its field rows so we don't waste space.
+    var TOP_MARGIN = 12;     // small blank zone at the start of pages 2+
+    var BOTTOM_MARGIN = 12;  // small blank zone at the end of every page
+    var usable = pageHeight - TOP_MARGIN - BOTTOM_MARGIN;
+
+    var safety = 0;
+    var changed = true;
+    while (changed && safety < 20) {
+      changed = false;
+      safety++;
+      void pvContent.offsetHeight;
+
+      var secs = mc.querySelectorAll('.pv-section');
+      for (var i = 0; i < secs.length; i++) {
+        var sec = secs[i];
+        var top = relTop(sec);
+        var h = sec.offsetHeight;
+        var bottom = top + h;
+
+        var page = Math.floor(top / pageHeight);
+        var pageTop = page * pageHeight;
+        var contentStart = pageTop + (page > 0 ? TOP_MARGIN : 0);
+        var contentEnd = (page + 1) * pageHeight - BOTTOM_MARGIN;
+
+        // Case A: section starts inside the top margin band → nudge below it
+        if (top < contentStart) {
+          insertSpacerBefore(sec, contentStart - top);
+          changed = true;
+          break;
+        }
+
+        // Section overruns the bottom margin. Rather than moving the whole
+        // section to the next page (which wastes space on this page), split it
+        // at a field-row boundary: keep the title + rows that fit here, and push
+        // only the overflowing rows to the next page.
+        if (bottom > contentEnd) {
+          var rows = sec.querySelectorAll('.pv-field, .pv-sec-title, .pv-pref-text');
+          var splitRow = null;
+          var splitRowIdx = -1;
+          for (var r = 0; r < rows.length; r++) {
+            var rTop = relTop(rows[r]);
+            var rBottom = rTop + rows[r].offsetHeight;
+            if (rBottom > contentEnd) { splitRow = rows[r]; splitRowIdx = r; break; }
+          }
+
+          if (splitRow) {
+            // How many rows fit on the current page before the split?
+            // rows[0] is the section title. We need the title + at least one
+            // data row to remain, otherwise the title would be orphaned —
+            // in that case move the whole section to the next page instead.
+            var keepsTitlePlusRow = splitRowIdx >= 2; // 0=title,1=first row → need idx>=2
+            if (keepsTitlePlusRow) {
+              var sTop = relTop(splitRow);
+              insertSpacerBefore(splitRow, ((page + 1) * pageHeight + TOP_MARGIN) - sTop);
+              changed = true;
+              break;
+            } else {
+              // Not enough of the section fits — move the whole section down
+              insertSpacerBefore(sec, ((page + 1) * pageHeight + TOP_MARGIN) - top);
+              changed = true;
+              break;
+            }
+          }
+        }
+      }
+    }
+    void pvContent.offsetHeight;
+  }
+
+  var naturalHeight = pvContent.scrollHeight;
+  var pageCount = (maxPages === 1) ? 1 : Math.min(Math.ceil(naturalHeight / pageHeight), maxPages);
+  if (pageCount < 1) pageCount = 1;
+
+  paginatedCache = {
+    html: mc.innerHTML,
+    pageCount: pageCount,
+    naturalHeight: naturalHeight
+  };
+
+  mc.innerHTML = '';
+  mc.style.display = 'none';
+  mc.style.height = '842px';
+  mc.style.overflow = 'hidden';
+
+  return paginatedCache;
+}
+
+function renderPhotoPageCanvas(renderScale, callback) {
+  var ac = customize.accentColor;
+  var bgMid = hexToMid(ac);
+  var photoPageHTML = buildPhotoPageHTML(ac, bgMid);
+  if (!photoPageHTML) { callback(null); return; }
+
+  var container = document.getElementById('pdf-render-container');
+  container.style.display = 'block';
+  container.style.height = '842px';
+  container.style.overflow = 'hidden';
+  container.innerHTML = photoPageHTML;
+
+  setTimeout(function() {
+    html2canvas(container, {
+      scale: renderScale, useCORS: true, allowTaint: true,
+      backgroundColor: '#FFFFFF', width: 595, height: 842,
+      logging: false, scrollX: 0, scrollY: 0, x: 0, y: 0
+    }).then(function(canvas) {
+      container.innerHTML = '';
+      container.style.display = 'none';
+      callback(canvas);
+    }).catch(function() {
+      container.innerHTML = '';
+      container.style.display = 'none';
+      callback(null);
+    });
+  }, 200);
+}
+
+function renderAllPages(callback, quiet) {
+  if (!quiet) document.getElementById('generating-overlay').classList.add('open');
+
+  var proceed = function() { renderAllPagesInner(callback, quiet); };
+  if (document.fonts && document.fonts.ready) {
+    document.fonts.ready.then(proceed).catch(proceed);
+  } else {
+    proceed();
+  }
+}
+
+function renderAllPagesInner(callback, quiet) {
+  if (!quiet) document.getElementById('generating-overlay').classList.add('open');
+
+  var container = document.getElementById('pdf-render-container');
+  var pageHeight = 842;
+  var pageWidth = 595;
+
+  var scrollX = window.scrollX;
+  var scrollY = window.scrollY;
+  var origOverflow = document.body.style.overflow;
+  if (!quiet) document.body.style.overflow = 'hidden';
+
+  // Build paginated content (sections pushed so none cross page boundaries)
+  var paginated = buildPaginatedContent();
+  var pageCount = paginated.pageCount;
+  var naturalHeight = paginated.naturalHeight;
+
+  container.style.display = 'block';
+  container.style.height = 'auto';
+  container.style.overflow = 'visible';
+  container.style.transform = 'none';
+  container.innerHTML = paginated.html;
+
+  var pvContent = container.querySelector('.pv-content');
+  void pvContent.offsetHeight;
+
+  // Sizing / auto-fit
+  if (maxPages === 1) {
+    if (naturalHeight > pageHeight) {
+      var fitScale = (pageHeight / naturalHeight) * 0.99;
+      var scaledWidth = pageWidth * fitScale;
+      var xOffset = (pageWidth - scaledWidth) / 2;
+      pvContent.style.transformOrigin = 'top left';
+      pvContent.style.transform = 'translateX(' + xOffset + 'px) scale(' + fitScale + ')';
+      // Keep the background filling the full page (do NOT scale it), so the
+      // template art spans edge-to-edge exactly as at full size.
+      var bgEl = container.querySelector('.pv-bg');
+      if (bgEl) {
+        bgEl.style.width = pageWidth + 'px';
+        bgEl.style.height = pageHeight + 'px';
+        bgEl.style.transform = 'none';
+        if (currentTemplate.bgImage) {
+          bgEl.style.backgroundSize = '100% 100%';
+          bgEl.style.backgroundRepeat = 'no-repeat';
+        }
+      }
+    }
+    container.style.height = pageHeight + 'px';
+    container.style.overflow = 'hidden';
+  } else {
+    var totalHeight = pageCount * pageHeight;
+    container.style.height = totalHeight + 'px';
+    container.style.overflow = 'hidden';
+    var bg = container.querySelector('.pv-bg');
+    if (bg) {
+      bg.style.height = totalHeight + 'px';
+      // For image backgrounds, ensure colour doesn't bleed through
+      if (currentTemplate.bgImage) {
+        bg.style.backgroundColor = 'transparent';
+      }
+    }
+  }
+
+  var delay = quiet ? (isMobile() ? 400 : 150) : (isMobile() ? 1200 : 500);
+
+  var cleanup = function() {
+    container.innerHTML = '';
+    container.style.display = 'none';
+    container.style.height = '842px';
+    container.style.overflow = 'hidden';
+    if (!quiet) {
+      document.body.style.overflow = origOverflow;
+      window.scrollTo(scrollX, scrollY);
+      document.getElementById('generating-overlay').classList.remove('open');
+    }
+  };
+
+  var scaleAttempts = [3, 2, 1.5];
+
+  function attemptRender(attemptIdx) {
+    var renderScale = scaleAttempts[attemptIdx];
+    html2canvas(container, {
+      scale: renderScale,
+      useCORS: true,
+      allowTaint: true,
+      backgroundColor: '#FFFFFF',
+      width: pageWidth,
+      height: pageCount * pageHeight,
+      logging: false,
+      scrollX: 0,
+      scrollY: 0,
+      x: 0,
+      y: 0,
+      onclone: function(clonedDoc) {
+        var clonedContainer = clonedDoc.getElementById('pdf-render-container');
+        if (clonedContainer) {
+          var photos = clonedContainer.querySelectorAll('.pv-photo');
+          photos.forEach(function(photo) {
+            var w = photo.offsetWidth;
+            if (w > 0) {
+              var origPhoto = container.querySelector('.pv-photo');
+              var h = origPhoto ? origPhoto.offsetHeight : w * 1.23;
+              photo.style.height = (h || w * 1.23) + 'px';
+              photo.style.aspectRatio = 'auto';
+            }
+            var img = photo.querySelector('img');
+            if (img) { img.style.width = '100%'; img.style.height = '100%'; img.style.objectFit = 'cover'; }
+          });
+        }
+      }
+    }).then(function(fullCanvas) {
+      if (!fullCanvas || fullCanvas.width === 0 || fullCanvas.height === 0) {
+        throw new Error('Empty canvas at scale ' + renderScale);
+      }
+      try {
+        // Sections were paginated to not cross boundaries — slice at clean page intervals
+        var pageCanvases = [];
+        var canvasScale = fullCanvas.height / (pageCount * pageHeight);
+        var pageCanvasHeight = Math.round(pageHeight * canvasScale);
+
+        for (var p = 0; p < pageCount; p++) {
+          var sliceTop = Math.round(p * pageHeight * canvasScale);
+          var pageCanvas = document.createElement('canvas');
+          pageCanvas.width = fullCanvas.width;
+          pageCanvas.height = pageCanvasHeight;
+          var ctx = pageCanvas.getContext('2d');
+          ctx.fillStyle = '#FFFFFF';
+          ctx.fillRect(0, 0, pageCanvas.width, pageCanvas.height);
+          ctx.drawImage(
+            fullCanvas,
+            0, sliceTop, fullCanvas.width, pageCanvasHeight,
+            0, 0, pageCanvas.width, pageCanvasHeight
+          );
+          pageCanvases.push(pageCanvas);
+        }
+        generatedPageCanvases = pageCanvases;
+        currentPageCount = pageCount;
+
+        // Append photo page if enabled and has photos
+        if (!hiddenSections.photopage && extraPhotos.some(function(p) { return p !== null; }) && maxPages > 1) {
+          renderPhotoPageCanvas(renderScale, function(photoCanvas) {
+            if (photoCanvas) generatedPageCanvases.push(photoCanvas);
+            cleanup();
+            if (callback) callback(generatedPageCanvases);
+          });
+        } else {
+          cleanup();
+          if (callback) callback(pageCanvases);
+        }
+      } catch(innerErr) {
+        console.error('Slicing failed at scale ' + renderScale + ':', innerErr);
+        if (attemptIdx < scaleAttempts.length - 1) attemptRender(attemptIdx + 1);
+        else { cleanup(); alert('Could not create the file. Please try again.\n\nError: ' + (innerErr.message || innerErr)); }
+      }
+    }).catch(function(err) {
+      console.error('Render failed at scale ' + renderScale + ':', err);
+      if (attemptIdx < scaleAttempts.length - 1) attemptRender(attemptIdx + 1);
+      else { cleanup(); alert('Failed to generate. Please try again.\n\nError: ' + (err.message || err)); }
+    });
+  }
+
+  setTimeout(function() {
+    try { attemptRender(0); }
+    catch(outerErr) {
+      console.error('Render error:', outerErr);
+      cleanup();
+      alert('Something went wrong. Please try again.\n\nError: ' + (outerErr.message || outerErr));
+    }
+  }, delay);
+}
+
+// ===== DOWNLOAD PDF (multi-page) =====
+function downloadPDF() {
+  renderAllPages(function(pageCanvases) {
+    var jsPDF = window.jspdf.jsPDF;
+    var pdf = new jsPDF({ orientation: 'portrait', unit: 'mm', format: 'a4', compress: true });
+    pageCanvases.forEach(function(canvas, i) {
+      if (i > 0) pdf.addPage();
+      var imgData = canvas.toDataURL('image/jpeg', 0.95);
+      pdf.addImage(imgData, 'JPEG', 0, 0, 210, 297);
+    });
+    var blob = pdf.output('blob');
+    triggerDownload(blob, getFileName('pdf'));
+    window._downloadedPDF = true;
+  });
+}
+
+// ===== DOWNLOAD IMAGE (one image per page) =====
+function downloadImage() {
+  renderAllPages(function(pageCanvases) {
+    if (pageCanvases.length === 1) {
+      pageCanvases[0].toBlob(function(blob) {
+        if (!blob) blob = dataURLToBlob(pageCanvases[0].toDataURL('image/png'));
+        triggerDownload(blob, getFileName('png'));
+        window._downloadedImage = true;
+      }, 'image/png');
+    } else {
+      downloadImagesSequentially(pageCanvases, 0);
+      window._downloadedImage = true;
+    }
+  });
+}
+
+function downloadImagesSequentially(canvases, idx) {
+  if (idx >= canvases.length) return;
+  canvases[idx].toBlob(function(blob) {
+    if (!blob) blob = dataURLToBlob(canvases[idx].toDataURL('image/png'));
+    var base = formData.fullName ? formData.fullName.replace(/[^a-zA-Z0-9]/g, '_') + '_biodata' : 'marriage_biodata';
+    triggerDownload(blob, base + '_page' + (idx + 1) + '.png');
+    // Stagger downloads so the browser doesn't block them
+    setTimeout(function() {
+      downloadImagesSequentially(canvases, idx + 1);
+    }, 800);
+  }, 'image/png');
+}
+
+function getFileName(ext) {
+  var base = formData.fullName ? formData.fullName.replace(/[^a-zA-Z0-9]/g, '_') + '_biodata' : 'marriage_biodata';
+  return base + '.' + ext;
+}
+
+function dataURLToBlob(dataURL) {
+  var parts = dataURL.split(',');
+  var mime = parts[0].match(/:(.*?);/)[1];
+  var binary = atob(parts[1]);
+  var array = new Uint8Array(binary.length);
+  for (var i = 0; i < binary.length; i++) {
+    array[i] = binary.charCodeAt(i);
+  }
+  return new Blob([array], { type: mime });
+}
+
+function triggerDownload(blob, filename) {
+  if (!blob) {
+    alert('The file is not ready yet. Please try again.');
+    return;
+  }
+  var url = URL.createObjectURL(blob);
+  var a = document.createElement('a');
+  a.href = url;
+  a.download = filename;
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+  setTimeout(function() { URL.revokeObjectURL(url); }, 1000);
+  window._downloadsThisSession = (window._downloadsThisSession || 0) + 1;
+}
+
+// ===== CHECK EXISTING PAYMENT =====
+function checkExistingPayment() {
+  // Payment resets after every download — always require payment per download
+  paymentDone = false;
+}
+
+// ===== AUTO-SAVE (debounced) =====
+var saveTimer;
+function autoSave() {
+  clearTimeout(saveTimer);
+  saveTimer = setTimeout(function() {
+    readForm();
+    try {
+      var saveData = {
+        formData: formData, siblings: siblings,
+        hiddenFields: hiddenFields, hiddenSections: hiddenSections,
+        customize: customize, photoData: photoData,
+        incomeRangeActive: incomeRangeActive, incomeRangeValue: incomeRangeValue,
+        fatherSiblings: fatherSiblings, motherSiblings: motherSiblings,
+        customFields: customFields,
+        customSectionTitle: document.getElementById('custom-section-title') ? document.getElementById('custom-section-title').value : ''      };
+      localStorage.setItem('biodata_autosave', JSON.stringify(saveData));
+    } catch(e) {}
+  }, 500);
+}
+
+function loadAutoSave() {
+  try {
+    var saved = localStorage.getItem('biodata_autosave');
+    if (!saved) return;
+    var data = JSON.parse(saved);
+    if (data.formData) {
+      formData = data.formData;
+      Object.keys(formData).forEach(function(key) {
+        var input = document.querySelector('.field-input[data-field="' + key + '"]');
+        if (input) input.value = formData[key] || '';
+      });
+    }
+    // Restore income range state
+    if (data.incomeRangeActive) {
+      incomeRangeActive = true;
+      incomeRangeValue = data.incomeRangeValue || '';
+      formData.income = incomeRangeValue;
+      var toggle = document.getElementById('income-range-toggle');
+      if (toggle) toggle.checked = true;
+      var exact = document.getElementById('income-exact');
+      var range = document.getElementById('income-range');
+      var from = document.getElementById('income-from');
+      if (exact) exact.style.display = 'none';
+      if (range) range.style.display = 'block';
+      if (from) from.value = incomeRangeValue;
+    }
+    if (data.siblings) { siblings = data.siblings; renderSiblings(); }
+    if (data.fatherSiblings) { fatherSiblings = data.fatherSiblings; renderFatherSiblingsList(); }
+    if (data.motherSiblings) { motherSiblings = data.motherSiblings; renderMotherSiblingsList(); }
+    if (data.customFields) { customFields = data.customFields; renderCustomFieldsList(); }
+    if (data.customSectionTitle) { var el = document.getElementById('custom-section-title'); if (el) el.value = data.customSectionTitle; }
+    if (data.hiddenFields) { hiddenFields = data.hiddenFields; }
+    if (data.hiddenSections) {
+      // Merge: keep default hidden state for multipage sections if not in saved data
+      hiddenSections = Object.assign({
+        aboutme: true, preferences: true, paternal: true, maternal: true,
+        photopage: true, horoscope: true, hobbies: true, custom: true
+      }, data.hiddenSections);
+    }
+    if (data.customize) {
+      customize = Object.assign(customize, data.customize);
+      // Migrate old Unicode icon values to new id-based system
+      var iconMigration = {
+        '\u0950': 'hinduism', '\u271D': 'christianity', '\u2720': 'christianity',
+        '\u262A': 'islam', '\u262C': 'sikhism', '\u2638': 'none',
+        '\u2721': 'none', '\u2625': 'none', '\u262F': 'none', '\u2605': 'none',
+        '\u2767': 'none', '\u26E9': 'none', '\uFD3F': 'islam', '': 'none'
+      };
+      if (customize.icon && iconMigration.hasOwnProperty(customize.icon)) {
+        customize.icon = iconMigration[customize.icon];
+      }
+      // If icon id doesn't match any option, default to hinduism
+      if (!iconOptions.find(function(ic) { return ic.id === customize.icon; })) {
+        customize.icon = 'hinduism';
+      }
+    }
+    if (data.photoData) {
+      photoData = data.photoData;
+      document.getElementById('photo-preview').innerHTML = '<img src="' + photoData + '" alt="Profile photo">';
+    }
+  } catch(e) {}
+}
+
+// INIT
+loadAutoSave();
+checkExistingPayment();
+init();
+
+// Fonts change text metrics: re-measure pagination once webfonts finish loading,
+// otherwise sections measured with fallback fonts can land across page boundaries.
+if (document.fonts && document.fonts.ready) {
+  document.fonts.ready.then(function() {
+    updatePreview();
+  });
+}
+</script>
 <footer class="site-footer" role="contentinfo">
   <div class="site-footer-inner">
     <div class="site-footer-top">
