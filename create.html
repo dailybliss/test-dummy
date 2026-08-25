@@ -5,7 +5,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Create Your Marriage Biodata — Marriage Biodata Creator</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Inter:wght@400;500;600&family=Lato:wght@400;700&family=Cormorant+Garamond:wght@400;500;600&family=Poppins:wght@400;500;600&family=Libre+Baskerville:wght@400;700&family=Nunito:wght@400;600;700&family=Merriweather:wght@400;700&family=Dancing+Script:wght@400;600;700&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preload" href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Inter:wght@400;500;600&family=Lato:wght@400;700&family=Cormorant+Garamond:wght@400;500;600&family=Poppins:wght@400;500;600&family=Libre+Baskerville:wght@400;700&family=Nunito:wght@400;600;700&family=Merriweather:wght@400;700&family=Dancing+Script:wght@400;600;700&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
+<noscript><link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Inter:wght@400;500;600&family=Lato:wght@400;700&family=Cormorant+Garamond:wght@400;500;600&family=Poppins:wght@400;500;600&family=Libre+Baskerville:wght@400;700&family=Nunito:wght@400;600;700&family=Merriweather:wght@400;700&family=Dancing+Script:wght@400;600;700&display=swap" rel="stylesheet"></noscript>
 <style>
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 :root {
@@ -270,9 +272,9 @@ textarea.field-input { resize: vertical; min-height: 60px; }
 .site-footer-bottom-links a:hover { color: #8B1A3A; }
 .footer-heart { color: #c0392b; } }
 </style>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-<script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js" defer></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js" defer></script>
+<script src="https://checkout.razorpay.com/v1/checkout.js" defer></script>
 <style>
 /* PAYMENT MODAL */
 .payment-overlay {
@@ -1212,7 +1214,7 @@ textarea.field-input { resize: vertical; min-height: 60px; }
 <!-- HIDDEN RENDER CONTAINER FOR PDF -->
 <div id="pdf-render-container" style="position:fixed;top:0;left:-9999px;width:595px;height:842px;overflow:hidden;z-index:-1;pointer-events:none;display:none;font-family:'Lato',sans-serif;"></div>
 
-<script src="js/ui.min.js"></script>
+<script src="js/ui.min.js" defer></script>
   
 <footer class="site-footer" role="contentinfo">
   <div class="site-footer-inner">
