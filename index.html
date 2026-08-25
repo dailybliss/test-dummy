@@ -72,6 +72,7 @@ body {
   line-height: 1.1;
   white-space: nowrap;
   padding: 0 16px;
+  min-height: 1.1em;
 }
 /* Peek carousel */
 .showcase-viewport {
@@ -84,6 +85,10 @@ body {
 .showcase-track {
   position: relative;
   width: 100%;
+  min-height: calc(62vw * (1131 / 800));
+}
+@media (min-width: 549px) {
+  .showcase-track { min-height: calc(340px * (1131 / 800)); }
 }
 .showcase-slide {
   position: absolute;
