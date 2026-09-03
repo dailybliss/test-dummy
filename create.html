@@ -1094,11 +1094,11 @@ textarea.field-input { resize: vertical; min-height: 60px; }
         <div class="preview-pages" id="preview-pages"></div>
       </div>
       <div class="preview-actions">
-        <button class="preview-action-btn btn-download" id="btn-download-pdf" onclick="handleDownload('pdf')">
+        <button class="preview-action-btn btn-download" id="btn-download-pdf" onclick="handleDownload('pdf');gtag_report_conversion();">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7,10 12,15 17,10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
           <span id="btn-pdf-label">Download PDF</span>
         </button>
-        <button class="preview-action-btn btn-download" id="btn-download-img" onclick="handleDownload('image')">
+        <button class="preview-action-btn btn-download" id="btn-download-img" onclick="handleDownload('image');gtag_report_conversion();">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7,10 12,15 17,10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
           <span id="btn-img-label">Download Image</span>
         </button>
@@ -1181,11 +1181,11 @@ textarea.field-input { resize: vertical; min-height: 60px; }
     <div class="success-title">Payment successful!</div>
     <div class="success-subtitle">Download PDF, Image or both — included in this payment.</div>
     <div class="success-actions">
-      <button class="success-btn success-btn-download" onclick="downloadPDF()">
+      <button class="success-btn success-btn-download" onclick="downloadPDF(); gtag_report_conversion();">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7,10 12,15 17,10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
         Download PDF
       </button>
-      <button class="success-btn success-btn-download" onclick="downloadImage()">
+      <button class="success-btn success-btn-download" onclick="downloadImage(); gtag_report_conversion();">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21,15 16,10 5,21"/></svg>
         Download Image
       </button>
@@ -1240,5 +1240,14 @@ textarea.field-input { resize: vertical; min-height: 60px; }
     </div>
   </div>
 </footer>
+  <script>
+function gtag_report_conversion() {
+  gtag('event', 'conversion', {
+    'send_to': 'AW-18125079213/iSZGCNKBxbgcEK2F28JD',
+    'value': 1.0,
+    'currency': 'INR'
+  });
+}
+</script>
 </body>
 </html>
