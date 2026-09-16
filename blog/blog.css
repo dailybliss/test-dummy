@@ -1,0 +1,46 @@
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{--rose:#8B1A3A;--rose-bg:#FDF0F4;--text-dark:#2C1810;--text-mid:#5A4A3A;--text-light:#8A7A6A;--bg-warm:#FAF7F4;--border-light:#F0EAE2;--font-display:'Playfair Display',Georgia,serif;--font-body:'Inter',system-ui,sans-serif}
+body{font-family:var(--font-body);background:var(--bg-warm);color:var(--text-dark);line-height:1.7}
+nav{background:#fff;border-bottom:1px solid var(--border-light);padding:0 24px;position:sticky;top:0;z-index:100}
+.nav-inner{max-width:1000px;margin:0 auto;height:56px;display:flex;align-items:center;justify-content:space-between}
+.nav-brand{text-decoration:none}
+.nav-brand span{font-family:'Dancing Script',cursive;font-size:20px;font-weight:700;background:linear-gradient(90deg,#c0392b,#e67e22,#f1c40f,#27ae60,#2980b9,#8e44ad);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.nav-links{display:flex;align-items:center;gap:24px}
+.nav-links a{font-size:14px;color:var(--text-mid);text-decoration:none;font-weight:500}
+.nav-links a:hover{color:var(--rose)}
+.nav-cta{background:#27ae60;color:#fff;padding:8px 18px;border-radius:24px;font-size:13px;font-weight:500;text-decoration:none}
+.blog-content{max-width:760px;margin:0 auto;padding:48px 24px 64px}
+h1{font-family:var(--font-display);font-size:clamp(26px,4vw,40px);font-weight:700;color:var(--text-dark);margin-bottom:24px;line-height:1.2}
+h2{font-family:var(--font-display);font-size:22px;font-weight:600;color:var(--rose);margin:36px 0 14px}
+h3{font-family:var(--font-display);font-size:18px;font-weight:600;color:var(--text-dark);margin:24px 0 10px}
+p{font-size:15px;line-height:1.8;color:var(--text-mid);margin-bottom:14px}
+ul,ol{font-size:15px;line-height:1.8;color:var(--text-mid);padding-left:24px;margin-bottom:14px}
+li{margin-bottom:6px}
+a{color:var(--rose);text-decoration:none}
+a:hover{text-decoration:underline}
+table{width:100%;border-collapse:collapse;margin:20px 0;font-size:14px}
+th{background:var(--rose);color:#fff;padding:10px 14px;text-align:left}
+td{padding:10px 14px;border-bottom:1px solid var(--border-light);color:var(--text-mid)}
+tr:nth-child(even) td{background:#fff}
+blockquote{border-left:3px solid var(--rose);padding:12px 20px;margin:20px 0;background:#fff;border-radius:0 8px 8px 0;font-size:14px;color:var(--text-mid)}
+.blog-meta{font-size:12px;color:var(--text-light);margin-bottom:32px;padding-bottom:24px;border-bottom:1px solid var(--border-light)}
+.related-posts{margin-top:56px;padding-top:32px;border-top:1px solid var(--border-light)}
+.related-posts h2{font-size:18px;color:var(--text-dark);margin-bottom:16px}
+.related-list{list-style:none;padding:0}
+.related-list li{padding:10px 0;border-bottom:1px solid var(--border-light)}
+.related-list li:last-child{border-bottom:none}
+.related-list a{font-size:14px;color:var(--rose);text-decoration:none;font-weight:500}
+.related-list a:hover{text-decoration:underline}
+.site-footer{background:#fff;border-top:1px solid var(--border-light);padding:32px 24px 0;margin-top:40px}
+.site-footer-inner{max-width:960px;margin:0 auto}
+.site-footer-top{padding-bottom:20px}
+.site-footer-brand-name{font-family:'Dancing Script',cursive;font-size:20px;font-weight:700;background:linear-gradient(90deg,#c0392b,#e67e22,#f1c40f,#27ae60,#2980b9,#8e44ad);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;display:inline-block;margin-bottom:6px}
+.site-footer-tagline{font-size:13px;color:var(--text-mid);max-width:400px}
+.site-footer-bottom{border-top:1px solid var(--border-light);padding:16px 0;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px}
+.site-footer-copy{font-size:12px;color:var(--text-light)}
+.site-footer-copy a{color:var(--text-mid);text-decoration:none}
+.site-footer-bottom-links{display:flex;gap:16px;flex-wrap:wrap}
+.site-footer-bottom-links a{font-size:12px;color:var(--text-light);text-decoration:none}
+.site-footer-bottom-links a:hover{color:var(--rose)}
+.footer-heart{color:#c0392b}
+@media(max-width:600px){.blog-content{padding:32px 16px 48px}.nav-links{gap:14px}}
