@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Blog — Marriage Biodata Maker</title>
+<meta name="description" content="Guides, tips and advice on creating a marriage biodata — format, what to include, community-specific formats and more.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preload" href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600;700&family=Inter:wght@400;500;600&family=Dancing+Script:wght@700&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
+<noscript><link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600;700&family=Inter:wght@400;500;600&family=Dancing+Script:wght@700&display=swap" rel="stylesheet"></noscript>
+<link rel="stylesheet" href="/blog/blog.css">
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+</head>
+<body>
+<nav>
+  <div class="nav-inner">
+    <a href="/" class="nav-brand"><span>Marriage Biodata Maker</span></a>
+    <a href="/create.html" class="nav-cta">Create Biodata</a>
+  </div>
+</nav>
+
+<div class="blog-content">
+  <h1>Blog</h1>
+  <p style="margin-bottom:32px;padding-bottom:24px;border-bottom:1px solid var(--border-light)">Guides and advice on creating a marriage biodata — format, what to include, community-specific tips and more.</p>
+  <ul class="related-list" id="post-list"></ul>
+</div>
+
+<footer class="site-footer" role="contentinfo">
+  <div class="site-footer-inner">
+    <div class="site-footer-top">
+      <div class="site-footer-brand-name">Marriage Biodata Maker</div>
+      <p class="site-footer-tagline">The easiest way to create a beautiful marriage biodata online. No login, no designer, no fuss.</p>
+    </div>
+    <div class="site-footer-bottom">
+      <p class="site-footer-copy">© 2026 <a href="/">marriagebiodatamaker.co</a>. All rights reserved. Made with <span class="footer-heart">♥</span> in India.</p>
+      <div class="site-footer-bottom-links">
+        <a href="/blog/">Blog</a>
+        <a href="/terms.html">Terms</a>
+        <a href="/privacy.html">Privacy</a>
+        <a href="/refund.html">Refund</a>
+        <a href="/cancellation.html">Cancellation</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script>
+fetch('/blog/posts.json')
+  .then(function(r) { return r.json(); })
+  .then(function(posts) {
+    var list = document.getElementById('post-list');
+    var html = '';
+    posts.forEach(function(p) {
+      html += '<li><a href="' + p.url + '">' + p.title + '</a><span style="display:block;font-size:12px;color:var(--text-light);margin-top:2px">' + p.date + '</span></li>';
+    });
+    list.innerHTML = html;
+  });
+</script>
+</body>
+</html>
