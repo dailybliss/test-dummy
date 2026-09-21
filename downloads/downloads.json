@@ -1,0 +1,101 @@
+[
+  {
+    "id": "simple-english-word",
+    "name": "Simple Biodata",
+    "language": "english",
+    "type": "word",
+    "theme": "simple",
+    "file": "/downloads/templates/simple-biodata-english.docx",
+    "thumbnail": "/downloads/thumbs/simple-biodata-english.jpg"
+  },
+  {
+    "id": "simple-english-pdf",
+    "name": "Simple Biodata",
+    "language": "english",
+    "type": "pdf",
+    "theme": "simple",
+    "file": "/downloads/templates/simple-biodata-english.pdf",
+    "thumbnail": "/downloads/thumbs/simple-biodata-english.jpg"
+  },
+  {
+    "id": "football-english-word",
+    "name": "Football Theme Biodata",
+    "language": "english",
+    "type": "word",
+    "theme": "football",
+    "file": "/downloads/templates/football-biodata-english.docx",
+    "thumbnail": "/downloads/thumbs/football-biodata-english.jpg"
+  },
+  {
+    "id": "whatsapp-english-pdf",
+    "name": "WhatsApp Theme Biodata",
+    "language": "english",
+    "type": "pdf",
+    "theme": "whatsapp",
+    "file": "/downloads/templates/whatsapp-biodata-english.pdf",
+    "thumbnail": "/downloads/thumbs/whatsapp-biodata-english.jpg"
+  },
+  {
+    "id": "simple-hindi-word",
+    "name": "सरल बायोडाटा",
+    "language": "hindi",
+    "type": "word",
+    "theme": "simple",
+    "file": "/downloads/templates/simple-biodata-hindi.docx",
+    "thumbnail": "/downloads/thumbs/simple-biodata-hindi.jpg"
+  },
+  {
+    "id": "simple-hindi-pdf",
+    "name": "सरल बायोडाटा",
+    "language": "hindi",
+    "type": "pdf",
+    "theme": "simple",
+    "file": "/downloads/templates/simple-biodata-hindi.pdf",
+    "thumbnail": "/downloads/thumbs/simple-biodata-hindi.jpg"
+  },
+  {
+    "id": "simple-marathi-word",
+    "name": "साधा बायोडाटा",
+    "language": "marathi",
+    "type": "word",
+    "theme": "simple",
+    "file": "/downloads/templates/simple-biodata-marathi.docx",
+    "thumbnail": "/downloads/thumbs/simple-biodata-marathi.jpg"
+  },
+  {
+    "id": "simple-marathi-pdf",
+    "name": "साधा बायोडाटा",
+    "language": "marathi",
+    "type": "pdf",
+    "theme": "simple",
+    "file": "/downloads/templates/simple-biodata-marathi.pdf",
+    "thumbnail": "/downloads/thumbs/simple-biodata-marathi.jpg"
+  },
+  {
+    "id": "simple-gujarati-word",
+    "name": "સાદો બાયોડેટા",
+    "language": "gujarati",
+    "type": "word",
+    "theme": "simple",
+    "file": "/downloads/templates/simple-biodata-gujarati.docx",
+    "thumbnail": "/downloads/thumbs/simple-biodata-gujarati.jpg"
+  },
+  {
+    "id": "simple-gujarati-pdf",
+    "name": "સાદો બાયોડેટા",
+    "language": "gujarati",
+    "type": "pdf",
+    "theme": "simple",
+    "file": "/downloads/templates/simple-biodata-gujarati.pdf",
+    "thumbnail": "/downloads/thumbs/simple-biodata-gujarati.jpg"
+  },
+  {
+    "id": "whatsapp-hindi-pdf",
+    "name": "व्हाट्सएप थीम बायोडाटा",
+    "language": "hindi",
+    "type": "pdf",
+    "theme": "whatsapp",
+    "file": "/downloads/templates/whatsapp-biodata-hindi.pdf",
+    "thumbnail": "/downloads/thumbs/whatsapp-biodata-hindi.jpg"
+  }
+]
