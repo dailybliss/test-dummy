@@ -3,9 +3,9 @@
     "id": "simple-english-word",
     "name": "Simple Biodata",
     "language": "english",
-    "type": "word",
+    "type": "pdf",
     "theme": "simple",
-    "file": "/downloads/templates/simple-biodata-english.docx",
+    "file": "/downloads/templates/english-biodata-football-theme.pdf",
     "thumbnail": "/downloads/thumbs/simple-biodata-english.jpg"
   },
   {
@@ -14,7 +14,7 @@
     "language": "english",
     "type": "pdf",
     "theme": "simple",
-    "file": "/downloads/templates/simple-biodata-english.pdf",
+    "file": "/downloads/templates/english-biodata-golden-minimalistic.pdf",
     "thumbnail": "/downloads/thumbs/simple-biodata-english.jpg"
   },
   {
@@ -23,7 +23,7 @@
     "language": "english",
     "type": "word",
     "theme": "football",
-    "file": "/downloads/templates/football-biodata-english.docx",
+    "file": "/downloads/templates/english-biodata-green-simplistic.docx",
     "thumbnail": "/downloads/thumbs/football-biodata-english.jpg"
   },
   {
@@ -32,7 +32,7 @@
     "language": "english",
     "type": "pdf",
     "theme": "whatsapp",
-    "file": "/downloads/templates/whatsapp-biodata-english.pdf",
+    "file": "/downloads/templates/English Biodata Green Simplistic",
     "thumbnail": "/downloads/thumbs/whatsapp-biodata-english.jpg"
   },
   {
