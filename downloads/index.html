@@ -15,53 +15,54 @@
 :root{--rose:#8B1A3A;--rose-light:#B52E54;--rose-bg:#FDF0F4;--gold:#C9884C;--text-dark:#2C1810;--text-mid:#5A4A3A;--text-light:#8A7A6A;--bg-warm:#FAF7F4;--border-light:#F0EAE2;--font-display:'Playfair Display',Georgia,serif;--font-body:'Inter',system-ui,sans-serif}
 body{font-family:var(--font-body);background:var(--bg-warm);color:var(--text-dark);min-height:100vh;display:flex;flex-direction:column}
 nav{background:#fff;border-bottom:1px solid var(--border-light);padding:0 24px;position:sticky;top:0;z-index:100}
-.nav-inner{max-width:1000px;margin:0 auto;height:56px;display:flex;align-items:center;justify-content:space-between}
+.nav-inner{max-width:1080px;margin:0 auto;height:56px;display:flex;align-items:center;justify-content:space-between}
 .nav-brand{text-decoration:none}
 .nav-brand span{font-family:'Dancing Script',cursive;font-size:20px;font-weight:700;background:linear-gradient(90deg,#c0392b,#e67e22,#f1c40f,#27ae60,#2980b9,#8e44ad);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
 .nav-cta{background:var(--rose);color:#fff;padding:8px 18px;border-radius:24px;font-size:13px;font-weight:500;text-decoration:none}
 
 /* PAGE HEADER */
-.page-header{background:#fff;border-bottom:1px solid var(--border-light);padding:40px 24px 32px}
-.page-header-inner{max-width:1000px;margin:0 auto}
-.page-header h1{font-family:var(--font-display);font-size:clamp(24px,4vw,36px);font-weight:700;color:var(--text-dark);margin-bottom:8px}
-.page-header p{font-size:15px;color:var(--text-mid);max-width:560px}
+.page-header{background:#fff;border-bottom:1px solid var(--border-light);padding:44px 24px 36px}
+.page-header-inner{max-width:1080px;margin:0 auto}
+.page-header h1{font-family:var(--font-display);font-size:clamp(26px,4vw,38px);font-weight:700;color:var(--text-dark);margin-bottom:10px}
+.page-header p{font-size:15px;color:var(--text-mid);max-width:600px;line-height:1.7}
 
-/* FILTERS */
-.filters-bar{background:#fff;border-bottom:1px solid var(--border-light);padding:16px 24px;position:sticky;top:56px;z-index:90}
-.filters-inner{max-width:1000px;margin:0 auto;display:flex;gap:12px;flex-wrap:wrap;align-items:center}
-.filter-group{display:flex;gap:6px;flex-wrap:wrap;align-items:center}
-.filter-label{font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:1px;color:var(--text-light);margin-right:4px}
-.filter-btn{padding:5px 14px;border-radius:20px;border:1px solid var(--border-light);background:#fff;font-size:13px;color:var(--text-mid);cursor:pointer;font-family:var(--font-body);transition:all 0.15s}
+/* FILTERS SECTION */
+.filters-section{background:#fff;border-bottom:1px solid var(--border-light);padding:20px 24px;position:sticky;top:56px;z-index:90}
+.filters-inner{max-width:1080px;margin:0 auto;display:flex;flex-direction:column;gap:16px}
+.filter-row{display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.filter-label{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1.2px;color:var(--text-light);min-width:70px}
+.filter-group{display:flex;gap:8px;flex-wrap:wrap}
+.filter-btn{padding:6px 16px;border-radius:20px;border:1px solid var(--border-light);background:#fff;font-size:13px;color:var(--text-mid);cursor:pointer;font-family:var(--font-body);font-weight:500;transition:all 0.15s;white-space:nowrap}
 .filter-btn:hover{border-color:var(--rose);color:var(--rose)}
 .filter-btn.active{background:var(--rose);color:#fff;border-color:var(--rose)}
-.filter-divider{width:1px;height:20px;background:var(--border-light);margin:0 4px}
-.filter-count{font-size:12px;color:var(--text-light);margin-left:auto}
+.filter-count{font-size:13px;color:var(--text-light);font-weight:500}
 
 /* GRID */
-.downloads-wrap{max-width:1000px;margin:0 auto;padding:32px 24px 64px;flex:1}
-.downloads-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:20px}
-.no-results{text-align:center;padding:48px 24px;color:var(--text-light);font-size:14px;grid-column:1/-1}
+.downloads-wrap{max-width:1080px;margin:0 auto;padding:32px 24px 64px;flex:1;width:100%}
+.downloads-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:24px}
+.no-results{text-align:center;padding:64px 24px;color:var(--text-light);font-size:15px;grid-column:1/-1}
 
 /* CARD */
-.dl-card{background:#fff;border:1px solid var(--border-light);border-radius:10px;overflow:hidden;transition:box-shadow 0.2s,border-color 0.2s}
-.dl-card:hover{box-shadow:0 4px 16px rgba(139,26,58,0.1);border-color:#e0c8d0}
-.dl-thumb{position:relative;aspect-ratio:210/297;background:var(--bg-warm);display:flex;align-items:center;justify-content:center;overflow:hidden}
+.dl-card{background:#fff;border:1px solid var(--border-light);border-radius:12px;overflow:hidden;transition:box-shadow 0.2s,border-color 0.2s,transform 0.2s;display:flex;flex-direction:column}
+.dl-card:hover{box-shadow:0 8px 24px rgba(139,26,58,0.12);border-color:#e0c8d0;transform:translateY(-2px)}
+.dl-thumb{position:relative;aspect-ratio:210/297;background:linear-gradient(135deg,#faf7f4,#f0eae2);overflow:hidden}
 .dl-thumb img{width:100%;height:100%;object-fit:cover;display:block}
-.dl-thumb-placeholder{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;width:100%;height:100%}
-.dl-thumb-placeholder svg{opacity:0.25;color:var(--text-mid)}
-.dl-type-badge{position:absolute;top:8px;right:8px;font-size:10px;font-weight:700;padding:2px 7px;border-radius:4px;text-transform:uppercase;letter-spacing:0.5px}
-.badge-word{background:#2980b9;color:#fff}
+.dl-thumb-placeholder{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px}
+.dl-thumb-placeholder svg{opacity:0.3;color:var(--rose)}
+.dl-thumb-placeholder span{font-size:11px;color:var(--text-light);font-weight:500}
+.dl-type-badge{position:absolute;top:10px;right:10px;font-size:10px;font-weight:700;padding:3px 8px;border-radius:5px;text-transform:uppercase;letter-spacing:0.5px;box-shadow:0 1px 3px rgba(0,0,0,0.15)}
+.badge-word{background:#2b579a;color:#fff}
 .badge-pdf{background:#c0392b;color:#fff}
-.dl-lang-badge{position:absolute;top:8px;left:8px;font-size:10px;font-weight:600;padding:2px 7px;border-radius:4px;background:rgba(255,255,255,0.92);color:var(--text-mid);border:1px solid var(--border-light)}
-.dl-info{padding:12px}
-.dl-name{font-size:13px;font-weight:600;color:var(--text-dark);margin-bottom:4px;line-height:1.3}
-.dl-meta{font-size:11px;color:var(--text-light)}
-.dl-btn{display:block;width:100%;margin-top:10px;padding:7px;background:var(--rose);color:#fff;border:none;border-radius:6px;font-size:12px;font-weight:600;font-family:var(--font-body);cursor:pointer;text-align:center;text-decoration:none;transition:background 0.15s}
+.dl-lang-badge{position:absolute;top:10px;left:10px;font-size:10px;font-weight:600;padding:3px 8px;border-radius:5px;background:rgba(255,255,255,0.95);color:var(--text-mid);box-shadow:0 1px 3px rgba(0,0,0,0.1)}
+.dl-info{padding:14px;display:flex;flex-direction:column;flex:1}
+.dl-name{font-size:14px;font-weight:600;color:var(--text-dark);margin-bottom:4px;line-height:1.35}
+.dl-meta{font-size:12px;color:var(--text-light);margin-bottom:12px}
+.dl-btn{display:flex;align-items:center;justify-content:center;gap:6px;width:100%;margin-top:auto;padding:9px;background:var(--rose);color:#fff;border:none;border-radius:8px;font-size:13px;font-weight:600;font-family:var(--font-body);cursor:pointer;text-decoration:none;transition:background 0.15s}
 .dl-btn:hover{background:var(--rose-light)}
 
 /* FOOTER */
 .site-footer{background:#fff;border-top:1px solid var(--border-light);padding:32px 24px 0;margin-top:auto}
-.site-footer-inner{max-width:960px;margin:0 auto}
+.site-footer-inner{max-width:1080px;margin:0 auto}
 .site-footer-top{padding-bottom:20px}
 .site-footer-brand-name{font-family:'Dancing Script',cursive;font-size:20px;font-weight:700;background:linear-gradient(90deg,#c0392b,#e67e22,#f1c40f,#27ae60,#2980b9,#8e44ad);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;display:inline-block;margin-bottom:6px}
 .site-footer-tagline{font-size:13px;color:var(--text-mid);max-width:400px}
@@ -72,7 +73,19 @@ nav{background:#fff;border-bottom:1px solid var(--border-light);padding:0 24px;p
 .site-footer-bottom-links a{font-size:12px;color:var(--text-light);text-decoration:none}
 .site-footer-bottom-links a:hover{color:var(--rose)}
 .footer-heart{color:#c0392b}
-@media(max-width:600px){.downloads-grid{grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:14px}.filters-inner{gap:8px}}
+
+/* RESPONSIVE */
+@media(max-width:900px){.downloads-grid{grid-template-columns:repeat(3,1fr);gap:18px}}
+@media(max-width:640px){
+  .downloads-grid{grid-template-columns:repeat(2,1fr);gap:14px}
+  .filter-label{min-width:100%;margin-bottom:2px}
+  .filter-row{gap:8px}
+  .filter-btn{padding:5px 13px;font-size:12px}
+  .page-header{padding:32px 20px 28px}
+  .filters-section{padding:16px 20px}
+  .downloads-wrap{padding:24px 16px 48px}
+}
+@media(max-width:380px){.downloads-grid{grid-template-columns:1fr 1fr;gap:12px}}
 </style>
 </head>
 <body>
@@ -87,34 +100,27 @@ nav{background:#fff;border-bottom:1px solid var(--border-light);padding:0 24px;p
 <div class="page-header">
   <div class="page-header-inner">
     <h1>Free Marriage Biodata Templates</h1>
-    <p>Download ready-to-use marriage biodata formats in Word and PDF. Available in English, Hindi, Marathi and Gujarati — free, no login required.</p>
+    <p>Download ready-to-use marriage biodata formats in Word and PDF. Available in English, Hindi, Marathi and Gujarati — completely free, no login required.</p>
   </div>
 </div>
 
-<div class="filters-bar">
+<div class="filters-section">
   <div class="filters-inner">
-    <span class="filter-label">Language</span>
-    <div class="filter-group" id="lang-filters">
-      <button class="filter-btn active" data-lang="all">All</button>
-      <button class="filter-btn" data-lang="english">English</button>
-      <button class="filter-btn" data-lang="hindi">Hindi</button>
-      <button class="filter-btn" data-lang="marathi">Marathi</button>
-      <button class="filter-btn" data-lang="gujarati">Gujarati</button>
+    <div class="filter-row">
+      <span class="filter-label">Language</span>
+      <div class="filter-group" id="lang-filters"></div>
     </div>
-    <div class="filter-divider"></div>
-    <span class="filter-label">Format</span>
-    <div class="filter-group" id="type-filters">
-      <button class="filter-btn active" data-type="all">All</button>
-      <button class="filter-btn" data-type="word">Word</button>
-      <button class="filter-btn" data-type="pdf">PDF</button>
+    <div class="filter-row">
+      <span class="filter-label">Format</span>
+      <div class="filter-group" id="type-filters"></div>
+      <span class="filter-count" id="filter-count"></span>
     </div>
-    <span class="filter-count" id="filter-count"></span>
   </div>
 </div>
 
 <div class="downloads-wrap">
   <div class="downloads-grid" id="downloads-grid">
-    <div class="no-results">Loading templates...</div>
+    <div class="no-results">Loading templates…</div>
   </div>
 </div>
 
@@ -127,6 +133,7 @@ nav{background:#fff;border-bottom:1px solid var(--border-light);padding:0 24px;p
     <div class="site-footer-bottom">
       <p class="site-footer-copy">© 2026 <a href="/">marriagebiodatamaker.co</a>. All rights reserved. Made with <span class="footer-heart">♥</span> in India.</p>
       <div class="site-footer-bottom-links">
+        <a href="/downloads/">Downloads</a>
         <a href="/blog/">Blog</a>
         <a href="/terms.html">Terms</a>
         <a href="/privacy.html">Privacy</a>
@@ -143,10 +150,34 @@ var activeLang = 'all';
 var activeType = 'all';
 
 var langLabels = { english: 'English', hindi: 'हिंदी', marathi: 'मराठी', gujarati: 'ગુજરાતી' };
-var themeLabels = { simple: 'Simple', football: 'Football', whatsapp: 'WhatsApp' };
+var themeLabels = { simple: 'Simple', football: 'Football', whatsapp: 'WhatsApp', golden: 'Golden', green: 'Green', blue: 'Blue', red: 'Red' };
 
-function placeholderSVG() {
-  return '<div class="dl-thumb-placeholder"><svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg><span style="font-size:11px;color:var(--text-light)">Preview soon</span></div>';
+function buildFilters() {
+  // Languages present in data, in a fixed preferred order
+  var langOrder = ['english', 'hindi', 'marathi', 'gujarati'];
+  var presentLangs = langOrder.filter(function(l) {
+    return allItems.some(function(i) { return i.language === l; });
+  });
+  var langHtml = '<button class="filter-btn active" data-lang="all">All</button>';
+  presentLangs.forEach(function(l) {
+    langHtml += '<button class="filter-btn" data-lang="' + l + '">' + (l.charAt(0).toUpperCase() + l.slice(1)) + '</button>';
+  });
+  document.getElementById('lang-filters').innerHTML = langHtml;
+
+  // Types present
+  var typeOrder = ['word', 'pdf'];
+  var presentTypes = typeOrder.filter(function(t) {
+    return allItems.some(function(i) { return i.type === t; });
+  });
+  var typeHtml = '<button class="filter-btn active" data-type="all">All</button>';
+  presentTypes.forEach(function(t) {
+    typeHtml += '<button class="filter-btn" data-type="' + t + '">' + t.toUpperCase() + '</button>';
+  });
+  document.getElementById('type-filters').innerHTML = typeHtml;
+}
+
+function docIcon() {
+  return '<div class="dl-thumb-placeholder"><svg width="52" height="52" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg><span>Preview coming soon</span></div>';
 }
 
 function renderGrid() {
@@ -161,45 +192,61 @@ function renderGrid() {
   count.textContent = filtered.length + ' template' + (filtered.length !== 1 ? 's' : '');
 
   if (filtered.length === 0) {
-    grid.innerHTML = '<div class="no-results">No templates found for this combination. Try a different filter.</div>';
+    grid.innerHTML = '<div class="no-results">No templates match this combination. Try a different filter.</div>';
     return;
   }
 
-  grid.innerHTML = filtered.map(function(item) {
-    var thumb = item.thumbnail
-      ? '<img src="' + item.thumbnail + '" alt="' + item.name + '" loading="lazy" onerror="this.parentNode.innerHTML=\'' + placeholderSVG().replace(/'/g, "\\'") + '\'">'
-      : placeholderSVG();
+  grid.innerHTML = '';
+  filtered.forEach(function(item) {
+    var card = document.createElement('div');
+    card.className = 'dl-card';
 
-    return '<div class="dl-card">' +
-      '<div class="dl-thumb">' +
-        thumb +
-        '<span class="dl-type-badge badge-' + item.type + '">' + item.type + '</span>' +
-        '<span class="dl-lang-badge">' + (langLabels[item.language] || item.language) + '</span>' +
-      '</div>' +
+    var thumbHtml = '<div class="dl-thumb">';
+    if (item.thumbnail) {
+      thumbHtml += '<img src="' + item.thumbnail + '" alt="' + item.name + '" loading="lazy">';
+    }
+    thumbHtml += '<span class="dl-type-badge badge-' + item.type + '">' + item.type + '</span>';
+    thumbHtml += '<span class="dl-lang-badge">' + (langLabels[item.language] || item.language) + '</span>';
+    thumbHtml += '</div>';
+
+    card.innerHTML = thumbHtml +
       '<div class="dl-info">' +
         '<div class="dl-name">' + item.name + '</div>' +
         '<div class="dl-meta">' + (themeLabels[item.theme] || item.theme) + ' · Free</div>' +
-        '<a class="dl-btn" href="' + item.file + '" download>↓ Download ' + item.type.toUpperCase() + '</a>' +
-      '</div>' +
-    '</div>';
-  }).join('');
+        '<a class="dl-btn" href="' + item.file + '" download>' +
+          '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>' +
+          'Download ' + item.type.toUpperCase() +
+        '</a>' +
+      '</div>';
+
+    // Attach onerror to image via JS (reliable, no inline escaping issues)
+    var img = card.querySelector('img');
+    if (img) {
+      img.addEventListener('error', function() {
+        var thumb = this.parentNode;
+        this.remove();
+        thumb.insertAdjacentHTML('afterbegin', docIcon());
+      });
+    }
+
+    grid.appendChild(card);
+  });
 }
 
-function initFilters() {
+function initFilterEvents() {
   document.getElementById('lang-filters').addEventListener('click', function(e) {
     var btn = e.target.closest('[data-lang]');
     if (!btn) return;
     activeLang = btn.getAttribute('data-lang');
-    document.querySelectorAll('[data-lang]').forEach(function(b) { b.classList.remove('active'); });
+    this.querySelectorAll('.filter-btn').forEach(function(b) { b.classList.remove('active'); });
     btn.classList.add('active');
     renderGrid();
   });
-
   document.getElementById('type-filters').addEventListener('click', function(e) {
     var btn = e.target.closest('[data-type]');
     if (!btn) return;
     activeType = btn.getAttribute('data-type');
-    document.querySelectorAll('[data-type]').forEach(function(b) { b.classList.remove('active'); });
+    this.querySelectorAll('.filter-btn').forEach(function(b) { b.classList.remove('active'); });
     btn.classList.add('active');
     renderGrid();
   });
@@ -209,8 +256,9 @@ fetch('/downloads/downloads.json')
   .then(function(r) { return r.json(); })
   .then(function(data) {
     allItems = data;
+    buildFilters();
+    initFilterEvents();
     renderGrid();
-    initFilters();
   })
   .catch(function() {
     document.getElementById('downloads-grid').innerHTML = '<div class="no-results">Could not load templates. Please try again.</div>';
