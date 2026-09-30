@@ -25,6 +25,11 @@
 
   <!-- ============ BLOG POSTS ============ -->
   <!-- Add a new blog post by copying one <url> block below and changing the loc -->
+   <url>
+    <loc>https://marriagebiodatamaker.co/blog/how-to-create-a-marriage-biodata-on-mobile.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
   <url>
     <loc>https://marriagebiodatamaker.co/blog/6-ways-to-create-a-marriage-biodata.html</loc>
     <changefreq>monthly</changefreq>
