@@ -126,8 +126,10 @@ nav{position:sticky;top:0;z-index:100;background:#fff;border-bottom:1px solid va
 .bio-values{display:flex;flex-wrap:wrap;gap:6px}
 .bio-value-chip{background:var(--rose-bg);color:var(--rose);font-size:11px;padding:3px 10px;border-radius:12px;font-weight:500}
 .bio-about{font-size:12px;color:var(--text-mid);line-height:1.6}
-.bio-photos{display:grid;grid-template-columns:repeat(2,1fr);gap:6px;margin-top:4px}
-.bio-photos img{width:100%;aspect-ratio:4/3;object-fit:cover;border-radius:4px}
+.bio-photos{display:flex;flex-wrap:wrap;gap:8px;margin-top:6px}
+.bio-photos img{flex:1 1 calc(50% - 4px);min-width:120px;max-width:100%;aspect-ratio:3/4;object-fit:cover;border-radius:6px;background:var(--rose-bg)}
+.bio-photos img:only-child{flex:0 1 70%;margin:0 auto}
+.bio-photos img:nth-child(3):last-child{flex-basis:100%}
 .bio-empty{color:var(--text-light);font-style:italic;font-size:11px}
 
 .preview-actions{display:flex;gap:8px;margin-top:12px}
@@ -257,20 +259,20 @@ nav{position:sticky;top:0;z-index:100;background:#fff;border-bottom:1px solid va
       </div>
     </div>
 
-    <!-- PHOTOS -->
-    <div class="form-section">
-      <h2>Photos</h2>
-      <div class="sec-hint">One main profile photo and four more — all five help your match get to know the real you.</div>
-      <div class="photo-grid" id="photo-grid"></div>
-      <div class="photos-hint">Tap a slot to add a photo. The first is your main profile photo.</div>
-    </div>
-
     <!-- FAMILY -->
     <div class="form-section">
       <h2>Family</h2>
       <div class="sec-hint">Add the relations in your family — just who's there, no names or other details.</div>
       <div id="fam-list"></div>
       <button class="add-btn" id="add-fam" onclick="addFamily()">+ Add relation</button>
+    </div>
+
+    <!-- PHOTOS -->
+    <div class="form-section">
+      <h2>Photos</h2>
+      <div class="sec-hint">A main profile photo is required. Add up to four more (optional) to help your match get to know the real you.</div>
+      <div class="photo-grid" id="photo-grid"></div>
+      <div class="photos-hint">Tap a slot to add a photo. The first is your main profile photo.</div>
     </div>
   </div>
 
@@ -377,7 +379,7 @@ function initPhotos() {
         (i===0 ? '<span class="ph-main-tag">MAIN</span>' : '') +
         '<button class="ph-remove" onclick="removePhoto(event,'+i+')">×</button>';
     } else {
-      slot.innerHTML = '<span class="ph-plus">+</span><span class="ph-label">'+(i===0?'Main photo':'Photo '+(i+1))+'</span>';
+      slot.innerHTML = '<span class="ph-plus">+</span><span class="ph-label">'+(i===0?'Main photo *':'Photo '+(i+1))+'</span>';
     }
     slot.addEventListener('click', (function(idx){ return function(e){
       if (e.target.classList.contains('ph-remove')) return;
@@ -495,14 +497,6 @@ function render() {
     h += '<div class="bio-sec"><div class="bio-sec-title">Hobbies &amp; interests</div><div class="bio-about">'+esc(hobbies)+'</div></div>';
   }
 
-  // Additional photos (2-5)
-  var extra = photos.slice(1).filter(function(p){return p;});
-  if (extra.length){
-    h += '<div class="bio-sec"><div class="bio-sec-title">More photos</div><div class="bio-photos">';
-    extra.forEach(function(p){ h += '<img src="'+p+'">'; });
-    h += '</div></div>';
-  }
-
   // Family — relation + count
   var PLURALS = {'Brother':'Brothers','Sister':'Sisters','Guardian':'Guardians'};
   var famParts = [];
@@ -516,6 +510,14 @@ function render() {
     h += '<div class="bio-sec"><div class="bio-sec-title">Family</div>';
     h += '<div class="bio-about">'+esc(famParts.join(' · '))+'</div>';
     h += '</div>';
+  }
+
+  // Additional photos (2-5) — always last
+  var extra = photos.slice(1).filter(function(p){return p;});
+  if (extra.length){
+    h += '<div class="bio-sec"><div class="bio-sec-title">More photos</div><div class="bio-photos">';
+    extra.forEach(function(p){ h += '<img src="'+p+'">'; });
+    h += '</div></div>';
   }
 
   document.getElementById('bio-inner').innerHTML = h;
@@ -535,6 +537,7 @@ function renderForDownload(cb){
 
 function downloadImage(){
   if (typeof html2canvas==='undefined'){ alert('Still loading, try again in a moment.'); return; }
+  if (!photos[0]){ alert('Please add your main profile photo before downloading.'); pickPhoto(0); return; }
   fireConversion();
   renderForDownload(function(canvas){
     var a = document.createElement('a');
@@ -545,6 +548,7 @@ function downloadImage(){
 }
 function downloadPDF(){
   if (typeof html2canvas==='undefined' || !window.jspdf){ alert('Still loading, try again in a moment.'); return; }
+  if (!photos[0]){ alert('Please add your main profile photo before downloading.'); pickPhoto(0); return; }
   fireConversion();
   renderForDownload(function(canvas){
     var jsPDF = window.jspdf.jsPDF;
@@ -552,14 +556,14 @@ function downloadPDF(){
     var pdf = new jsPDF('p','mm','a4');
     var pw = pdf.internal.pageSize.getWidth();
     var ph = pdf.internal.pageSize.getHeight();
+    // Fit the whole biodata onto a single page (no mid-section breaks).
     var iw = pw, ih = canvas.height*pw/canvas.width;
-    var y=0;
-    if (ih<=ph){ pdf.addImage(img,'JPEG',0,0,iw,ih); }
-    else {
-      // paginate
-      var left=ih;
-      while(left>0){ pdf.addImage(img,'JPEG',0,y,iw,ih); left-=ph; if(left>0){ pdf.addPage(); y-=ph; } }
+    if (ih > ph){
+      // Too tall for width-fit: scale down to fit height instead, centre horizontally.
+      ih = ph; iw = canvas.width*ph/canvas.height;
     }
+    var x = (pw - iw)/2, y = (ph - ih)/2;
+    pdf.addImage(img,'JPEG',x,y,iw,ih);
     pdf.save((val('f-name')||'biodata').replace(/\s+/g,'_')+'_biodata.pdf');
   });
 }
