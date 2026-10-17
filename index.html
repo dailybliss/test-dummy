@@ -1479,7 +1479,55 @@ body {
 <script src="js/app.min.js"></script>
 
 
+<!-- MODERN BIODATA PROMO -->
+<section class="modern-promo">
+  <div class="modern-promo-inner">
+    <span class="modern-promo-eyebrow">New · Modern Biodata</span>
+    <h2>Want a modern biodata that puts the individual first — and keeps the rest minimal?</h2>
+    <p>A faster, cleaner format focused on the individuals, their values and what matters most to them. Everything else kept to the bare minimum.</p>
+    <a href="/modern.html" class="modern-promo-btn">Create a Modern Biodata →</a>
+  </div>
+</section>
 
+<style>
+.modern-promo{
+  position:relative;overflow:hidden;
+  padding:64px 24px;margin:0;
+  background:linear-gradient(120deg,#2E7CF6 0%,#5A3FE0 48%,#8B5CF6 100%);
+}
+.modern-promo::before{
+  content:'';position:absolute;top:-80px;right:-60px;
+  width:260px;height:260px;border-radius:50%;
+  background:rgba(255,255,255,0.12);
+}
+.modern-promo::after{
+  content:'';position:absolute;bottom:-100px;left:-70px;
+  width:280px;height:280px;border-radius:50%;
+  background:rgba(255,255,255,0.08);
+}
+.modern-promo-inner{
+  position:relative;z-index:1;max-width:680px;margin:0 auto;text-align:center;color:#fff;
+}
+.modern-promo-eyebrow{
+  display:inline-block;font-size:12px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;
+  background:rgba(255,255,255,0.18);padding:6px 14px;border-radius:20px;margin-bottom:18px;
+  backdrop-filter:blur(4px);
+}
+.modern-promo h2{
+  font-size:clamp(22px,3.4vw,32px);font-weight:700;line-height:1.25;margin:0 0 14px;color:#fff;
+}
+.modern-promo p{
+  font-size:15px;line-height:1.7;margin:0 auto 28px;max-width:520px;color:rgba(255,255,255,0.92);
+}
+.modern-promo-btn{
+  display:inline-block;background:#fff;color:#5A3FE0;
+  font-size:15px;font-weight:700;text-decoration:none;
+  padding:14px 32px;border-radius:30px;
+  box-shadow:0 8px 24px rgba(0,0,0,0.18);transition:transform .15s ease,box-shadow .15s ease;
+}
+.modern-promo-btn:hover{transform:translateY(-2px);box-shadow:0 12px 30px rgba(0,0,0,0.24);}
+@media(max-width:600px){.modern-promo{padding:48px 20px;}}
+</style>
 
 <footer class="site-footer" role="contentinfo">
   <div class="site-footer-inner">
