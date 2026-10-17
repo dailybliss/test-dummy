@@ -1,0 +1,574 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Modern Marriage Biodata — Individual &amp; Independent Format | Marriage Biodata Maker</title>
+<meta name="description" content="Create a modern, individual-focused marriage biodata in minutes. Your photos, your values, minimal family details — for independent people seeking marriage on their own terms. Free, no login.">
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=AW-18125079213"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'AW-18125079213');
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preload" href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Inter:wght@400;500;600&family=Cormorant+Garamond:wght@400;500;600&family=Poppins:wght@400;500;600;700&family=Dancing+Script:wght@600;700&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
+<noscript><link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Inter:wght@400;500;600&family=Cormorant+Garamond:wght@400;500;600&family=Poppins:wght@400;500;600;700&family=Dancing+Script:wght@600;700&display=swap" rel="stylesheet"></noscript>
+<link rel="icon" type="image/png" sizes="48x48" href="/favicon-48.png">
+<link rel="icon" type="image/x-icon" href="/favicon.ico">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js" defer></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js" defer></script>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  /* Vibrant blue-violet identity — distinct from the rose Classic page */
+  --rose:#5A3FE0;          /* primary accent (indigo-violet) */
+  --rose-light:#7C5CFF;    /* lighter accent */
+  --rose-bg:#EEF0FF;       /* soft tint */
+  --blue:#2E7CF6;--violet:#8B5CF6;--cyan:#22C3E6;
+  --grad:linear-gradient(120deg,#2E7CF6 0%,#5A3FE0 45%,#8B5CF6 100%);
+  --grad-soft:linear-gradient(120deg,#EAF1FF 0%,#EFEAFF 100%);
+  --gold:#8B5CF6;--green:#2E7CF6;--green-dark:#2366d6;
+  --cream:#F7F8FF;--warm-white:#F1F3FF;
+  --text-dark:#1E1B33;--text-mid:#4A4866;--text-light:#8A88A5;
+  --border:#DCDCF2;--border-light:#EAEAF8;
+  --font-display:'Poppins',system-ui,sans-serif;
+  --font-body:'Inter',system-ui,sans-serif;
+  --radius:12px;--radius-sm:8px;
+}
+body{font-family:var(--font-body);background:var(--cream);color:var(--text-dark);line-height:1.5;-webkit-font-smoothing:antialiased}
+
+/* NAV */
+nav{position:sticky;top:0;z-index:100;background:#fff;border-bottom:1px solid var(--border-light);padding:0 24px;border-top:3px solid transparent;border-image:var(--grad) 1}
+.nav-inner{max-width:1100px;margin:0 auto;height:56px;display:flex;align-items:center;justify-content:space-between}
+.nav-brand{text-decoration:none}
+.nav-brand span{font-family:'Dancing Script',cursive;font-size:20px;font-weight:700;background:linear-gradient(90deg,#c0392b,#e67e22,#f1c40f,#27ae60,#2980b9,#8e44ad);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.nav-cta{background:var(--grad);color:#fff;padding:8px 18px;border-radius:24px;font-size:13px;font-weight:600;text-decoration:none;box-shadow:0 4px 14px rgba(90,63,224,0.3)}
+
+/* LAYOUT */
+.wrap{max-width:1100px;margin:0 auto;padding:24px 16px 48px;display:flex;gap:28px;align-items:flex-start}
+.form-col{flex:1;min-width:0}
+.preview-col{flex:0 0 400px;position:sticky;top:76px}
+
+.page-head{margin-bottom:22px;padding:22px 24px;border-radius:16px;background:var(--grad-soft);border:1px solid var(--border-light);position:relative;overflow:hidden}
+.page-head::before{content:'';position:absolute;top:-40px;right:-40px;width:160px;height:160px;border-radius:50%;background:var(--grad);opacity:0.12}
+.page-head .eyebrow{display:inline-block;font-size:11px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;background:var(--grad);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:8px}
+.page-head h1{font-family:var(--font-display);font-size:clamp(25px,4vw,36px);font-weight:700;margin-bottom:10px;background:var(--grad);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;line-height:1.15;position:relative}
+.page-head p{font-size:14px;color:var(--text-mid);line-height:1.7;max-width:640px;position:relative}
+
+/* FORM */
+.form-section{background:#fff;border:1px solid var(--border-light);border-radius:var(--radius);padding:20px;margin-bottom:16px;box-shadow:0 1px 3px rgba(30,27,51,0.04)}
+.form-section h2{font-family:var(--font-display);font-size:16px;font-weight:600;color:var(--rose);margin-bottom:4px;display:flex;align-items:center;gap:8px}
+.form-section h2::before{content:'';width:4px;height:16px;border-radius:2px;background:var(--grad);flex-shrink:0}
+.form-section .sec-hint{font-size:12px;color:var(--text-light);margin-bottom:16px}
+.field{margin-bottom:14px}
+.field label{display:block;font-size:12px;font-weight:600;color:var(--text-mid);margin-bottom:5px}
+.field input,.field select,.field textarea{width:100%;padding:9px 12px;border:1px solid var(--border);border-radius:var(--radius-sm);font-size:14px;font-family:var(--font-body);color:var(--text-dark);background:#fff}
+.field input:focus,.field select:focus,.field textarea:focus{outline:none;border-color:var(--rose);box-shadow:0 0 0 3px var(--rose-bg)}
+.field textarea{resize:vertical;min-height:70px}
+.field-row{display:flex;gap:12px}
+.field-row .field{flex:1}
+
+/* VALUES CHIPS */
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:10px}
+.chip{padding:6px 14px;border:1px solid var(--border);border-radius:20px;font-size:13px;color:var(--text-mid);cursor:pointer;background:#fff;transition:all 0.15s;user-select:none}
+.chip:hover{border-color:var(--rose);color:var(--rose)}
+.chip.active{background:var(--grad);color:#fff;border-color:transparent}
+
+/* PHOTO UPLOAD */
+.photo-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:8px}
+.photo-slot{aspect-ratio:3/4;border:2px dashed var(--border);border-radius:var(--radius-sm);display:flex;flex-direction:column;align-items:center;justify-content:center;cursor:pointer;position:relative;overflow:hidden;background:var(--warm-white);transition:border-color 0.15s}
+.photo-slot:hover{border-color:var(--rose)}
+.photo-slot.filled{border-style:solid;border-color:var(--rose)}
+.photo-slot img{width:100%;height:100%;object-fit:cover}
+.photo-slot .ph-label{font-size:9px;color:var(--text-light);text-align:center;padding:2px;line-height:1.2}
+.photo-slot .ph-plus{font-size:20px;color:var(--text-light);line-height:1}
+.photo-slot .ph-remove{position:absolute;top:2px;right:2px;width:18px;height:18px;border-radius:50%;background:rgba(0,0,0,0.55);color:#fff;border:none;font-size:12px;cursor:pointer;display:none;align-items:center;justify-content:center;line-height:1}
+.photo-slot.filled .ph-remove{display:flex}
+.photo-slot .ph-main-tag{position:absolute;bottom:0;left:0;right:0;background:var(--rose);color:#fff;font-size:8px;text-align:center;padding:2px;font-weight:600}
+.photos-hint{font-size:11px;color:var(--text-light);margin-top:8px}
+
+/* FAMILY ROWS */
+.fam-row{display:flex;gap:8px;margin-bottom:8px;align-items:center}
+.fam-row select{flex:1;padding:9px 12px;border:1px solid var(--border);border-radius:var(--radius-sm);font-size:14px;font-family:var(--font-body);color:var(--text-dark);background:#fff}
+.fam-row select:focus{outline:none;border-color:var(--rose);box-shadow:0 0 0 3px var(--rose-bg)}
+.fam-row select.placeholder{color:var(--text-light)}
+.fam-row .fam-count{flex:0 0 72px}
+.fam-remove{flex:0 0 auto;width:32px;height:32px;border:1px solid var(--border);border-radius:var(--radius-sm);background:#fff;color:var(--rose);cursor:pointer;font-size:16px;line-height:1}
+.add-btn{font-size:13px;color:var(--rose);background:none;border:1px dashed var(--rose);border-radius:var(--radius-sm);padding:7px 14px;cursor:pointer;font-family:var(--font-body);font-weight:500}
+.add-btn:disabled{opacity:0.4;cursor:not-allowed}
+
+
+/* PREVIEW */
+.preview-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px}
+.preview-label{font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:1.5px;color:var(--text-light)}
+.watermark-notice{display:flex;align-items:center;gap:5px;font-size:11px;color:var(--text-light);margin-bottom:8px}
+.watermark-notice::before{content:'\2139';font-size:12px}
+.bio-sheet{background:linear-gradient(160deg,#F4F0FF 0%,#EAF1FF 40%,#FFFFFF 100%);border:1px solid var(--border);border-radius:14px;overflow:hidden;position:relative;box-shadow:0 10px 30px rgba(90,63,224,0.10)}
+.bio-sheet::before{content:'';position:absolute;top:0;left:0;right:0;height:6px;background:var(--grad);z-index:4}
+.bio-sheet::after{content:'';position:absolute;top:-70px;right:-70px;width:200px;height:200px;border-radius:50%;background:var(--grad);opacity:0.10;pointer-events:none;z-index:0}
+.bio-inner{padding:34px 26px 28px;position:relative;z-index:1}
+.bio-watermark{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;pointer-events:none;z-index:5;opacity:0.07;font-family:var(--font-display);font-size:26px;font-weight:700;color:var(--rose);transform:rotate(-28deg);white-space:nowrap}
+.bio-om{text-align:center;font-size:18px;color:var(--gold);margin-bottom:4px}
+.bio-name{text-align:center;font-family:var(--font-display);font-size:24px;font-weight:700;background:var(--grad);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:10px}
+.bio-accent-rule{height:3px;width:60px;margin:0 auto 16px;border-radius:2px;background:var(--grad)}
+.bio-tagline{text-align:center;font-size:11px;color:var(--text-light);font-style:italic;margin-bottom:16px}
+.bio-mainphoto{width:120px;height:150px;object-fit:cover;border-radius:8px;border:3px solid var(--rose-bg);display:block;margin:0 auto 16px;box-shadow:0 4px 12px rgba(90,63,224,0.18)}
+.bio-sec{margin-bottom:14px;background:rgba(255,255,255,0.72);border:1px solid var(--border-light);border-radius:10px;padding:12px 14px;backdrop-filter:blur(2px)}
+.bio-sec-title{font-family:var(--font-display);font-size:13px;font-weight:600;color:var(--rose);border-bottom:1px solid var(--rose-bg);padding-bottom:4px;margin-bottom:8px;text-transform:uppercase;letter-spacing:0.5px}
+.bio-field{display:flex;font-size:12px;margin-bottom:5px;line-height:1.5}
+.bio-field .bf-label{flex:0 0 42%;color:var(--text-light);font-weight:500}
+.bio-field .bf-value{flex:1;color:var(--text-dark)}
+.bio-values{display:flex;flex-wrap:wrap;gap:6px}
+.bio-value-chip{background:var(--rose-bg);color:var(--rose);font-size:11px;padding:3px 10px;border-radius:12px;font-weight:500}
+.bio-about{font-size:12px;color:var(--text-mid);line-height:1.6}
+.bio-photos{display:grid;grid-template-columns:repeat(2,1fr);gap:6px;margin-top:4px}
+.bio-photos img{width:100%;aspect-ratio:4/3;object-fit:cover;border-radius:4px}
+.bio-empty{color:var(--text-light);font-style:italic;font-size:11px}
+
+.preview-actions{display:flex;gap:8px;margin-top:12px}
+.dl-btn{flex:1;display:flex;align-items:center;justify-content:center;gap:6px;padding:12px;background:var(--grad);color:#fff;border:none;border-radius:var(--radius-sm);font-size:13px;font-weight:600;font-family:var(--font-body);cursor:pointer;transition:transform 0.12s,box-shadow 0.15s;box-shadow:0 4px 14px rgba(90,63,224,0.28)}
+.dl-btn:hover{transform:translateY(-1px);box-shadow:0 6px 18px rgba(90,63,224,0.38)}
+.dl-btn svg{width:15px;height:15px}
+
+/* MOBILE PREVIEW TOGGLE */
+.mobile-preview-fab{display:none}
+@media(max-width:860px){
+  .wrap{flex-direction:column}
+  .preview-col{position:static;flex:1 1 auto;width:100%;max-width:440px;margin:0 auto}
+}
+
+/* FOOTER */
+.site-footer{background:#fff;border-top:1px solid var(--border-light);padding:32px 24px 0;margin-top:40px}
+.site-footer-inner{max-width:1100px;margin:0 auto}
+.site-footer-top{padding-bottom:20px}
+.site-footer-brand-name{font-family:'Dancing Script',cursive;font-size:20px;font-weight:700;background:linear-gradient(90deg,#c0392b,#e67e22,#f1c40f,#27ae60,#2980b9,#8e44ad);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;display:inline-block;margin-bottom:6px}
+.site-footer-tagline{font-size:13px;color:var(--text-mid);max-width:400px}
+.site-footer-bottom{border-top:1px solid var(--border-light);padding:16px 0;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px}
+.site-footer-copy{font-size:12px;color:var(--text-light)}
+.site-footer-copy a{color:var(--text-mid);text-decoration:none}
+.site-footer-bottom-links{display:flex;gap:16px;flex-wrap:wrap}
+.site-footer-bottom-links a{font-size:12px;color:var(--text-light);text-decoration:none}
+.site-footer-bottom-links a:hover{color:var(--rose)}
+.footer-heart{color:#c0392b}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-inner">
+    <a href="/" class="nav-brand"><span>Marriage Biodata Maker</span></a>
+    <a href="/create.html" class="nav-cta">Classic Biodata</a>
+  </div>
+</nav>
+
+<div class="wrap">
+  <!-- FORM COLUMN -->
+  <div class="form-col">
+    <div class="page-head">
+      <h1>Modern Marriage Biodata</h1>
+      <p>For people who want to get married without too many formalities. This biodata keeps the focus on individuals and what matters most to them — so things can be fast tracked. Share your photos, your values and the life you want. Everything else is kept to bare minimum.</p>
+    </div>
+
+    <!-- PERSONAL -->
+    <div class="form-section">
+      <h2>Personal details</h2>
+      <div class="sec-hint">The essentials about you.</div>
+      <div class="field">
+        <label>Full name</label>
+        <input type="text" id="f-name" placeholder="Your full name" oninput="render()">
+      </div>
+      <div class="field-row">
+        <div class="field"><label>Date of birth</label><input type="text" id="f-dob" placeholder="15 March 1996" oninput="render()"></div>
+        <div class="field"><label>Height</label><input type="text" id="f-height" placeholder="5 ft 7 in" oninput="render()"></div>
+      </div>
+      <div class="field-row">
+        <div class="field"><label>City</label><input type="text" id="f-city" placeholder="Pune, Maharashtra" oninput="render()"></div>
+        <div class="field"><label>Diet</label>
+          <select id="f-diet" onchange="render()">
+            <option value="">Select</option>
+            <option>Vegetarian</option><option>Non-vegetarian</option><option>Eggetarian</option><option>Vegan</option>
+          </select>
+        </div>
+      </div>
+      <div class="field-row">
+        <div class="field"><label>Education</label><input type="text" id="f-edu" placeholder="B.Tech, Computer Science" oninput="render()"></div>
+        <div class="field"><label>Profession</label><input type="text" id="f-prof" placeholder="Software Engineer" oninput="render()"></div>
+      </div>
+      <div class="field-row">
+        <div class="field"><label>Company</label><input type="text" id="f-company" placeholder="e.g. Infosys, Pune" oninput="render()"></div>
+        <div class="field"><label>Annual salary</label><input type="text" id="f-salary" placeholder="e.g. ₹12–15 LPA" oninput="render()"></div>
+      </div>
+      <div class="field">
+        <label>Religion / Community <span style="font-weight:400;color:var(--text-light)">(optional)</span></label>
+        <input type="text" id="f-religion" placeholder="e.g. Hindu · open to all" oninput="render()">
+      </div>
+    </div>
+
+    <!-- LIVING PREFERENCE -->
+    <div class="form-section">
+      <h2>Married life preference</h2>
+      <div class="sec-hint">How you imagine your life after marriage — honesty here attracts the right match.</div>
+      <div class="field">
+        <label>Preferred Living Arrangement</label>
+        <select id="f-living" onchange="render()">
+          <option value="">Select</option>
+          <option>Living independently as a couple</option>
+          <option>Independent, close to family</option>
+          <option>Open to living with family</option>
+          <option>Flexible — happy to discuss</option>
+        </select>
+      </div>
+      <div class="field">
+        <label>A line about the life you want together <span style="font-weight:400;color:var(--text-light)">(optional)</span></label>
+        <textarea id="f-lifeline" placeholder="e.g. Two independent careers, a quiet home of our own, travel when we can." oninput="render()"></textarea>
+      </div>
+    </div>
+
+    <!-- VALUES -->
+    <div class="form-section">
+      <h2>What matters most to me</h2>
+      <div class="sec-hint">Pick up to 3 things you value most in a marriage, or add your own.</div>
+      <div class="chips" id="value-chips"></div>
+      <div class="field" style="margin-bottom:0">
+        <input type="text" id="f-customvalue" placeholder="Add your own and press Enter (max 3)" onkeydown="addCustomValue(event)">
+      </div>
+    </div>
+
+    <!-- ABOUT -->
+    <div class="form-section">
+      <h2>About me</h2>
+      <div class="sec-hint">A few genuine sentences — who you are, beyond the facts.</div>
+      <div class="field" style="margin-bottom:0">
+        <textarea id="f-about" placeholder="I'm a software engineer in Pune who loves weekend treks and cooking. I value honesty and a good sense of humour, and I'm looking for a partner to build an independent, warm home with." oninput="render()"></textarea>
+      </div>
+    </div>
+
+    <!-- HOBBIES -->
+    <div class="form-section">
+      <h2>Hobbies &amp; interests</h2>
+      <div class="sec-hint">What you enjoy — be specific where you can.</div>
+      <div class="field" style="margin-bottom:0">
+        <input type="text" id="f-hobbies" placeholder="e.g. Trekking, cooking, reading, badminton" oninput="render()">
+      </div>
+    </div>
+
+    <!-- PHOTOS -->
+    <div class="form-section">
+      <h2>Photos</h2>
+      <div class="sec-hint">One main profile photo and four more — all five help your match get to know the real you.</div>
+      <div class="photo-grid" id="photo-grid"></div>
+      <div class="photos-hint">Tap a slot to add a photo. The first is your main profile photo.</div>
+    </div>
+
+    <!-- FAMILY -->
+    <div class="form-section">
+      <h2>Family</h2>
+      <div class="sec-hint">Add the relations in your family — just who's there, no names or other details.</div>
+      <div id="fam-list"></div>
+      <button class="add-btn" id="add-fam" onclick="addFamily()">+ Add relation</button>
+    </div>
+  </div>
+
+  <!-- PREVIEW COLUMN -->
+  <div class="preview-col">
+    <div class="preview-head">
+      <span class="preview-label">Live preview</span>
+    </div>
+    <div class="watermark-notice">Watermark is removed in the downloaded file</div>
+    <div class="bio-sheet" id="bio-sheet">
+      <div class="bio-inner" id="bio-inner"></div>
+    </div>
+    <div class="preview-actions">
+      <button class="dl-btn" onclick="downloadPDF()">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+        Download PDF
+      </button>
+      <button class="dl-btn" onclick="downloadImage()">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+        Download Image
+      </button>
+    </div>
+  </div>
+</div>
+
+<footer class="site-footer" role="contentinfo">
+  <div class="site-footer-inner">
+    <div class="site-footer-top">
+      <div class="site-footer-brand-name">Marriage Biodata Maker</div>
+      <p class="site-footer-tagline">The easiest way to create a beautiful marriage biodata online. No login, no designer, no fuss.</p>
+    </div>
+    <div class="site-footer-bottom">
+      <p class="site-footer-copy">© 2026 <a href="/">marriagebiodatamaker.co</a>. All rights reserved. Made with <span class="footer-heart">♥</span> in India.</p>
+      <div class="site-footer-bottom-links">
+        <a href="/downloads/">Downloads</a>
+        <a href="/blog/">Blog</a>
+        <a href="/terms.html">Terms</a>
+        <a href="/privacy.html">Privacy</a>
+        <a href="/refund.html">Refund</a>
+        <a href="/cancellation.html">Cancellation</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script>
+var PRESET_VALUES = ['Trust','Love','Respect','Honesty','Independence','Ambition','Family','Faith','Kindness','Humour','Loyalty','Equality','Communication','Adventure'];
+var selectedValues = [];
+var MAX_PHOTOS = 5;
+var photos = [null, null, null, null, null];
+
+function initValueChips() {
+  var box = document.getElementById('value-chips');
+  box.innerHTML = PRESET_VALUES.map(function(v){
+    return '<span class="chip" data-v="'+v+'" onclick="toggleValue(this)">'+v+'</span>';
+  }).join('');
+}
+var MAX_VALUES = 3;
+function toggleValue(el) {
+  var v = el.getAttribute('data-v');
+  var i = selectedValues.indexOf(v);
+  if (i>=0){ selectedValues.splice(i,1); el.classList.remove('active'); }
+  else {
+    if (selectedValues.length >= MAX_VALUES){ return; }
+    selectedValues.push(v); el.classList.add('active');
+  }
+  updateChipStates();
+  render();
+}
+function updateChipStates() {
+  var full = selectedValues.length >= MAX_VALUES;
+  document.querySelectorAll('#value-chips .chip').forEach(function(c){
+    var active = c.classList.contains('active');
+    c.style.opacity = (full && !active) ? '0.4' : '1';
+    c.style.pointerEvents = (full && !active) ? 'none' : 'auto';
+  });
+}
+function addCustomValue(e) {
+  if (e.key !== 'Enter') return;
+  e.preventDefault();
+  var val = e.target.value.trim();
+  if (val && selectedValues.indexOf(val)===-1 && selectedValues.length < MAX_VALUES) {
+    selectedValues.push(val);
+    var box = document.getElementById('value-chips');
+    var span = document.createElement('span');
+    span.className='chip active'; span.setAttribute('data-v',val);
+    span.textContent=val; span.onclick=function(){toggleValue(this);};
+    box.appendChild(span);
+    updateChipStates();
+  }
+  e.target.value='';
+  render();
+}
+
+function initPhotos() {
+  var grid = document.getElementById('photo-grid');
+  grid.innerHTML = '';
+  for (var i=0;i<MAX_PHOTOS;i++){
+    var slot = document.createElement('div');
+    slot.className = 'photo-slot' + (photos[i] ? ' filled' : '');
+    slot.setAttribute('data-i', i);
+    if (photos[i]) {
+      slot.innerHTML = '<img src="'+photos[i]+'">' +
+        (i===0 ? '<span class="ph-main-tag">MAIN</span>' : '') +
+        '<button class="ph-remove" onclick="removePhoto(event,'+i+')">×</button>';
+    } else {
+      slot.innerHTML = '<span class="ph-plus">+</span><span class="ph-label">'+(i===0?'Main photo':'Photo '+(i+1))+'</span>';
+    }
+    slot.addEventListener('click', (function(idx){ return function(e){
+      if (e.target.classList.contains('ph-remove')) return;
+      pickPhoto(idx);
+    };})(i));
+    grid.appendChild(slot);
+  }
+}
+function pickPhoto(i) {
+  var inp = document.createElement('input');
+  inp.type='file'; inp.accept='image/*';
+  inp.onchange = function(){
+    var file = inp.files[0]; if(!file) return;
+    var reader = new FileReader();
+    reader.onload = function(ev){ photos[i]=ev.target.result; initPhotos(); render(); };
+    reader.readAsDataURL(file);
+  };
+  inp.click();
+}
+function removePhoto(e,i){ e.stopPropagation(); photos[i]=null; initPhotos(); render(); }
+
+/* FAMILY — relation + count rows */
+var FAMILY_RELATIONS = ['Father','Mother','Brother','Sister','Grandfather','Grandmother','Guardian'];
+var family = [];
+var MAX_FAMILY = 8;
+function addFamily(){
+  if (family.length>=MAX_FAMILY) return;
+  family.push({rel:'',count:1});
+  renderFamily(); render();
+}
+function removeFamily(i){ family.splice(i,1); renderFamily(); render(); }
+var MULTI_RELATIONS = ['Brother','Sister','Guardian'];
+function renderFamily(){
+  var list = document.getElementById('fam-list');
+  list.innerHTML = family.map(function(f,i){
+    var opts = '<option value="" disabled'+(!f.rel?' selected':'')+'>-- Relation --</option>' + FAMILY_RELATIONS.map(function(r){
+      return '<option'+(f.rel===r?' selected':'')+'>'+r+'</option>';
+    }).join('');
+    var countSelect = '';
+    if (MULTI_RELATIONS.indexOf(f.rel) !== -1) {
+      var counts = '';
+      for (var n=1;n<=5;n++){ counts += '<option value="'+n+'"'+(f.count===n?' selected':'')+'>'+n+(n===5?'+':'')+'</option>'; }
+      countSelect = '<select class="fam-count" onchange="family['+i+'].count=parseInt(this.value);render()">'+counts+'</select>';
+    }
+    return '<div class="fam-row">'+
+      '<select class="fam-rel'+(!f.rel?' placeholder':'')+'" onchange="onFamRelChange('+i+',this.value)">'+opts+'</select>'+
+      countSelect+
+      '<button class="fam-remove" onclick="removeFamily('+i+')">×</button>'+
+    '</div>';
+  }).join('');
+  document.getElementById('add-fam').disabled = family.length>=MAX_FAMILY;
+}
+function onFamRelChange(i, rel){
+  family[i].rel = rel;
+  // Non-multi relations are always count 1
+  if (MULTI_RELATIONS.indexOf(rel) === -1) family[i].count = 1;
+  renderFamily();
+  render();
+}
+
+function val(id){ return (document.getElementById(id).value||'').trim(); }
+function esc(s){ return (s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+
+function render() {
+  var name = val('f-name');
+  var h = '';
+  h += '<div class="bio-watermark">marriagebiodatamaker.co</div>';
+  h += '<div class="bio-name">'+(esc(name)||'Your Name')+'</div>';
+  h += '<div class="bio-accent-rule"></div>';
+  if (photos[0]) h += '<img class="bio-mainphoto" src="'+photos[0]+'">';
+
+  // Personal
+  var pers = [
+    ['Date of birth', val('f-dob')],
+    ['Height', val('f-height')],
+    ['City', val('f-city')],
+    ['Diet', val('f-diet')],
+    ['Education', val('f-edu')],
+    ['Profession', val('f-prof')],
+    ['Company', val('f-company')],
+    ['Annual salary', val('f-salary')],
+    ['Religion', val('f-religion')]
+  ].filter(function(r){return r[1];});
+  if (pers.length){
+    h += '<div class="bio-sec"><div class="bio-sec-title">Personal</div>';
+    pers.forEach(function(r){ h += '<div class="bio-field"><span class="bf-label">'+r[0]+'</span><span class="bf-value">'+esc(r[1])+'</span></div>'; });
+    h += '</div>';
+  }
+
+  // Married life preference
+  var living = val('f-living'), lifeline = val('f-lifeline');
+  if (living || lifeline){
+    h += '<div class="bio-sec"><div class="bio-sec-title">Married life</div>';
+    if (living) h += '<div class="bio-field"><span class="bf-label">Preferred Living Arrangement</span><span class="bf-value">'+esc(living)+'</span></div>';
+    if (lifeline) h += '<div class="bio-about">'+esc(lifeline)+'</div>';
+    h += '</div>';
+  }
+
+  // Values
+  if (selectedValues.length){
+    h += '<div class="bio-sec"><div class="bio-sec-title">What matters most to me</div><div class="bio-values">';
+    selectedValues.forEach(function(v){ h += '<span class="bio-value-chip">'+esc(v)+'</span>'; });
+    h += '</div></div>';
+  }
+
+  // About
+  var about = val('f-about');
+  if (about){
+    h += '<div class="bio-sec"><div class="bio-sec-title">About me</div><div class="bio-about">'+esc(about)+'</div></div>';
+  }
+
+  // Hobbies
+  var hobbies = val('f-hobbies');
+  if (hobbies){
+    h += '<div class="bio-sec"><div class="bio-sec-title">Hobbies &amp; interests</div><div class="bio-about">'+esc(hobbies)+'</div></div>';
+  }
+
+  // Additional photos (2-5)
+  var extra = photos.slice(1).filter(function(p){return p;});
+  if (extra.length){
+    h += '<div class="bio-sec"><div class="bio-sec-title">More photos</div><div class="bio-photos">';
+    extra.forEach(function(p){ h += '<img src="'+p+'">'; });
+    h += '</div></div>';
+  }
+
+  // Family — relation + count
+  var PLURALS = {'Brother':'Brothers','Sister':'Sisters','Guardian':'Guardians'};
+  var famParts = [];
+  family.forEach(function(f){
+    if (!f.rel) return;
+    var c = f.count||1;
+    if (c===1){ famParts.push(f.rel); }
+    else { famParts.push(c + ' ' + (PLURALS[f.rel] || f.rel)); }
+  });
+  if (famParts.length){
+    h += '<div class="bio-sec"><div class="bio-sec-title">Family</div>';
+    h += '<div class="bio-about">'+esc(famParts.join(' · '))+'</div>';
+    h += '</div>';
+  }
+
+  document.getElementById('bio-inner').innerHTML = h;
+}
+
+function fireConversion(){ try{ gtag('event','conversion',{'send_to':'AW-18125079213/iSZGCNKBxbgcEK2F28JD','value':1.0,'currency':'INR'}); }catch(e){} }
+
+function renderForDownload(cb){
+  // Hide watermark for the downloaded copy
+  var wm = document.querySelector('.bio-watermark');
+  if (wm) wm.style.display='none';
+  html2canvas(document.getElementById('bio-sheet'), {scale:2, useCORS:true, backgroundColor:null}).then(function(canvas){
+    if (wm) wm.style.display='';
+    cb(canvas);
+  }).catch(function(){ if(wm) wm.style.display=''; });
+}
+
+function downloadImage(){
+  if (typeof html2canvas==='undefined'){ alert('Still loading, try again in a moment.'); return; }
+  fireConversion();
+  renderForDownload(function(canvas){
+    var a = document.createElement('a');
+    a.download = (val('f-name')||'biodata').replace(/\s+/g,'_')+'_biodata.png';
+    a.href = canvas.toDataURL('image/png');
+    a.click();
+  });
+}
+function downloadPDF(){
+  if (typeof html2canvas==='undefined' || !window.jspdf){ alert('Still loading, try again in a moment.'); return; }
+  fireConversion();
+  renderForDownload(function(canvas){
+    var jsPDF = window.jspdf.jsPDF;
+    var img = canvas.toDataURL('image/jpeg',0.95);
+    var pdf = new jsPDF('p','mm','a4');
+    var pw = pdf.internal.pageSize.getWidth();
+    var ph = pdf.internal.pageSize.getHeight();
+    var iw = pw, ih = canvas.height*pw/canvas.width;
+    var y=0;
+    if (ih<=ph){ pdf.addImage(img,'JPEG',0,0,iw,ih); }
+    else {
+      // paginate
+      var left=ih;
+      while(left>0){ pdf.addImage(img,'JPEG',0,y,iw,ih); left-=ph; if(left>0){ pdf.addPage(); y-=ph; } }
+    }
+    pdf.save((val('f-name')||'biodata').replace(/\s+/g,'_')+'_biodata.pdf');
+  });
+}
+
+// INIT
+initValueChips();
+initPhotos();
+addFamily();
+render();
+</script>
+</body>
+</html>
