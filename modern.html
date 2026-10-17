@@ -129,7 +129,6 @@ nav{position:sticky;top:0;z-index:100;background:#fff;border-bottom:1px solid va
 .bio-photos{display:flex;flex-wrap:wrap;gap:8px;margin-top:6px}
 .bio-photos img{flex:1 1 calc(50% - 4px);min-width:120px;max-width:100%;aspect-ratio:3/4;object-fit:cover;border-radius:6px;background:var(--rose-bg)}
 .bio-photos img:only-child{flex:0 1 70%;margin:0 auto}
-.bio-photos img:nth-child(3):last-child{flex-basis:100%}
 .bio-empty{color:var(--text-light);font-style:italic;font-size:11px}
 
 .preview-actions{display:flex;gap:8px;margin-top:12px}
@@ -553,17 +552,12 @@ function downloadPDF(){
   renderForDownload(function(canvas){
     var jsPDF = window.jspdf.jsPDF;
     var img = canvas.toDataURL('image/jpeg',0.95);
-    var pdf = new jsPDF('p','mm','a4');
-    var pw = pdf.internal.pageSize.getWidth();
-    var ph = pdf.internal.pageSize.getHeight();
-    // Fit the whole biodata onto a single page (no mid-section breaks).
-    var iw = pw, ih = canvas.height*pw/canvas.width;
-    if (ih > ph){
-      // Too tall for width-fit: scale down to fit height instead, centre horizontally.
-      ih = ph; iw = canvas.width*ph/canvas.height;
-    }
-    var x = (pw - iw)/2, y = (ph - ih)/2;
-    pdf.addImage(img,'JPEG',x,y,iw,ih);
+    // Page sized to the biodata's own aspect ratio (A4 width), so it fills the
+    // full width with no side margins and no mid-section breaks.
+    var pw = 210; // A4 width in mm
+    var ph = canvas.height*pw/canvas.width;
+    var pdf = new jsPDF({orientation:'p', unit:'mm', format:[pw, ph]});
+    pdf.addImage(img,'JPEG',0,0,pw,ph);
     pdf.save((val('f-name')||'biodata').replace(/\s+/g,'_')+'_biodata.pdf');
   });
 }
