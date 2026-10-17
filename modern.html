@@ -126,9 +126,9 @@ nav{position:sticky;top:0;z-index:100;background:#fff;border-bottom:1px solid va
 .bio-values{display:flex;flex-wrap:wrap;gap:6px}
 .bio-value-chip{background:var(--rose-bg);color:var(--rose);font-size:11px;padding:3px 10px;border-radius:12px;font-weight:500}
 .bio-about{font-size:12px;color:var(--text-mid);line-height:1.6}
-.bio-photos{display:flex;flex-wrap:wrap;gap:8px;margin-top:6px}
-.bio-photos img{flex:1 1 calc(50% - 4px);min-width:120px;max-width:100%;aspect-ratio:3/4;object-fit:cover;border-radius:6px;background:var(--rose-bg)}
-.bio-photos img:only-child{flex:0 1 70%;margin:0 auto}
+.bio-photos{display:flex;flex-wrap:wrap;gap:8px;margin-top:6px;justify-content:flex-start}
+.bio-photos img{flex:0 1 calc(50% - 4px);width:calc(50% - 4px);aspect-ratio:3/4;object-fit:cover;border-radius:6px;background:var(--rose-bg)}
+.bio-photos img:only-child{flex-basis:70%;width:70%;margin:0 auto}
 .bio-empty{color:var(--text-light);font-style:italic;font-size:11px}
 
 .preview-actions{display:flex;gap:8px;margin-top:12px}
